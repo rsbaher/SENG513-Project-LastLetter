@@ -4,7 +4,7 @@
   "description": "Our SENG project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/rsbaher/SENG513-Project-LastLetter#readme",
   "dependencies": {
-    "@firebase/firestore": "^0.3.7",
     "body-parser": "^1.18.2",
     "express": "^4.14.1",
     "firebase": "^4.12.1",
