@@ -65,7 +65,7 @@ function inputIsValidCitiesDatabase(inputStr){
 
 function formatInput(inputStr){
     var lastLettersAreLowerCase = inputStr.slice(1).toLowerCase();
-    var firstLetterIsUpperCase = varinputStr[0].toUpperCase();
+    var firstLetterIsUpperCase = inputStr[0].toUpperCase();
     return firstLetterIsUpperCase + lastLettersAreLowerCase;
 }
 
