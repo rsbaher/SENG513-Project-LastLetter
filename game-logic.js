@@ -16,9 +16,13 @@ module.exports = {
 
 function inputIsValid(gameObj, inputStr){
 
-    var category = gameObj.category;
-    var currentLetter = gameObj.currentLetter;
+    if (!inputNotEmptyStr(inputStr)){ return false;}
 
+    inputStr = formatInput(inputStr);
+
+    if (!currentLetterIsTheSameAsFirstLetter(gameObj, inputStr)) {return false;}
+
+    var category = gameObj.category;
     if (category === "cities"){
         return inputIsValidCitiesDatabase(inputStr);
     }
@@ -26,8 +30,20 @@ function inputIsValid(gameObj, inputStr){
     return false;
 }
 
+
+function inputNotEmptyStr(inputStr){
+    return (inputStr.length > 0);
+}
+
+
+function currentLetterIsTheSameAsFirstLetter(gameObj, inputStr){
+    var currentLetter = gameObj.currentLetter;
+    var inputFirstLetterStr = inputStr.charAt(0);
+    return (currentLetter === input);
+}
+
 //======================================================================================================================
-// DATABASES:
+// VALIDITY IN DATABASES:
 
 function inputIsValidCitiesDatabase(inputStr){
     const cities = require("all-the-cities");
@@ -41,6 +57,17 @@ function inputIsValidCitiesDatabase(inputStr){
     return false;
 }
 
+// TODO add inputIsValidCountriesDatabase
+// TODO add inputIsValidAnimalsDatanbase
+
+//======================================================================================================================
+// FORMAT INPUT:
+
+function formatInput(inputStr){
+    var lastLettersAreLowerCase = inputStr.slice(1).toLowerCase();
+    var firstLetterIsUpperCase = varinputStr[0].toUpperCase();
+    return firstLetterIsUpperCase + lastLettersAreLowerCase;
+}
 
 //======================================================================================================================
 // COMMUNICATION WITH THE CLIENT:
