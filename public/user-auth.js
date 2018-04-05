@@ -11,7 +11,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 window.onload = function() {
 
     // If index.html was loaded and a user is already signed in, redirect them
-    if (window.location.href === "/index.html" && firebase.auth().currentUser != null) {
+    if (window.location.href === '/user-auth.html' && firebase.auth().currentUser != null) {
         window.location.href = '/home.html';
     }
 
@@ -24,6 +24,7 @@ window.onload = function() {
  * Assigns a handler to the login button
  */
 function initUserAuth() {
+    console.log('test');
     document.getElementById('loginWithGoogleBtn').addEventListener('click', signIn, false);
 }
 

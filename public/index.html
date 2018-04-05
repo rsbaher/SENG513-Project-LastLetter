@@ -12,34 +12,28 @@ DOCUMENT METADATA:                                                              
 <!--====================================================================================================================
 SCRIPTS -->
 
-    <!--Firebase-->
-    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
-
-    <!-- JQuery: -->
-    <script
-            src="https://code.jquery.com/jquery-3.1.1.min.js"
-            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-            crossorigin="anonymous">
+    <script>
+        function goToLogin() { window.location.href = './user-auth.html'; }
+        window.onload = function() { document.getElementById('goToLoginBtn').addEventListener('click', goToLogin, false); }
     </script>
-
-    <!-- Cookies -->
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-
-    <!-- Socket -->
-    <script src="/socket.io/socket.io.js"></script>
-
-    <!--Client -->
-    <script src="/client.js"></script>
-    <script src="/user-auth.js"></script>
 </head>
 
 
 <!--====================================================================================================================
 BODY-->
 <body>
-<header><span>Number of connected users: </span><span id='number-of-online-users'></span></header>
-<h1>Welcome to Online Last Letter</h1>
-<p><button id="loginWithGoogleBtn">Sign in with Google</button></p>
+<h1>Online Last Letter</h1>
+<p>By Olga Chitsvarina, Jared Madden, Olga Bogdanova, Regina Baher, and Marc Fichtel</p>
+<h3>About</h3>
+<p>Online Last Letter is a Single Page Application game. It is being developed as the
+    final deliverable for Software Engineering course SENG513 at the University of Calgary
+    in the course of the Winter Semester 2018. The game is inspired by similar offline
+    games like "Going on a Picnic", and attempts to recreate that experience online. Online
+    Last Letter will feature two initial categories (Cities and Countries), as well as two
+    player modes (Single and Multi Player).</p>
+<h3>Requirements</h3>
+<p>TODO something about how we meet all the requirements...</p>
+<p><button id="goToLoginBtn">Take me to the Login Page</button></p>
 </body>
 </html>
 

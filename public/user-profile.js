@@ -86,7 +86,7 @@ socket.on('new name', function(newName) {
     user.displayName = newName;
     document.getElementById('name').innerText = newName;
     dbUserObject.name = newName;
-    // TODO update name if its in leaderboard
+    initLeaderboard();
 });
 
 // Server is sending a leaderboard entry
