@@ -49,7 +49,10 @@ function signIn() {
             })
 
             // Error
-            .catch(function (error) { console.log('Error: ' + error); });
+            .catch(function (error) {
+                console.log('Error: ' + error);
+                document.getElementById('loginWithGoogleBtn').disabled = false;
+            });
     }
 
     // If a user is already signed in at this point, just redirect them
