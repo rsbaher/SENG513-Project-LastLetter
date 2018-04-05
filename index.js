@@ -23,21 +23,12 @@ var gameLogic = require('./game-logic.js');
 //SERVER LISTENS TO A CLIENT:
 
 io.on('connection', function(socket){
-    gameLogic.test1();
-    gameLogic.test2();
-
-    console.log("We have a new user");
-
-
-
 
     var gameObj = new gameFactory.GameObject([1],"cities", io);
     var inputStr = "Calgary";
+
+    var gameObject = new gameFactory.GameObject([1],"cities");
     gameLogic.doLogic(gameObj, inputStr, io);
-
-
-
-
 
     socket.on('singleplayer-user-input', function(){
 
