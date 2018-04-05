@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!--====================================================================================================================
+DOCUMENT METADATA:                                                                                                   -->
+
+<head>
+    <meta charset="UTF-8">
+    <title>Online Last Letter - Users</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+
+<!--====================================================================================================================
+SCRIPTS -->
+
+    <!--Firebase-->
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+
+    <!-- JQuery: -->
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous">
+    </script>
+
+    <!-- Cookies -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+    <!-- Socket -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!--Components-->
+    <script src="../js/client.js"></script>
+    <script src="../js/user-profile.js"></script>
+</head>
+
+<body>
+<h1>Home</h1>
+<div id="profile-container">
+    <h3>Your Profile</h3>
+    <p>Name: <span id="name">...</span></p>
+    <p>Single Player Highscore: <span id="score">...</span></p>
+    <button id="editNameBtn">Edit Username</button>
+    <button id="shareFacebookBtn">Share Online Last Letter on Facebook</button>
+    <button id="logoutBtn">Logout</button>
+</div>
+<div id="categories-container">
+    <h3>Choose a category</h3>
+    <button id="cityCategoryBtn">Cities</button>
+    <button id="countryCategoryBtn">Countries</button>
+</div>
+<div id="chat-container">
+    <p>TODO put chat here</p>
+</div>
+<div id="leaderboard-container">
+    <p>TODO put single player leader board here</p>
+    <ol id="leaderboard">
+        <li>User 1: 1000pts</li>
+        <li>User 2: 985pts</li>
+        <li>User 3: 713pts</li>
+        <li>etc</li>
+    </ol>
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!--====================================================================================================================
+DOCUMENT METADATA:                                                                                                   -->
+
+<head>
+    <title>LAST LETTER</title>                                      <!-- Define the title in the browser -->
+    <link rel="stylesheet" href="../css/style.css">                        <!-- Link to an external style file -->
+    <meta name="viewport" content ="width=device-width, initial-scale=1">
+
+<!--====================================================================================================================
+SCRIPTS -->
+
+    <script>
+        function goToLogin() { window.location.href = 'user-auth.html'; }
+        window.onload = function() { document.getElementById('goToLoginBtn').addEventListener('click', goToLogin, false); }
+    </script>
+</head>
+
+
+<!--====================================================================================================================
+BODY-->
+<body>
+<h1>Online Last Letter</h1>
+<p>By Olga Chitsvarina, Jared Madden, Olga Bogdanova, Regina Baher, and Marc Fichtel</p>
+<h3>About</h3>
+<p>Online Last Letter is a Single Page Application game. It is being developed as the
+    final deliverable for Software Engineering course SENG513 at the University of Calgary
+    in the course of the Winter Semester 2018. The game is inspired by similar offline
+    games like "Going on a Picnic", and attempts to recreate that experience online. Online
+    Last Letter will feature two initial categories (Cities and Countries), as well as two
+    player modes (Single and Multi Player).</p>
+<h3>Requirements</h3>
+<p>TODO something about how we meet all the requirements...</p>
+<p><button id="goToLoginBtn">Take me to the Login Page</button></p>
+</body>
+</html>
+
+<!--================================================================================================================-->
