@@ -6,7 +6,8 @@ var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 var port = process.env.PORT || 30000;
-var gameLogic = require('./singleplayer-game-logic');
+var gameLogic = require('./singleplayer-game-logic.js');
+
 
 http.listen( port, function () {
     console.log('listening on port', port);
@@ -36,6 +37,8 @@ function updateOnlineUsers(){
 //SERVER LISTENS TO A CLIENT:
 
 io.on('connection', function(socket){
+    gameLogic.test1();
+    gameLogic.test2();
 
     console.log("We have a new user");
     numberOfOnlineUsers++;
