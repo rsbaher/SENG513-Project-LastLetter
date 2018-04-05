@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*module.exports = {
     test2: function() { console.log( "Hello World"); }
 }
@@ -21,3 +22,11 @@ var spGameLogic = (function() {
 })();
 
 module.exports = spGameLogic
+=======
+module.exports = {
+
+    test2: function() { console.log( "Hello World");},
+    test1: function () { console.log("Bye");}
+};
+
+>>>>>>> 5eebe0a4771f961119f0dd21054044716cc1e8b1

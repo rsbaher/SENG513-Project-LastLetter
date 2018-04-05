@@ -6,7 +6,10 @@ var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 var port = process.env.PORT || 30000;
+<<<<<<< HEAD
 var gameLogic = require('./singleplayer-game-logic.js');
+=======
+>>>>>>> 5eebe0a4771f961119f0dd21054044716cc1e8b1
 
 
 http.listen( port, function () {
@@ -18,7 +21,7 @@ app.use(express.static(__dirname + '/public'));
 //======================================================================================================================
 // GLOBAL VARIABLES:
 
-var numberOfOnlineUsers = 0;
+var gameFactory = require('./game-factory.js');
 
 //======================================================================================================================
 //SERVER SENDS MESSAGES TO A CLIENT:
@@ -41,16 +44,16 @@ io.on('connection', function(socket){
     gameLogic.test2();
 
     console.log("We have a new user");
-    numberOfOnlineUsers++;
-    updateOnlineUsers();
+
 
 
     const cities = require("all-the-cities");
     var input = 'Calgary';
     console.log(cities.filter(function(city) {
-        return(city.name.match(input));
+        return(city.name === (input));
     }));
-    gameLogic.test();
+    var gameObj = new gameFactory.GameObject([1],"cities", io);
+    console.log(gameObj.category);
 
 
 
