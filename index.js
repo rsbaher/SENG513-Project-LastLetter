@@ -18,6 +18,7 @@ app.use(express.static(__dirname + '/public'));
 // GLOBAL VARIABLES:
 
 var gameFactory = require('./game-factory.js');
+var gameLogic = require('./game-logic.js');
 
 //======================================================================================================================
 //SERVER SENDS MESSAGES TO A CLIENT:
@@ -41,13 +42,10 @@ io.on('connection', function(socket){
 
 
 
-    const cities = require("all-the-cities");
-    var input = 'Calgary';
-    console.log(cities.filter(function(city) {
-        return(city.name === (input));
-    }));
+
     var gameObj = new gameFactory.GameObject([1],"cities", io);
-    console.log(gameObj.category);
+    var inputStr = "Calgary";
+    gameLogic.doLogic(gameObj, inputStr, io);
 
 
 

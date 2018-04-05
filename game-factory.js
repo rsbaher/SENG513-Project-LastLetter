@@ -1,6 +1,6 @@
 module.exports = {
 
-     GameObject: function(listOfPlayers, categoryStr , io) {
+     GameObject: function(listOfPlayers, categoryStr) {
         console.log(listOfPlayers);
         this.player1 = listOfPlayers[0];
 
@@ -16,23 +16,14 @@ module.exports = {
         this.category = categoryStr;
         this.score = 0;
         this.gameKeys = [];
-        this.currentLetter = returnRandomLetter(io);
+        this.currentLetter = returnRandomLetter();
 
         console.log( "Object was created");
     },
 };
 
-function returnRandomLetter(io){
+function returnRandomLetter(){
     var alphabetArray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-    updateOnlineUsers(5, io);
-
-
-    return Math.floor(Math.random()*alphabetArray.length);
-
-
+    return alphabetArray[Math.floor(Math.random()*alphabetArray.length)];
 }
 
-function updateOnlineUsers(number, io){
-    io.emit('update-online-users',number);
-}
