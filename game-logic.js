@@ -1,3 +1,6 @@
+//======================================================================================================================
+// EXPORT METHODS:
+
 module.exports = {
 
     doLogic: function(gameObj, inputStr, io) {
@@ -8,34 +11,39 @@ module.exports = {
     },
 };
 
+//======================================================================================================================
+// CHECK VALIDITY OF INPUT:
+
 function inputIsValid(gameObj, inputStr){
 
     var category = gameObj.category;
     var currentLetter = gameObj.currentLetter;
 
-    var output;
     if (category === "cities"){
-        output = lookInCitiesDatabase(inputStr);
+        return inputIsValidCitiesDatabase(inputStr);
     }
 
+    return false;
+}
 
-    if (output.length > 0){
+//======================================================================================================================
+// DATABASES:
+
+function inputIsValidCitiesDatabase(inputStr){
+    const cities = require("all-the-cities");
+    var outputList = cities.filter(function(city) {
+        return(city.name === (inputStr));
+    });
+
+    if (outputList.length > 0){
         return true;
     }
     return false;
 }
 
 
-function lookInCitiesDatabase(inputStr){
-    const cities = require("all-the-cities");
-    var outputStr = cities.filter(function(city) {
-        return(city.name === (inputStr));
-    });
-    console.log(outputStr);
-    return outputStr;
-}
-
-
+//======================================================================================================================
+// COMMUNICATION WITH THE CLIENT:
 
 function updateOnlineUsers(outputStr, io){
     io.emit('update-online-users', outputStr);
