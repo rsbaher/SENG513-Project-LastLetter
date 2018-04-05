@@ -26,8 +26,6 @@ io.on('connection', function(socket){
 
     var gameObj = new gameFactory.GameObject([1],"cities", io);
     var inputStr = "Calgary";
-
-    var gameObject = new gameFactory.GameObject([1],"cities");
     gameLogic.doLogic(gameObj, inputStr, io);
 
     socket.on('singleplayer-user-input', function(){
@@ -36,8 +34,5 @@ io.on('connection', function(socket){
 
     socket.on('disconnect', function(){
         console.log("User disconnected");
-        numberOfOnlineUsers--;
-        updateOnlineUsers();
-
     });
 });

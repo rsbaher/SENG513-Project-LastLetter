@@ -16,7 +16,8 @@ module.exports = {
 
 function inputIsValid(gameObj, inputStr){
 
-    if (!inputNotEmptyStr(inputStr)){ return false;}
+
+    if (!inputIsEmptyStr(inputStr)){ return false;}
 
     inputStr = formatInput(inputStr);
 
@@ -26,12 +27,11 @@ function inputIsValid(gameObj, inputStr){
     if (category === "cities"){
         return inputIsValidCitiesDatabase(inputStr);
     }
-
     return false;
 }
 
 
-function inputNotEmptyStr(inputStr){
+function inputIsEmptyStr(inputStr){
     return (inputStr.length > 0);
 }
 
@@ -39,7 +39,7 @@ function inputNotEmptyStr(inputStr){
 function currentLetterIsTheSameAsFirstLetter(gameObj, inputStr){
     var currentLetter = gameObj.currentLetter;
     var inputFirstLetterStr = inputStr.charAt(0);
-    return (currentLetter === input);
+    return (currentLetter === inputFirstLetterStr);
 }
 
 //======================================================================================================================
