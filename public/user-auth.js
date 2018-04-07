@@ -9,10 +9,11 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 // When window loads, let user sign in or redirect them to home page
 window.onload = function() {
-
+    loadLoginPage();
     // If index.html was loaded and a user is already signed in, redirect them
-    if (window.location.href === '/user-auth.html' && firebase.auth().currentUser != null) {
-        window.location.href = '/home.html';
+    if (firebase.auth().currentUser != null) {
+        console.log('User already signed in');
+        // TODO hide login stuff, show home screen stuff
     }
 
     // Else initialize user authentication
@@ -25,7 +26,9 @@ window.onload = function() {
  */
 function initUserAuth() {
     console.log('test');
-    document.getElementById('loginWithGoogleBtn').addEventListener('click', signIn, false);
+    document.getElementById("login-button-header").addEventListener('click', signIn, false);
+    document.getElementById("login-button-unauthorized-user-container").addEventListener('click', signIn, false);
+
 }
 
 /**

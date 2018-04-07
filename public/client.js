@@ -18,13 +18,13 @@ firebase.initializeApp(config);
 var socket = io();      // auto-discovery, allows bidirectional communication between client and a server
 
 //=================================================================================================================
-// MIGHT BE USEFUL:
+// :
 
 
-/*function returnCookies() {
-    Cookies.get();
+function returnCookies() {
+    console.log("load this page");
 
-}*/
+}
 
 /*function setCookies(newName) {
     Cookies.set('cookieNickNameStr', newName ,{ path: '' });
