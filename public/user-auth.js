@@ -9,7 +9,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 // When window loads, let user sign in or redirect them to home page
 window.onload = function() {
-    returnCookies();
+    loadLoginPage();
     // If index.html was loaded and a user is already signed in, redirect them
     if (firebase.auth().currentUser != null) {
         console.log('User already signed in');
