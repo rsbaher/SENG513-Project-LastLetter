@@ -28,11 +28,11 @@ DOCUMENT METADATA:                                                              
     <!--Client -->
     <script src="/client.js"></script>
     <script src="/user-auth.js"></script>
-    <script src="/login-page.js"></script>
-    <script src="/home-page.js"></script>
-    <script src="/single-player-page.js"></script>
-    <script src="/multi-player-page.js"></script>
-    <script src="/profile-page.js"></script>
+    <script src="./pages/login-page.js"></script>
+    <script src="./pages/home-page.js"></script>
+    <script src="./pages/single-player-page.js"></script>
+    <script src="./pages/multi-player-page.js"></script>
+    <script src="./pages/profile-page.js"></script>
 </head>
 
 
@@ -97,12 +97,12 @@ BODY-->
     <div id="leaderboard-container" class="home">
         <h3>Leaderboards</h3>
         <p>Single Player</p>
-        <ol id="singleplayer-leaderboard">
+        <ol id="singleplayer-leaderboard" class="home">
             <li>Some User: 9999</li>
             <li>Another User: 9998</li>
         </ol>
         <p>Multi Player</p>
-        <ol id="multiplayer-leaderboard">
+        <ol id="multiplayer-leaderboard" class="home">
             <li>Some User: 9999</li>
             <li>Another User: 9998</li>
         </ol>
