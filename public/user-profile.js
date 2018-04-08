@@ -1,25 +1,4 @@
-// JSON Object representing the user's DB entry
-let dbUserObject = null;
-
-// User logged in or out
-firebase.auth().onAuthStateChanged(function(activeUser) {
-
-    // On login, get user data from DB and initialize home page
-    if(activeUser) {
-        user = activeUser;
-        socket.emit('get user', user);
-    }
-
-    // On logout, redirect user to index.html
-    else {
-        user = null;
-        dbUserObject = null;
-        window.location.href = '/index.html';
-    }
-});
-
-// Initialize page when it loads
-// TODO move window.onload into a separate init script
+// Initialize page when it loads TODO move window.onload into a separate init script
 window.onload = function() {
     initProfile();
     initLeaderboard();

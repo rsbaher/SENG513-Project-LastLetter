@@ -1,10 +1,22 @@
-// The google user account
-let user = null;
+let googleUser = null;            // The google user account
+let dbUserObject = null;    // JSON Object representing the user's DB entry
 
 // Set user variable on login & logout
 firebase.auth().onAuthStateChanged(function(user) {
-    if(user) { this.user = user; }
-    else { this.user = null; }
+
+    // Login
+    if(user) {
+        googleUser = user;
+        socket.emit('get user', googleUser);
+    }
+
+    // Logout
+    else {
+        googleUser = null;
+        dbUserObject = null;
+        socket.emit('logout', dbUserObject);
+        window.location.href = '/index.html';
+    }
 });
 
 // When window loads, let user sign in or redirect them to home page
@@ -24,7 +36,6 @@ window.onload = function() {
  * Assigns a handler to the login button
  */
 function initUserAuth() {
-    console.log('test');
     document.getElementById('loginWithGoogleBtn').addEventListener('click', signIn, false);
 }
 
@@ -45,8 +56,8 @@ function signIn() {
 
             // Success: register user
             .then(function (result) {
-                user = result.user;
-                socket.emit('login', user);
+                googleUser = result.user;
+                socket.emit('login', googleUser);
             })
 
             // Error
@@ -58,7 +69,7 @@ function signIn() {
 
     // If a user is already signed in at this point, just redirect them
     else {
-        user = firebase.auth().currentUser;
+        googleUser = firebase.auth().currentUser;
         window.location.href = '/home.html';
     }
 
@@ -68,3 +79,6 @@ function signIn() {
 
 // When login is done, redirect to given page
 socket.on('login', function(url) { window.location.href = url; });
+
+// When user closes window, let server know
+window.onbeforeunload = function() { socket.emit('exit', googleUser); };

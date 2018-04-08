@@ -24,14 +24,11 @@ module.exports = {
                     savedGame: null         // Previously saved single player game
                 })
                     // Success: redirect to home page
-                    .then(function() { console.log('Success: ' + user.email + ' registered.'); })
+                    .then(function() { return true; })
 
                     // Error
-                    .catch(function(error) { console.error('Error: ', error); });
+                    .catch(function(error) { console.error('Error: ', error); return false; });
             }
-
-            // Login done, redirect to home page
-            socket.emit('login', '/home.html');
         });
     },
 
@@ -45,10 +42,11 @@ module.exports = {
         ref.get()
 
             // Success: Send user data
-            .then(function(doc) { socket.emit('get user', doc.data()); })
+            // .then(function(doc) { socket.emit('get user', doc.data()); })
+            .then(function(doc) { return doc.data(); })
 
             // Error
-            .catch(function(error) { console.error("Error: ", error); });
+            .catch(function(error) { console.error("Error: ", error); return null; });
     },
 
     /**
@@ -71,16 +69,17 @@ module.exports = {
         ref.set(data)
 
             // Success
-            .then(function () { socket.emit('new name', newName); })
+            //.then(function () { socket.emit('new name', newName); })
+            .then(function () { return true; })
 
             // Error
-            .catch(function(error) { console.error('Error: ', error); });
+            .catch(function(error) { console.error('Error: ', error); return false; });
     },
 
     /**
      * Get the top 10 players by single player high score from the DB
      */
-    getLeaderboard: function(admin, socket) {
+    getLeaderboard: function(admin) {
 
         // Get top 10 user scores from DB
         admin.firestore().collection('users')
@@ -89,10 +88,7 @@ module.exports = {
             .get()
 
             // Success: Send each leaderboard entry to the client
-            // TODO send the whole thing instead of each entry individually
-            .then(function(querySnapshot) {
-                querySnapshot.forEach(function(doc) { socket.emit('get leaderboard', doc.data()); });
-            })
+            .then(function(querySnapshot) { return querySnapshot; })
 
             // Error
             .catch(function(error) { console.error("Error: ", error) });

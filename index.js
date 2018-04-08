@@ -8,6 +8,7 @@ const port = process.env.PORT || 30000;
 const admin = require('firebase-admin');
 const serviceAccount = require('./key.json');
 const dbAPI = require('./dbAPI');
+const chatAPI = require('./chatAPI');
 
 http.listen( port, function () {
     console.log('listening on port', port);
@@ -38,28 +39,42 @@ function updateOnlineUsers(){
 //======================================================================================================================
 //SERVER LISTENS TO A CLIENT:
 
+// User connected
 io.on('connection', function(socket){
+    console.log('New user connected');
 
-    console.log('We have a new user');
-    numberOfOnlineUsers++;
-    updateOnlineUsers();
+    // User disconnected
+    socket.on('disconnect', function(){ console.log('User disconnected'); });
 
-    socket.on('disconnect', function(){
-        console.log('User disconnected');
-        numberOfOnlineUsers--;
-        updateOnlineUsers();
-
+    // User log in: Register new users TODO adjust for new html structure
+    socket.on('login', function(user) {
+        if (dbAPI.registerUser(admin, socket, user)) {
+            socket.emit('login', '/home.html');
+            chatAPI.addUser(dbAPI.getUser(admin, socket, user));
+        }
     });
 
-    // User log in: Check if new or returning user
-    socket.on('login', function(user) { dbAPI.registerUser(admin, socket, user); });
-
     // User data requested
-    socket.on('get user', function(user) { dbAPI.getUser(admin, socket, user); });
+    socket.on('get user', function(user) {
+        let result = dbAPI.getUser(admin, socket, user);
+        if(result != null) { socket.emit('get user', result); }
+    });
 
     // User name change requested
-    socket.on('new name', function(user, newName) { dbAPI.changeUserName(admin, user, newName, socket); });
+    socket.on('new name', function(user, newName) {
+        if(dbAPI.changeUserName(admin, user, newName, socket)) { socket.emit('new name', newName); }
+    });
 
     // Leaderboard data requested
-    socket.on('get leaderboard', function() { dbAPI.getLeaderboard(admin, socket); });
+    socket.on('get leaderboard', function() {
+        let result = dbAPI.getLeaderboard(admin, socket);
+        // TODO send the whole thing instead of each entry individually
+        result.forEach(function(doc) { socket.emit('get leaderboard', doc.data()); });
+    });
+
+    // User logs out
+    socket.on('logout', function(user) { console.log('User logged out: ' + user.name); });
+
+    // User closes window
+    socket.on('exit', function(user) { console.log('User closed window: ' + user.name); });
 });
