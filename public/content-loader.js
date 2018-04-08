@@ -1,6 +1,56 @@
 //======================================================================================================================
+// LOAD HOME PAGE:
 
-function loadLoginPage() {
-    $('#container').hide();
-    $('#login-button-header').show();
+function loadHomePage(){
+    $('.unauthorized').hide();
+    $('.profile').hide();
+
+    $('.default').show();
+    $('.authorized').show();
+    $('.home').show();
 }
+
+
+//======================================================================================================================
+// LOGIN:
+function loadLoginPage() {
+    $('.home').hide();
+    $('.authorized').hide();
+    $('.profile').hide();
+
+    $('.default').show();
+    $('.unauthorized').show();
+}
+
+
+//======================================================================================================================
+// MULTI PLAYER
+function loadMultiplayerPage(){
+
+}
+
+
+
+//=======================================================================================================================
+// MY PROFILE
+
+function loadMyProfilePage(){
+
+    $('.unauthorized').hide();
+    $('.home').hide();
+
+    $('.default').show();
+    $('.authorized').show();
+    $('.profile').show();
+
+}
+
+//======================================================================================================================
+// SINGLE PLAYER
+function loadSinglePlayerPage(){
+
+
+
+}
+
+
