@@ -29,7 +29,10 @@ DOCUMENT METADATA:                                                              
     <script src="/client.js"></script>
     <script src="/user-auth.js"></script>
     <script src="/content-loader.js"></script>
-
+    <script src="/home-page.js"></script>
+    <script src="/single-player-page.js"></script>
+    <script src="/multi-player-page.js"></script>
+    <script src="/profile-page.js"></script>
 </head>
 
 
@@ -41,7 +44,9 @@ BODY-->
     <header id="header-container">
         <p class ="default">logo will be here and</p>
         <button id="login-button-header" class="unauthorized">Login in</button>
-        <button id="my-profile-button-header" class="authorized">my profile</button>
+        <button id="my-profile-button-header" class="authorized" onclick="loadMyProfilePage()">
+            my profile
+        </button>
         <button id="log-out-button-header"class="authorized">Log out</button>
     </header>
 
@@ -74,8 +79,12 @@ BODY-->
         </p>
 
         <p>
-            <button id="single-player-button">SINGLE-PLAYER</button>
-            <button id="multi-player-button">MULTI-PLAYER</button>
+            <button id="single-player-button" onclick="loadSinglePlayerPage()">
+                SINGLE-PLAYER
+            </button>
+            <button id="multi-player-button" onclick="loadMultiPlayerPage()">
+                MULTI-PLAYER
+            </button>
         </p>
 
     </div>
@@ -97,6 +106,41 @@ BODY-->
             <li>Some User: 9999</li>
             <li>Another User: 9998</li>
         </ol>
+    </div>
+
+    <div id = "my-profile-container" class="profile">
+        <button onclick="loadHomePage()">
+            BACK TO HOME
+        </button>
+        <p>My profile</p>
+        <button id="change-color-button">Change Color</button>
+        <button id="change-name-button">Change Name</button>
+        <p>statistics goes here</p>
+    </div>
+
+
+
+    <div id ="singleplayer-container" class="single-player">
+        <button onclick="loadHomePage()">
+            BACK TO HOME
+        </button>
+        <p>messages to single player user</p>
+        <p>message</p>
+        <form action="" id="single-player-input">
+            <input autocomplete="off" />
+        </form>
+    </div>
+
+
+
+    <div id ="multiplayer-container" class="multi-player">
+        <button onclick="loadHomePage()">
+            BACK TO HOME
+        </button>
+        <p>messages to multiplayer user</p>
+        <form action="" id="multi-player-input">
+            <input autocomplete="off" />
+        </form>
     </div>
 
 

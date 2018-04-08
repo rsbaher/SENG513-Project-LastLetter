@@ -1,12 +1,3 @@
-function loadHomePage(){
-    $('.unauthorized').hide();
-    $('.profile').hide();
-
-
-    $('.default').show();
-    $('.authorized').show();
-    $('.home').show();
-}
 
 
 //======================================================================================================================
@@ -16,20 +7,13 @@ function loadLoginPage() {
     $('.home').hide();
     $('.authorized').hide();
     $('.profile').hide();
+    $('.multi-player').hide();
+    $('.single-player').hide();
 
-    $('#everything').show();;
+    $('#everything').show();
     $('.default').show();
     $('.unauthorized').show();
 }
-
-
-//======================================================================================================================
-// MULTI PLAYER
-function loadMultiplayerPage(){
-
-}
-
-
 
 //=======================================================================================================================
 // MY PROFILE
@@ -42,13 +26,6 @@ function loadMyProfilePage(){
     $('.default').show();
     $('.authorized').show();
     $('.profile').show();
-
 }
 
-//======================================================================================================================
-// SINGLE PLAYER
-function loadSinglePlayerPage(){
 
-
-
-}
