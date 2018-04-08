@@ -1,5 +1,6 @@
 //======================================================================================================================
-// SERVER SET UP:
+// DEPENDENCIES
+
 const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
@@ -10,6 +11,9 @@ const serviceAccount = require('./key.json');
 const dbAPI = require('./dbAPI');
 const chatAPI = require('./chatAPI');
 
+//======================================================================================================================
+// SERVER SETUP
+
 http.listen( port, function () {
     console.log('listening on port', port);
 });
@@ -17,7 +21,7 @@ http.listen( port, function () {
 app.use(express.static(__dirname + '/public'));
 
 //======================================================================================================================
-// SET UP FIREBASE:
+// FIREBASE SERVER
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -25,19 +29,7 @@ admin.initializeApp({
 });
 
 //======================================================================================================================
-// GLOBAL VARIABLES:
-
-var numberOfOnlineUsers = 0;
-
-//======================================================================================================================
-//SERVER SENDS MESSAGES TO A CLIENT:
-
-function updateOnlineUsers(){
-    io.emit('update-online-users',numberOfOnlineUsers);
-}
-
-//======================================================================================================================
-//SERVER LISTENS TO A CLIENT:
+// WEB SOCKET EVENTS
 
 // User connected
 io.on('connection', function(socket){
@@ -48,10 +40,9 @@ io.on('connection', function(socket){
 
     // User log in: Register new users TODO adjust for new html structure
     socket.on('login', function(user) {
-        if (dbAPI.registerUser(admin, socket, user)) {
-            socket.emit('login');
-            chatAPI.addUser(dbAPI.getUser(admin, socket, user));
-        }
+        dbAPI.registerUser(admin, socket, user);
+        chatAPI.addUser(dbAPI.getUser(admin, socket, user));
+        socket.emit('login');
     });
 
     // User data requested

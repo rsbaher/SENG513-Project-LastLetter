@@ -23,11 +23,11 @@ module.exports = {
                     gameInProgress: false,  // Is the user in a game right now?
                     savedGame: null         // Previously saved single player game
                 })
-                    // Success: redirect to home page
-                    .then(function() { return true; })
+                    // Success
+                    .then(function() { console.log('New user registered successfully'); })
 
                     // Error
-                    .catch(function(error) { console.error('Error: ', error); return false; });
+                    .catch(function(error) { console.error('Error: ', error); });
             }
         });
     },
@@ -44,7 +44,6 @@ module.exports = {
             // Success: Send user data
             // .then(function(doc) { socket.emit('get user', doc.data()); })
             .then(function(doc) { return doc.data(); })
-
             // Error
             .catch(function(error) { console.error("Error: ", error); return null; });
     },
@@ -91,8 +90,6 @@ module.exports = {
  * @param score to send entries for ('singleHighScore' or 'multiHighScore')
  */
 function sendLeaderboardEntries(admin, socket, score) {
-
-    console.log('Getting ' + score);
 
     // Get top 10 user scores from DB
     admin.firestore().collection('users')
