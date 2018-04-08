@@ -49,7 +49,7 @@ io.on('connection', function(socket){
     // User log in: Register new users TODO adjust for new html structure
     socket.on('login', function(user) {
         if (dbAPI.registerUser(admin, socket, user)) {
-            socket.emit('login', '/home.html');
+            socket.emit('login');
             chatAPI.addUser(dbAPI.getUser(admin, socket, user));
         }
     });
@@ -62,15 +62,11 @@ io.on('connection', function(socket){
 
     // User name change requested
     socket.on('new name', function(user, newName) {
-        if(dbAPI.changeUserName(admin, user, newName, socket)) { socket.emit('new name', newName); }
+        if(dbAPI.changeUserName(admin, user, newName)) { socket.emit('new name', newName); }
     });
 
     // Leaderboard data requested
-    socket.on('get leaderboard', function() {
-        let result = dbAPI.getLeaderboard(admin, socket);
-        // TODO send the whole thing instead of each entry individually
-        result.forEach(function(doc) { socket.emit('get leaderboard', doc.data()); });
-    });
+    socket.on('get leaderboard', function() { dbAPI.getLeaderboard(admin, socket); });
 
     // User logs out
     socket.on('logout', function(user) { console.log('User logged out: ' + user.name); });
