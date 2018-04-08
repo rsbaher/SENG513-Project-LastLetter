@@ -36,17 +36,17 @@ DOCUMENT METADATA:                                                              
 <!--====================================================================================================================
 BODY-->
 <body>
-<div>
+<div id="everything" style="display: none;">
 
     <header id="header-container">
         <p class ="default">logo will be here and</p>
         <button id="login-button-header" class="unauthorized">Login in</button>
         <button id="my-profile-button-header" class="authorized">my profile</button>
-        <button id="log-out-button-header">Log out</button>
+        <button id="log-out-button-header"class="authorized">Log out</button>
     </header>
 
 
-    <div id="about-container" class="default, home">
+    <div id="about-container" class="unauthorized, home">
         <p>About section</p>
         <p>Online Last Letter is a Single Page Application game. It is being developed as the
             final deliverable for Software Engineering course SENG513 at the University of Calgary
@@ -57,13 +57,17 @@ BODY-->
     </div>
 
 
-    <div id="login-container">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/2NKIuH8gtxc"></iframe>
-        <button id="login-button-unauthorized-user-container">Login in</button>
+    <div id="login-container" class="unauthorized">
+        <p>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/2NKIuH8gtxc"></iframe>
+        </p>
+        <p>
+            <button id="login-button-unauthorized-user-container">Login in</button>
+        </p>
     </div>
 
 
-    <div id="select-category-and-mode-container">
+    <div id="select-category-and-mode-container" class="home">
         <p>
             <button id="cities-button">CITIES</button>
             <button id="countries-button">COUNTRIES</button>
@@ -76,11 +80,12 @@ BODY-->
 
     </div>
 
-    <div id="chat-container">
+    <div id="chat-container" class="home">
         <p>chat goes her</p>
     </div>
 
-    <div id="leaderboard-container">
+
+    <div id="leaderboard-container" class="home">
         <h3>Leaderboards</h3>
         <p>Single Player</p>
         <ol id="singleplayer-leaderboard">

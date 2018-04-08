@@ -68,12 +68,14 @@ window.onload = function() {
     if (firebase.auth().currentUser != null) {
         document.getElementById('login-button-header').disabled = true;
         document.getElementById('log-out-button-header').disabled = false;
+        loadHomePage();
     }
 
     // No user is signed in
     else {
         document.getElementById('login-button-header').disabled = false;
         document.getElementById('log-out-button-header').disabled = true;
+        loadLoginPage();
     }
 };
 
@@ -111,6 +113,7 @@ function signIn() {
             .then(function (result) {
                 googleUser = result.user;
                 socket.emit('login', googleUser);
+                loadHomePage();
             })
 
             // Error
@@ -165,7 +168,7 @@ function logout() {
         firebase.auth().signOut();
         document.getElementById('login-button-header').disabled = false;
         document.getElementById('log-out-button-header').disabled = true;
-        // TODO show login page
+        loadLoginPage();
     }
 }
 
