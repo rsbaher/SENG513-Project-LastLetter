@@ -218,3 +218,6 @@ socket.on('get leaderboard', function(single, leaderboardEntry) {
     if (single) { $('#singleplayer-leaderboard').append('<li>' + userName + ': ' + userScoreSingle + '</li>'); }
     else { $('#multiplayer-leaderboard').append('<li>' + userName + ': ' + userScoreMulti + '</li>'); }
 });
+
+// TODO authorized user is on home page, he opens another link in his browser,
+// then comes back, he sees a login page, but should see a page from which he left a game
