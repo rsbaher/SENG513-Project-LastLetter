@@ -21,10 +21,10 @@ var socket = io();      // auto-discovery, allows bidirectional communication be
 // :
 
 
-function returnCookies() {
-    console.log("load this page");
-
-}
+// function returnCookies() {
+//     console.log("load this page");
+//
+// }
 
 /*function setCookies(newName) {
     Cookies.set('cookieNickNameStr', newName ,{ path: '' });

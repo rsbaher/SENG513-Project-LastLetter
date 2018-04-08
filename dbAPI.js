@@ -31,7 +31,7 @@ module.exports = {
             }
 
             // Login done, redirect to home page
-            socket.emit('login', '/home.html');
+            socket.emit('login');
         });
     },
 
