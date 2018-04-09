@@ -22,6 +22,7 @@ function inputIsValid(gameObj, inputStr){
     inputStr = formatInput(inputStr);
 
     if (!currentLetterIsTheSameAsFirstLetter(gameObj, inputStr)) {return false;}
+    if(repetitionsExist(gameObj,inputStr)) {return false;}
 
     var category = gameObj.category;
     if (category === "cities"){
@@ -40,6 +41,11 @@ function currentLetterIsTheSameAsFirstLetter(gameObj, inputStr){
     var currentLetter = gameObj.currentLetter;
     var inputFirstLetterStr = inputStr.charAt(0);
     return (currentLetter === inputFirstLetterStr);
+}
+
+
+function repetitionsExist(gameObj, inputStr){
+    return gameObj.gameAnswers.includes(inputStr);
 }
 
 //======================================================================================================================
@@ -68,6 +74,9 @@ function formatInput(inputStr){
     var firstLetterIsUpperCase = inputStr[0].toUpperCase();
     return firstLetterIsUpperCase + lastLettersAreLowerCase;
 }
+
+//======================================================================================================================
+//
 
 //======================================================================================================================
 // COMMUNICATION WITH THE CLIENT:

@@ -1,7 +1,6 @@
 module.exports = {
 
      GameObject: function(listOfPlayers, categoryStr) {
-        console.log(listOfPlayers);
         this.player1 = listOfPlayers[0];
 
         if (listOfPlayers.length > 1){
@@ -15,11 +14,9 @@ module.exports = {
         this.turn = this.player1;
         this.category = categoryStr;
         this.score = 0;
-        this.gameKeys = [];
+        this.gameAnswers = [];
         this.currentLetter = returnRandomLetter();
-
-        console.log( "Object was created");
-    },
+    }
 };
 
 // TODO rempve comment from random
