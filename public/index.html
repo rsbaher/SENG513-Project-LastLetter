@@ -9,31 +9,156 @@ DOCUMENT METADATA:                                                              
     <link rel="stylesheet" href="style.css">                        <!-- Link to an external style file -->
     <meta name="viewport" content ="width=device-width, initial-scale=1">
 
-<!--====================================================================================================================
-SCRIPTS -->
+    <!--Firebase-->
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
 
-    <script>
-        function goToLogin() { window.location.href = 'user-auth.html'; }
-        window.onload = function() { document.getElementById('goToLoginBtn').addEventListener('click', goToLogin, false); }
+    <!-- JQuery: -->
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous">
     </script>
+
+    <!-- Cookies -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+    <!-- Socket -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!--Client -->
+    <script src="/client.js"></script>
+    <script src="/user-auth.js"></script>
+    <script src="./pages/login-page.js"></script>
+    <script src="./pages/home-page.js"></script>
+    <script src="./pages/single-player-page.js"></script>
+    <script src="./pages/multi-player-page.js"></script>
+    <script src="./pages/profile-page.js"></script>
 </head>
 
 
 <!--====================================================================================================================
 BODY-->
 <body>
-<h1>Online Last Letter</h1>
-<p>By Olga Chitsvarina, Jared Madden, Olga Bogdanova, Regina Baher, and Marc Fichtel</p>
-<h3>About</h3>
-<p>Online Last Letter is a Single Page Application game. It is being developed as the
-    final deliverable for Software Engineering course SENG513 at the University of Calgary
-    in the course of the Winter Semester 2018. The game is inspired by similar offline
-    games like "Going on a Picnic", and attempts to recreate that experience online. Online
-    Last Letter will feature two initial categories (Cities and Countries), as well as two
-    player modes (Single and Multi Player).</p>
-<h3>Requirements</h3>
-<p>TODO something about how we meet all the requirements...</p>
-<p><button id="goToLoginBtn">Take me to the Login Page</button></p>
+<div id="everything" style="display: none;">
+
+    <header id="header-container">
+        <p class ="default">logo will be here and</p>
+        <button id="login-button-header" class="unauthorized">Login in</button>
+        <button id="my-profile-button-header" class="authorized" onclick="loadMyProfilePage()">
+            my profile
+        </button>
+        <button id="log-out-button-header"class="authorized, default">Log out</button>
+    </header>
+
+
+    <div id="about-container" class="unauthorized, home">
+        <p>About section</p>
+        <p>Online Last Letter is a Single Page Application game. It is being developed as the
+            final deliverable for Software Engineering course SENG513 at the University of Calgary
+            in the course of the Winter Semester 2018. The game is inspired by similar offline
+            games like "Going on a Picnic", and attempts to recreate that experience online. Online
+            Last Letter will feature two initial categories (Cities and Countries), as well as two
+            player modes (Single and Multi Player).</p>
+    </div>
+
+
+    <div id="login-container" class="unauthorized">
+        <p>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/2NKIuH8gtxc"></iframe>
+        </p>
+        <p>
+            <button id="login-button-unauthorized-user-container">Login in</button>
+        </p>
+    </div>
+
+
+    <div id="select-category-and-mode-container" class="home">
+        <p>
+            <button id="cities-button">CITIES</button>
+            <button id="countries-button">COUNTRIES</button>
+        </p>
+
+        <p>
+            <button id="single-player-button" onclick="loadSinglePlayerPage()">
+                SINGLE-PLAYER
+            </button>
+            <button id="multi-player-button" onclick="loadMultiPlayerPage()">
+                MULTI-PLAYER
+            </button>
+        </p>
+
+    </div>
+
+    <div id="chat-container" class="home">
+        <p>chat goes her</p>
+    </div>
+
+
+    <div id="leaderboard-container" class="home">
+        <h3>Leaderboards</h3>
+        <p>Single Player</p>
+        <ol id="singleplayer-leaderboard" class="home">
+            <li>Some User: 9999</li>
+            <li>Another User: 9998</li>
+        </ol>
+        <p>Multi Player</p>
+        <ol id="multiplayer-leaderboard" class="home">
+            <li>Some User: 9999</li>
+            <li>Another User: 9998</li>
+        </ol>
+    </div>
+
+    <div id = "my-profile-container" class="profile">
+        <button onclick="loadHomePage()">
+            BACK TO HOME
+        </button>
+        <p>My profile</p>
+        <p>picture here</p>
+        <button>
+            Edit Picture
+        </button>
+        <button id="change-color-button">Change Color</button>
+        <button id="change-name-button">Change Name</button>
+        <p>statistics goes here</p>
+    </div>
+
+
+
+    <div id ="single-player-container" class="single-player">
+        <button onclick="loadHomePage()">
+            BACK TO HOME
+        </button>
+
+        <p id ="single-player-messages">Message:</p>
+        <p id ="single-player-score">Score:</p>
+        <p id = "single-player-current-letter">Current Letter</p>
+        <form action="">
+            <input id='single-player-input' autocomplete="off" />
+        </form>
+        <button>
+            Save game
+        </button>
+    </div>
+
+
+
+    <div id ="multi-player-container" class="multi-player">
+        <button onclick="loadHomePage()">
+            BACK TO HOME
+        </button>
+        <p>messages to multiplayer user</p>
+        <form action="" id="multi-player-input">
+            <input  autocomplete="off" />
+        </form>
+    </div>
+
+
+    <footer class ="default">By Olga Chitsvarina, Jared Madden, Olga Bogdanova, Regina Baher, and Marc Fichtel
+    </footer>
+
+</div>
+
+
 </body>
 </html>
 

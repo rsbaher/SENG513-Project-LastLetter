@@ -31,7 +31,7 @@ module.exports = {
             }
 
             // Login done, redirect to home page
-            socket.emit('login', '/home.html');
+            socket.emit('login');
         });
     },
 
@@ -78,23 +78,36 @@ module.exports = {
     },
 
     /**
-     * Get the top 10 players by single player high score from the DB
+     * Get the top 10 players for single and multiplayer from the DB
      */
     getLeaderboard: function(admin, socket) {
-
-        // Get top 10 user scores from DB
-        admin.firestore().collection('users')
-            .orderBy('singleHighScore', 'desc')
-            .limit(10)
-            .get()
-
-            // Success: Send each leaderboard entry to the client
-            // TODO send the whole thing instead of each entry individually
-            .then(function(querySnapshot) {
-                querySnapshot.forEach(function(doc) { socket.emit('get leaderboard', doc.data()); });
-            })
-
-            // Error
-            .catch(function(error) { console.error("Error: ", error) });
+        sendLeaderboardEntries(admin, socket, 'singleHighScore');
+        sendLeaderboardEntries(admin, socket, 'multiHighScore');
     }
 };
+
+/**
+ * Send leaderboard entries for a specified leaderboard
+ * @param admin for firebase
+ * @param socket to send entries to
+ * @param score to send entries for ('singleHighScore' or 'multiHighScore')
+ */
+function sendLeaderboardEntries(admin, socket, score) {
+
+    console.log('Getting ' + score);
+
+    // Get top 10 user scores from DB
+    admin.firestore().collection('users')
+        .orderBy(score, 'desc')
+        .limit(10)
+        .get()
+
+        // Success: Send each leaderboard entry to the client
+        // TODO send the whole thing instead of each entry individually
+        .then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) { socket.emit('get leaderboard', score === 'singleHighScore', doc.data()); });
+        })
+
+        // Error
+        .catch(function(error) { console.error("Error: ", error) });
+}

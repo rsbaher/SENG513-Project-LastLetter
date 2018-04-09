@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/rsbaher/SENG513-Project-LastLetter#readme",
   "dependencies": {
+    "all-the-cities": "^2.0.1",
     "body-parser": "^1.18.2",
     "express": "^4.14.1",
     "firebase": "^4.12.1",
