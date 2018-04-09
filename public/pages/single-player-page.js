@@ -10,6 +10,8 @@ function loadHTMLSinglePlayerPage(){
     $('.default').show();
     $('.authorized').show();
     $('.single-player').show();
+
+    document.getElementById("single-player-messages").innerHTML = "";
 }
 
 

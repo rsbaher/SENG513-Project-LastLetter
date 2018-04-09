@@ -111,8 +111,7 @@ function performGeneralLogic(gameObj, inputStr, socket) {
     updateCurrentLetter(gameObj,inputStr);
     updateCurrentLetterHTML(gameObj.currentLetter,socket);
     updateGameAnswers(gameObj, inputStr);
-    displayMessageHTML("Last entry: " + inputStr + "\n" +
-    "Your letter is: " + gameObj.currentLetter, socket);
+    displayMessageHTML("Last entry: " + inputStr, socket);
 }
 
 function updateScore(gameObj, socket){
@@ -141,9 +140,7 @@ function updateGameAnswers(gameObj, inputStr){
 // FORMAT INPUT/ FORMAT OUTPUT:
 
 function formatInput(inputStr){
-    var lastLettersAreLowerCase = inputStr.slice(1).toLowerCase();
-    var firstLetterIsUpperCase = inputStr[0].toUpperCase();
-    return firstLetterIsUpperCase + lastLettersAreLowerCase;
+    return inputStr.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 }
 
 //======================================================================================================================
