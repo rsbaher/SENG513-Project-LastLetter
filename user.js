@@ -1,7 +1,8 @@
 module.exports = {
-
-    UserObject: function(userName, color) {
-        this.userName = userName;
-        this.color = color;
+    UserObject: function(userNameStr, colorStr, socketID) {
+        this.userNameStr = userNameStr;
+        this.colorStr = colorStr;
+        this.socketID = socketID;
+        console.log("User was created");
     }
 };

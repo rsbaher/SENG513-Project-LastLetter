@@ -47,7 +47,7 @@ BODY-->
         <button id="my-profile-button-header" class="authorized" onclick="loadMyProfilePage()">
             my profile
         </button>
-        <button id="log-out-button-header"class="authorized">Log out</button>
+        <button id="log-out-button-header"class="authorized, default">Log out</button>
     </header>
 
 
@@ -124,14 +124,16 @@ BODY-->
 
 
 
-    <div id ="singleplayer-container" class="single-player">
+    <div id ="single-player-container" class="single-player">
         <button onclick="loadHomePage()">
             BACK TO HOME
         </button>
-        <p>messages to single player user</p>
-        <p>message</p>
-        <form action="" id="single-player-input">
-            <input autocomplete="off" />
+
+        <p id ="single-player-messages">Message:</p>
+        <p id ="single-player-score">Score:</p>
+        <p id = "single-player-current-letter">Current Letter</p>
+        <form action="">
+            <input id='single-player-input' autocomplete="off" />
         </form>
         <button>
             Save game
@@ -140,13 +142,13 @@ BODY-->
 
 
 
-    <div id ="multiplayer-container" class="multi-player">
+    <div id ="multi-player-container" class="multi-player">
         <button onclick="loadHomePage()">
             BACK TO HOME
         </button>
         <p>messages to multiplayer user</p>
         <form action="" id="multi-player-input">
-            <input autocomplete="off" />
+            <input  autocomplete="off" />
         </form>
     </div>
 
