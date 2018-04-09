@@ -36,20 +36,19 @@ io.on('connection', function(socket){
     console.log('New user connected');
 
     // User disconnected
-    socket.on('disconnect', function(){ console.log('User disconnected'); });
+    socket.on('disconnect', function() { console.log('User disconnected'); });
 
-    // User log in: Register new users TODO adjust for new html structure
+    // User log in: Register new users
     socket.on('login', function(user) {
         dbAPI.registerUser(admin, socket, user);
-        chatAPI.addUser(dbAPI.getUser(admin, socket, user));
         socket.emit('login');
     });
 
+    // Track users on server
+    socket.on('add user', function(user) { chatAPI.addUser(user); });
+
     // User data requested
-    socket.on('get user', function(user) {
-        let result = dbAPI.getUser(admin, socket, user);
-        if(result != null) { socket.emit('get user', result); }
-    });
+    socket.on('get user', function(user) { dbAPI.getUser(admin, socket, user); });
 
     // User name change requested
     socket.on('new name', function(user, newName) {
@@ -60,8 +59,14 @@ io.on('connection', function(socket){
     socket.on('get leaderboard', function() { dbAPI.getLeaderboard(admin, socket); });
 
     // User logs out
-    socket.on('logout', function(user) { console.log('User logged out: ' + user.name); });
+    socket.on('logout', function(user) { console.log('User logged out'); chatAPI.removeUser(user); });
 
     // User closes window
-    socket.on('exit', function(user) { console.log('User closed window: ' + user.name); });
+    socket.on('exit', function(user) { console.log('User exited'); chatAPI.removeUser(user); });
+
+    // User sends a message to the chat
+    socket.on('chat', function(user, message) { chatAPI.broadcastMessage(io, message, user.name, user.chatColor); });
+
+    // User sends a message to another user during a game
+    socket.on('message', function(user, message) { chatAPI.sendMessage(socket, message, user.name, user.chatColor); });
 });

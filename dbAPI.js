@@ -42,8 +42,8 @@ module.exports = {
         ref.get()
 
             // Success: Send user data
-            // .then(function(doc) { socket.emit('get user', doc.data()); })
-            .then(function(doc) { return doc.data(); })
+            .then(function(doc) { socket.emit('get user', doc.data()); })
+
             // Error
             .catch(function(error) { console.error("Error: ", error); return null; });
     },
