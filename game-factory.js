@@ -19,7 +19,7 @@ module.exports = {
     }
 };
 
-// TODO rempve comment from random
+// TODO remove comment from random
 function returnRandomLetter(){
     var alphabetArray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     //return alphabetArray[Math.floor(Math.random()*alphabetArray.length)];
