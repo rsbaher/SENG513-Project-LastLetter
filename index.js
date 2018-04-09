@@ -34,28 +34,18 @@ var gameLogic = require('./game-logic.js');
 
 io.on('connection', function(socket){
 
-<<<<<<< HEAD
+
     console.log('We have a new user');
-    numberOfOnlineUsers++;
-    updateOnlineUsers();
 
-    socket.on('disconnect', function(){
-        console.log('User disconnected');
-        numberOfOnlineUsers--;
-        updateOnlineUsers();
-
-=======
     var gameObj = new gameFactory.GameObject([1],"cities", io);
     var inputStr = "Calgary";
     gameLogic.doLogic(gameObj, inputStr, io);
 
     socket.on('singleplayer-user-input', function(){
-
     });
 
     socket.on('disconnect', function(){
         console.log("User disconnected");
->>>>>>> GameLogic
     });
 
     // User log in: Check if new or returning user
