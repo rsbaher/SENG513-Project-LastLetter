@@ -81,6 +81,10 @@ function existInDictionary(gameObj, inputStr) {
     if (category === "cities"){
         return inputIsValidCitiesDatabase(inputStr);
     }
+    else if(category === "countries"){
+        console.log("category = countries")
+        return inputIsValidCountriesDatabase(inputStr);
+    }
     return false;
 }
 
@@ -100,6 +104,18 @@ function inputIsValidCitiesDatabase(inputStr){
 }
 
 // TODO add inputIsValidCountriesDatabase
+
+function inputIsValidCountriesDatabase(inputStr){
+    const countries = require('db-country');
+    var outputList = countries.findBy('name', inputStr);
+
+        //console.log(outputList.length);
+
+    if(outputList.length > 0){
+        return true;
+    }
+    return false;
+}
 // TODO add inputIsValidAnimalsDatanbase
 
 //======================================================================================================================

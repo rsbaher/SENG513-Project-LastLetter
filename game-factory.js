@@ -15,7 +15,13 @@ module.exports = {
         this.category = categoryStr;
         this.score = 0;
         this.gameAnswers = [];
-        this.currentLetter = returnRandomLetter();
+        if(this.category === "countries"){
+            this.currentLetter = returnRandomLetterCountries();
+        }
+        else {
+            this.currentLetter = returnRandomLetter();
+        }
+
     },
 
     gameObjects: [],
@@ -44,6 +50,10 @@ function returnRandomLetter(){
     var alphabetArray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     return alphabetArray[Math.floor(Math.random()*alphabetArray.length)];
     //return "C";
+}
+function returnRandomLetterCountries() {
+    var alphabetArray = "ABCDEFGHIJKLMNOPQRSTUVWYZ";
+    return alphabetArray[Math.floor(Math.random() * alphabetArray.length)];
 }
 
 

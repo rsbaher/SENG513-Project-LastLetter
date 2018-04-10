@@ -25,9 +25,12 @@ function loadSinglePlayerPage(){
 
 //======================================================================================================================
 // SEND INFO TO THE SERVER
-
+var category;
+function singlePlayerCategory(choice){
+    category = choice;
+}
 function startSinglePlayerGame(){
-    socket.emit('single-player-start-game', "cities");
+    socket.emit('single-player-start-game', category);
 }
 
 
