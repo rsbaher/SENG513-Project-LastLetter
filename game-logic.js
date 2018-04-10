@@ -4,11 +4,11 @@
 
 module.exports = {
 
-    doLogic: function(gameObj, inputStr, socket) {
+    doLogic: function(gameObj, inputStr, socket, user) {
 
-        if(isValid(gameObj, inputStr, socket)){
+        if(isValid(gameObj, inputStr, socket, user)) {
             performGeneralLogic(gameObj, inputStr, socket);
-        };
+        }
     },
 
     updateCurrentLetter: function (currentLetter, socket) {
@@ -20,41 +20,39 @@ module.exports = {
 //======================================================================================================================
 // GENERAL VALIDITY OF INPUT:
 
-function isValid(gameObj, inputStr, socket){
+function isValid(gameObj, inputStr, socket, user){
 
-    if(!rightTurn(gameObj, socket)){
-        displayMessageHTML("It is not your turn. Please Wait",socket);
+    if(!rightTurn(gameObj, user.email)){
+        displayMessageHTML("It is not your turn. Please Wait", socket);
         return false;
     }
 
     if (inputIsEmptyStr(inputStr)){
-        displayMessageHTML("Invalid input: empty string",socket);
+        displayMessageHTML("Invalid input: empty string", socket);
         return false;
     }
 
     inputStr = formatInput(inputStr);
 
     if (!currentLetterIsTheSameAsFirstLetter(gameObj, inputStr)){
-        displayMessageHTML("Input does not start from the right letter. Please try again",socket);
+        displayMessageHTML("Input does not start from the right letter. Please try again", socket);
         return false;
     }
 
-    if(repetitionsExist(gameObj,inputStr)) {
-        displayMessageHTML("This word have already been used",socket);
+    if(repetitionsExist(gameObj, inputStr)) {
+        displayMessageHTML("This word have already been used", socket);
         return false;
     }
 
-    if (!existInDictionary(gameObj,inputStr)){
-        displayMessageHTML("This is not valid " + gameObj.category + " entry" ,socket);
+    if (!existInDictionary(gameObj, inputStr)) {
+        displayMessageHTML("This is not valid " + gameObj.category + " entry" , socket);
         return false;
     }
     return true;
 }
 
-function rightTurn(gameObj, socket){
-    // TODO problem is here
-    return gameObj.listOfPlayers[gameObj.turn].socketID === socket.id;
-
+function rightTurn(gameObj, email) {
+    return gameObj.listOfPlayers[gameObj.turn].email === email;
 }
 
 
@@ -64,8 +62,8 @@ function inputIsEmptyStr(inputStr){
 
 
 function currentLetterIsTheSameAsFirstLetter(gameObj, inputStr){
-    var currentLetter = gameObj.currentLetter;
-    var inputFirstLetterStr = inputStr.charAt(0);
+    const currentLetter = gameObj.currentLetter;
+    const inputFirstLetterStr = inputStr.charAt(0);
     return (currentLetter === inputFirstLetterStr);
 }
 
@@ -76,45 +74,30 @@ function repetitionsExist(gameObj, inputStr){
 
 
 function existInDictionary(gameObj, inputStr) {
-    var category = gameObj.category;
-
-    if (category === "cities"){
-        return inputIsValidCitiesDatabase(inputStr);
-    }
-    else if(category === "countries"){
-        console.log("category = countries")
-        return inputIsValidCountriesDatabase(inputStr);
-    }
+    const category = gameObj.category;
+    if (category === "cities") { return inputIsValidCitiesDatabase(inputStr); }
+    else if(category === "countries") { return inputIsValidCountriesDatabase(inputStr); }
     return false;
 }
 
 //======================================================================================================================
 // VALIDITY IN DATABASES:
 
-function inputIsValidCitiesDatabase(inputStr){
+function inputIsValidCitiesDatabase(inputStr) {
     const cities = require("all-the-cities");
-    var outputList = cities.filter(function(city) {
+    let outputList = cities.filter(function(city) {
         return(city.name === (inputStr));
     });
 
-    if (outputList.length > 0){
-        return true;
-    }
-    return false;
+    return outputList.length > 0;
 }
 
 // TODO add inputIsValidCountriesDatabase
 
 function inputIsValidCountriesDatabase(inputStr){
     const countries = require('db-country');
-    var outputList = countries.findBy('name', inputStr);
-
-        //console.log(outputList.length);
-
-    if(outputList.length > 0){
-        return true;
-    }
-    return false;
+    const outputList = countries.findBy('name', inputStr);
+    return outputList.length > 0;
 }
 // TODO add inputIsValidAnimalsDatanbase
 
@@ -125,9 +108,10 @@ function performGeneralLogic(gameObj, inputStr, socket) {
     updateScore(gameObj,socket);
     changeTurn(gameObj);
     updateCurrentLetter(gameObj,inputStr);
-    updateCurrentLetterHTML(gameObj.currentLetter,socket);
+    updateCurrentLetterHTML(gameObj.currentLetter, socket);
     updateGameAnswers(gameObj, inputStr);
-    displayMessageHTML("Last entry: " + inputStr, socket);
+    displayMessageHTML("Last entry: " + inputStr + "\n" +
+        "Your letter is: " + gameObj.currentLetter, socket);
 }
 
 function updateScore(gameObj, socket){
@@ -137,7 +121,6 @@ function updateScore(gameObj, socket){
 
 function changeTurn(gameObj){
     gameObj.turn = (gameObj.turn + 1)%gameObj.listOfPlayers.length;
-    console.log("turn " + gameObj.turn)
 }
 
 function updateCurrentLetter(gameObj, inputStr){
@@ -149,14 +132,13 @@ function updateGameAnswers(gameObj, inputStr){
     gameObj.gameAnswers.push(inputStr);
 }
 
-
-
-
 //======================================================================================================================
 // FORMAT INPUT/ FORMAT OUTPUT:
 
-function formatInput(inputStr){
-    return inputStr.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+function formatInput(inputStr) {
+    return inputStr.replace(/\w\S*/g, function(txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
 }
 
 //======================================================================================================================

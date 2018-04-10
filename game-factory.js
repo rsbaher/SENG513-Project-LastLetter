@@ -24,35 +24,21 @@ module.exports = {
 
     },
 
-    gameObjects: [],
+    // Map of game objects (user email -> game object)
+    // For multiplayer games, there will be two entries (one for each player)
+    gameObjects: new Map(),
 
-    returnGameObjBasedOnSocket: function (socketID) {
-        var i = 0;
-        while(i<this.gameObjects.length){
-            var j = 0;
-            while(j<this.gameObjects[i].listOfPlayers.length){
-
-                if (this.gameObjects[i].listOfPlayers[j].socketID === socketID){
-                    return this.gameObjects[i];
-
-                }
-                j++;
-            }
-               i++;
-        }
+    returnGameObject: function (user) {
+         return this.gameObjects.get(user.email);
     },
 };
 
-
-
-// TODO remove comment from random
 function returnRandomLetter(){
-    var alphabetArray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const alphabetArray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     return alphabetArray[Math.floor(Math.random()*alphabetArray.length)];
-    //return "C";
 }
 function returnRandomLetterCountries() {
-    var alphabetArray = "ABCDEFGHIJKLMNOPQRSTUVWYZ";
+    const alphabetArray = "ABCDEFGHIJKLMNOPQRSTUVWYZ";
     return alphabetArray[Math.floor(Math.random() * alphabetArray.length)];
 }
 
