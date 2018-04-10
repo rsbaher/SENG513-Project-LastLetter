@@ -39,11 +39,7 @@ admin.initializeApp({
 //======================================================================================================================
 //SERVER LISTENS TO A CLIENT:
 
-// TODO ask Marc if I have to move the following code somewhere after user is authenticated not on connection
-// TODO add color
-// TODO first parameter is name (name from database? how?)
 io.on('connection', function(socket){
-    console.log('New user connected');
 
     // User disconnected
     socket.on('disconnect', function() { console.log('User disconnected'); });
@@ -54,10 +50,8 @@ io.on('connection', function(socket){
         socket.emit('login');
     });
 
-    // Track users on server
-    // socket.on('add user', function(user) { chatAPI.addUser(socket, user); });
 
-    //TODO tell the user from which letter to start
+    // User starts a single player game
     socket.on('single-player-start-game',function(category, user) {
 
         // Create game object
@@ -67,7 +61,7 @@ io.on('connection', function(socket){
         gameLogic.updateCurrentLetter(gameObj.currentLetter, socket);
     });
 
-    // TODO find game based on the socket
+    // User sends an answer for a single player game
     socket.on('single-player-input', function(inputStr, user){
         const gameObj = gameFactory.returnGameObject(user);
         gameLogic.doLogic(gameObj, inputStr, socket, user);
@@ -88,17 +82,14 @@ io.on('connection', function(socket){
     socket.on('get leaderboard', function() { dbAPI.getLeaderboard(admin, socket); });
 
     // User logs out
-    socket.on('logout', function(user) { console.log('User logged out'); chatAPI.removeUser(user, onlineUsers); });
+    socket.on('logout', function(user) { chatAPI.removeUser(user, onlineUsers); });
 
     // User closes window
-    socket.on('exit', function(user) { console.log('User exited'); chatAPI.removeUser(user); });
+    socket.on('exit', function(user) { chatAPI.removeUser(user, onlineUsers); });
 
     // User sends a message to the chat
     socket.on('chat', function(user, message) { chatAPI.broadcastMessage(io, message, user.name, user.chatColor); });
 
     // User sends a message to another user during a game
     socket.on('message', function(user, message) { chatAPI.sendMessage(socket, message, user.name, user.chatColor); });
-
-    // On disconnection
-    socket.on('disconnect', function(){ console.log("User disconnected"); });
 });

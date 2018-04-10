@@ -13,14 +13,14 @@ module.exports = {
      * Send a message to a user
      */
     sendMessage: function(socket, msg, userName, color) {
-        socket.emit('message', msg, getCurrentDateTime(), userName, color);
+        if (msg !== '') socket.emit('message', msg, getCurrentDateTime(), userName, color);
     },
 
     /**
      * Send a message to all active users
      */
     broadcastMessage: function(io, msg, userName, color) {
-        io.sockets.emit('chat', msg, getCurrentDateTime(), userName, color);
+        if (msg !== '') io.sockets.emit('chat', msg, getCurrentDateTime(), userName, color);
     }
 };
 

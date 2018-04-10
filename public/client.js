@@ -80,8 +80,6 @@ $(function() {
     $('#multiplayer-leaderboard').empty();
     socket.emit('get leaderboard');
 
-    // TODO Login and Logout button should not both be visible at same time
-
     // Load appropriate page depending on user auth status
     if (firebase.auth().currentUser === null) { loadLoginPage(); }
     else { loadHomePage(); }
@@ -212,9 +210,6 @@ $(function() {
      * Display the home page
      */
     function loadHomePage() {
-
-        console.log("Loading Home Page");
-
         $('.unauthorized').hide();
         $('.profile').hide();
         $('.multi-player').hide();
@@ -231,9 +226,6 @@ $(function() {
      * Display the login page
      */
     function loadLoginPage() {
-
-        console.log("Loading Login Page");
-
         $('.home').hide();
         $('.authorized').hide();
         $('.profile').hide();
