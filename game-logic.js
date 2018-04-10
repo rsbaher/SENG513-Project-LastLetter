@@ -81,6 +81,10 @@ function existInDictionary(gameObj, inputStr) {
     if (category === "cities"){
         return inputIsValidCitiesDatabase(inputStr);
     }
+    else if(category === "countries"){
+        console.log("category = countries")
+        return inputIsValidCountriesDatabase(inputStr);
+    }
     return false;
 }
 
@@ -100,6 +104,18 @@ function inputIsValidCitiesDatabase(inputStr){
 }
 
 // TODO add inputIsValidCountriesDatabase
+
+function inputIsValidCountriesDatabase(inputStr){
+    const countries = require('db-country');
+    var outputList = countries.findBy('name', inputStr);
+
+        //console.log(outputList.length);
+
+    if(outputList.length > 0){
+        return true;
+    }
+    return false;
+}
 // TODO add inputIsValidAnimalsDatanbase
 
 //======================================================================================================================
@@ -111,8 +127,7 @@ function performGeneralLogic(gameObj, inputStr, socket) {
     updateCurrentLetter(gameObj,inputStr);
     updateCurrentLetterHTML(gameObj.currentLetter,socket);
     updateGameAnswers(gameObj, inputStr);
-    displayMessageHTML("Last entry: " + inputStr + "\n" +
-    "Your letter is: " + gameObj.currentLetter, socket);
+    displayMessageHTML("Last entry: " + inputStr, socket);
 }
 
 function updateScore(gameObj, socket){
@@ -141,9 +156,7 @@ function updateGameAnswers(gameObj, inputStr){
 // FORMAT INPUT/ FORMAT OUTPUT:
 
 function formatInput(inputStr){
-    var lastLettersAreLowerCase = inputStr.slice(1).toLowerCase();
-    var firstLetterIsUpperCase = inputStr[0].toUpperCase();
-    return firstLetterIsUpperCase + lastLettersAreLowerCase;
+    return inputStr.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 }
 
 //======================================================================================================================

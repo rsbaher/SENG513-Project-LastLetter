@@ -47,6 +47,7 @@ io.on('connection', function(socket){
 
     //TODO tell the user from which letter to start
     socket.on('single-player-start-game',function(category){
+        console.log(category);
         var userObj = new userConstructor.UserObject("someName", "someColor",socket.id);
         onlineUsers.push(userObj);
         var gameObj = new gameFactory.GameObject([userObj], category, socket);

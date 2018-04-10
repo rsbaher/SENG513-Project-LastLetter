@@ -3,6 +3,6 @@ module.exports = {
         this.userNameStr = userNameStr;
         this.colorStr = colorStr;
         this.socketID = socketID;
-        console.log("User was created");
+        this.email = "email";
     }
 };
