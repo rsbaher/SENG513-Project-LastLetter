@@ -76,6 +76,7 @@ function repetitionsExist(gameObj, inputStr){
 function existInDictionary(gameObj, inputStr) {
     const category = gameObj.category;
     if (category === "cities") { return inputIsValidCitiesDatabase(inputStr); }
+    else if(category === "countries") { return inputIsValidCountriesDatabase(inputStr); }
     return false;
 }
 
@@ -92,6 +93,12 @@ function inputIsValidCitiesDatabase(inputStr) {
 }
 
 // TODO add inputIsValidCountriesDatabase
+
+function inputIsValidCountriesDatabase(inputStr){
+    const countries = require('db-country');
+    const outputList = countries.findBy('name', inputStr);
+    return outputList.length > 0;
+}
 // TODO add inputIsValidAnimalsDatanbase
 
 //======================================================================================================================
@@ -114,7 +121,6 @@ function updateScore(gameObj, socket){
 
 function changeTurn(gameObj){
     gameObj.turn = (gameObj.turn + 1)%gameObj.listOfPlayers.length;
-    console.log("turn " + gameObj.turn)
 }
 
 function updateCurrentLetter(gameObj, inputStr){

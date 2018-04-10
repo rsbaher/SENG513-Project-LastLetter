@@ -50,11 +50,8 @@ io.on('connection', function(socket){
         socket.emit('login');
     });
 
-
     // User starts a single player game
     socket.on('single-player-start-game',function(category, user) {
-
-        // Create game object
         let listOfPlayers = [ user ];
         const gameObj = new gameFactory.GameObject(listOfPlayers, category);
         gameFactory.gameObjects.set(user.email, gameObj);

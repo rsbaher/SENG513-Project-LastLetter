@@ -15,7 +15,13 @@ module.exports = {
         this.category = categoryStr;
         this.score = 0;
         this.gameAnswers = [];
-        this.currentLetter = returnRandomLetter();
+        if(this.category === "countries"){
+            this.currentLetter = returnRandomLetterCountries();
+        }
+        else {
+            this.currentLetter = returnRandomLetter();
+        }
+
     },
 
     // Map of game objects (user email -> game object)
@@ -27,13 +33,13 @@ module.exports = {
     },
 };
 
-
-
-// TODO remove comment from random
 function returnRandomLetter(){
     const alphabetArray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     return alphabetArray[Math.floor(Math.random()*alphabetArray.length)];
-    //return "C";
+}
+function returnRandomLetterCountries() {
+    const alphabetArray = "ABCDEFGHIJKLMNOPQRSTUVWYZ";
+    return alphabetArray[Math.floor(Math.random() * alphabetArray.length)];
 }
 
 
