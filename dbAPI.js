@@ -3,7 +3,7 @@ module.exports = {
     /**
      * Register new users in the DB
      */
-    registerUser: function(admin, socket, user) {
+    registerUser: function(admin, socket, user, users) {
 
         // Query DB for user by email
         const ref = admin.firestore().collection('users').doc(user.email);
@@ -24,7 +24,7 @@ module.exports = {
                     savedGame: null         // Previously saved single player game
                 })
                     // Success
-                    .then(function() { console.log('New user registered successfully'); })
+                    .then(function() { users.set(user.email, user); })
 
                     // Error
                     .catch(function(error) { console.error('Error: ', error); });

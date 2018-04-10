@@ -19,31 +19,29 @@ DOCUMENT METADATA:                                                              
             crossorigin="anonymous">
     </script>
 
-    <!-- Cookies -->
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-
     <!-- Socket -->
     <script src="/socket.io/socket.io.js"></script>
 
+    <!-- Cookies -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
     <!--Client -->
-    <script src="/client.js"></script>
-    <script src="/content-loader.js"></script>
-
+    <script src="./client.js"></script>
 </head>
-
 
 <!--====================================================================================================================
 BODY-->
 <body>
-<div>
+<div id="everything">
+
     <header id="header-container">
         <p class ="default">logo will be here and</p>
         <button id="login-button-header" class="unauthorized">Login in</button>
-        <button id="my-profile-button-header" class="authorized">my profile</button>
-        <button id="log-out-button-header">Log out</button>
+        <button id="my-profile-button-header" class="authorized">My Profile</button>
+        <button id="log-out-button-header" class="authorized, default">Log out</button>
     </header>
 
-    <div id="about-container" class="default, home">
+    <div id="about-container" class="unauthorized, home">
         <p>About section</p>
         <p>Online Last Letter is a Single Page Application game. It is being developed as the
             final deliverable for Software Engineering course SENG513 at the University of Calgary
@@ -53,23 +51,20 @@ BODY-->
             player modes (Single and Multi Player).</p>
     </div>
 
-    <div id="login-container">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/2NKIuH8gtxc"></iframe>
-        <button id="login-button-unauthorized-user-container">Login in</button>
+    <div id="login-container" class="unauthorized">
+        <p><iframe width="560" height="315" src="https://www.youtube.com/embed/2NKIuH8gtxc"></iframe></p>
+        <p><button id="login-button-unauthorized-user-container">Login in</button></p>
     </div>
 
-
-    <div id="select-category-and-mode-container">
+    <div id="select-category-and-mode-container" class="home">
         <p>
             <button id="cities-button">CITIES</button>
             <button id="countries-button">COUNTRIES</button>
         </p>
-
         <p>
             <button id="single-player-button">SINGLE-PLAYER</button>
             <button id="multi-player-button">MULTI-PLAYER</button>
         </p>
-
     </div>
 
     <div id="chat-container">
@@ -79,7 +74,7 @@ BODY-->
                 <li>Test</li>
             </ul>
             <form id="chat-form" action="">
-                <input id="m" autocomplete="off" /><button id="chat-button">Send</button>
+                <input title="input" id="m" autocomplete="off" /><button id="chat-button">Send</button>
             </form>
         </div>
         <div id="users-container">
@@ -88,28 +83,54 @@ BODY-->
         </div>
     </div>
 
-    <div id="leaderboard-container">
+    <div id="leaderboard-container" class="home">
         <h3>Leaderboards</h3>
         <p>Single Player</p>
-        <ol id="singleplayer-leaderboard">
+        <ol id="singleplayer-leaderboard" class="home">
             <li>Some User: 9999</li>
             <li>Another User: 9998</li>
         </ol>
         <p>Multi Player</p>
-        <ol id="multiplayer-leaderboard">
+        <ol id="multiplayer-leaderboard" class="home">
             <li>Some User: 9999</li>
             <li>Another User: 9998</li>
         </ol>
     </div>
-    </article>
 
+    <div id = "my-profile-container" class="profile">
+        <button id="back-to-home-button-1">BACK TO HOME</button>
+        <p>My profile</p>
+        <p>picture here</p>
+        <button id="edit-name-button">Edit Name</button>
+        <button id="edit-picture-button">Edit Picture</button>
+        <button id="change-color-button">Change Color</button>
+        <button id="change-name-button">Change Name</button>
+        <p>statistics goes here</p>
+    </div>
+
+    <div id ="single-player-container" class="single-player">
+        <button id="back-to-home-button-2">BACK TO HOME</button>
+        <p id ="single-player-messages">Message:</p>
+        <p id ="single-player-score">Score:</p>
+        <p id = "single-player-current-letter">Current Letter</p>
+        <form id="single-player-form" action="">
+            <input title='input' id='single-player-input' autocomplete="off" /><button id="single-player-input-button">Send</button>
+        </form>
+        <button id="save-game-button">Save game</button>
+    </div>
+
+    <div id ="multi-player-container" class="multi-player">
+        <button id="back-to-home-button-3">BACK TO HOME</button>
+        <p>messages to multiplayer user</p>
+        <form action="" id="multi-player-form">
+            <input title="input" id="multi-player-input" autocomplete="off" /><button id="multi-player-input-button">Send</button>
+        </form>
+    </div>
 
     <footer class ="default">By Olga Chitsvarina, Jared Madden, Olga Bogdanova, Regina Baher, and Marc Fichtel
     </footer>
 
 </div>
-
-
 </body>
 </html>
 
