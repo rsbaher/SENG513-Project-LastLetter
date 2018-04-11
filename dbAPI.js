@@ -51,7 +51,7 @@ module.exports = {
     /**
      * Change a user's name in the DB
      */
-    changeUserName: function(admin, user, newName) {
+    changeUserName: function(admin, user, newName, socket) {
 
         // Get reference to user in DB and update it
         const ref = admin.firestore().collection('users').doc(user.email);
@@ -68,10 +68,36 @@ module.exports = {
         ref.set(data)
 
             // Success
-            .then(function () { return true; })
+            .then(function () { socket.emit('new name', newName); })
 
             // Error
-            .catch(function(error) { console.error('Error: ', error); return false; });
+            .catch(function(error) { console.error('Error: ', error); });
+    },
+
+    /**
+     * Change a user's color in the DB
+     */
+    changeUserColor: function(admin, user, newColor, socket) {
+
+        // Get reference to user in DB and update it
+        const ref = admin.firestore().collection('users').doc(user.email);
+        let data = {
+            email: user.email,                      // Email = Key
+            name: user.name,                        // Username
+            singleHighScore: user.singleHighScore,  // Single player high score
+            multiHighScore: user.multiHighScore,    // Multi player high score
+            chatColor: newColor,                    // New Chat message color
+            imageLink: user.imageLink,              // User profile image URL
+            gameInProgress: user.gameInProgress,    // Is the user in a game right now?
+            savedGame: user.savedGame               // Previously saved single player game
+        };
+        ref.set(data)
+
+        // Success
+            .then(function () { socket.emit('new color', newColor); })
+
+            // Error
+            .catch(function(error) { console.error('Error: ', error); });
     },
 
     /**

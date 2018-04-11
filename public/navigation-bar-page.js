@@ -19,6 +19,10 @@ function loadMyProfilePage(){
     $('.default').show();
     $('.authorized').show();
     $('.profile').show();
+
+    $('#user-email-text').html(dbUserObject.email);
+    $('#user-name-text').html(dbUserObject.name);
+    $('#user-color-text').html(dbUserObject.chatColor);
 }
 
 /**
