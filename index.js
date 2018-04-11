@@ -71,9 +71,10 @@ io.on('connection', function(socket){
     socket.on('get user', function(user) { dbAPI.getUser(admin, socket, user); });
 
     // User name change requested
-    socket.on('new name', function(user, newName) {
-        if(dbAPI.changeUserName(admin, user, newName)) { socket.emit('new name', newName); }
-    });
+    socket.on('new name', function(user, name) { dbAPI.changeUserName(admin, user, name, socket); });
+
+    //User color change requested
+    socket.on('new color', function(user, color) { dbAPI.changeUserColor(admin, user, color, socket) });
 
     // Leaderboard data requested
     socket.on('get leaderboard', function() { dbAPI.getLeaderboard(admin, socket); });
