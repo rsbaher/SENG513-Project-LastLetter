@@ -37,13 +37,22 @@ admin.initializeApp({
     databaseURL: 'https://seng513-project-lastletter.firebaseio.com'
 });
 
-//======================================================================================================================
-//SERVER LISTENS TO A CLIENT:
 
 io.on('connection', function(socket){
 
+    //======================================================================================================================
+    // DISCONNECT OR EXIT COMMUNICATION WITH A CLIENT:
+
     // User disconnected
     socket.on('disconnect', function() { console.log('User disconnected'); });
+    // User logs out
+    socket.on('logout', function(user) { chatAPI.removeUser(user, onlineUsers); });
+    // User closes window
+    socket.on('exit', function(user) { chatAPI.removeUser(user, onlineUsers); });
+
+
+    //===========================================================================================================
+    // LOGIN COMMUNICATION WITH A CLIENT:
 
     // User log in: Register new users
     socket.on('login', function(user) {
@@ -51,7 +60,9 @@ io.on('connection', function(socket){
         socket.emit('login');
     });
 
-    // User starts a single player game
+    //==========================================================================================================
+    // SINGLE - PLAYER COMMUNICATION WITH A CLIENT:
+
     socket.on('single-player-start-game',function(category, user) {
         let listOfPlayers = [ user ];
         const gameObj = new gameFactory.GameObject(listOfPlayers, category);
@@ -59,14 +70,14 @@ io.on('connection', function(socket){
         gameLogic.updateCurrentLetter(gameObj.currentLetter, socket);
     });
 
-    // User sends an answer for a single player game
     socket.on('single-player-input', function(inputStr, user){
         const gameObj = gameFactory.returnGameObject(user);
         gameLogic.doLogic(gameObj, inputStr, socket, user);
     });
 
-    // User log in: Check if new or returning user
-    socket.on('login', function(user) { dbAPI.registerUser(admin, socket, user); });
+
+    //==========================================================================================================
+    // DATA BASE COMMUNICATION WITH THE CLIENT:
 
     // User data requested
     socket.on('get user', function(user) { dbAPI.getUser(admin, socket, user); });
@@ -80,11 +91,10 @@ io.on('connection', function(socket){
     // Leaderboard data requested
     socket.on('get leaderboard', function() { dbAPI.getLeaderboard(admin, socket); });
 
-    // User logs out
-    socket.on('logout', function(user) { chatAPI.removeUser(user, onlineUsers); });
 
-    // User closes window
-    socket.on('exit', function(user) { chatAPI.removeUser(user, onlineUsers); });
+
+    //==========================================================================================================
+    // CHAT COMMUNICATION WITH A CLIENT:
 
     // User sends a message to the chat
     socket.on('chat', function(user, message) { chatAPI.broadcastMessage(io, message, user.name, user.chatColor); });
