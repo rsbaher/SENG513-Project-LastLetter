@@ -39,6 +39,7 @@ function loadSinglePlayerPage() {
     $('.profile').hide();
     $('.home').hide();
     $('.multi-player').hide();
+
     $('.default').show();
     $('.authorized').show();
     $('.single-player').show();

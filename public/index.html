@@ -28,13 +28,13 @@ DOCUMENT METADATA:                                                              
     <!--Client -->
     <script src="./client.js"></script>
     <script src="pages/navigation-bar-page.js"></script>
-    <script src="pages/login-page.js"></script>
     <script src="pages/home-page.js"></script>
+    <script src="pages/login-page.js"></script>
     <script src="pages/chat.js"></script>
     <script src="pages/single-player-page.js"></script>
     <script src="pages/multi-player-page.js"></script>
     <script src="pages/profile-page.js"></script>
-
+    <script src="pages/waiting-for-players-page.js"></script>
 </head>
 
 <!--====================================================================================================================
@@ -137,11 +137,16 @@ BODY-->
 
 
     <div id ="multi-player-container" class="multi-player">
-        <button id="back-to-home-button-3">BACK TO HOME</button>
+        <button id="back-to-home-button-multiplayer">BACK TO HOME</button>
         <p>messages to multiplayer user</p>
         <form action="" id="multi-player-form">
             <input title="input" id="multi-player-input" autocomplete="off" /><button id="multi-player-input-button">Send</button>
         </form>
+    </div>
+
+    <div class="wait-for-players">
+        <p> We are loking for other players, please wait</p>
+        <button id="back-to-home-button-wait-for-players">BACK TO HOME</button>
     </div>
 
 
