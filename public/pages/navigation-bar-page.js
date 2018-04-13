@@ -6,7 +6,7 @@ $(function() {
     $('#my-profile-button-header').on('click', loadMyProfilePage);
     $('#back-to-home-button-1').on('click', loadHomePage);
 
-    $('#back-to-home-button-3').on('click', loadHomePage);
+    $('#back-to-home-button-multiplayer').on('click', loadHomePage);
 });
 /**
  * Display the profile page
