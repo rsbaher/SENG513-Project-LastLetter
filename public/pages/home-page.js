@@ -10,6 +10,8 @@ function loadHomePage() {
     $('.profile').hide();
     $('.multi-player').hide();
     $('.single-player').hide();
+    $('.wait-for-players').hide();
+
     $('.default').show();
     $('.authorized').show();
     $('.home').show();
@@ -49,10 +51,13 @@ $(function() {
  * TODO
  */
 function startMultiPlayerGame() {
+
     $('.unauthorized').hide();
     $('.profile').hide();
     $('.home').hide();
+    $('.wait-for-players').hide();
     $('.single-player').hide();
+
     $('.default').show();
     $('.authorized').show();
     $('.multi-player').show();

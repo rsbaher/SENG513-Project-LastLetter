@@ -16,6 +16,8 @@ function loadMyProfilePage(){
     $('.home').hide();
     $('.single-player').hide();
     $('.multi-player').hide();
+    $('.wait-for-players').hide();
+
     $('.default').show();
     $('.authorized').show();
     $('.profile').show();

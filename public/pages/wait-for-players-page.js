@@ -1,56 +1,53 @@
 
-//===============================================================================================================
+///==============================================================================================================
 // JQUERY WRAP:
 
 $(function() {
 
-
     // =========================================================================================================
     // BUTTONS REGISTRATION:
 
-    $('#back-to-home-button-single').on('click', backButtonWasClicked);
-    $('#save-game-button-single').on('click', saveGame);
-
+    $('#back-to-home-button-wait-for-players').on('click', backButtonWasClicked);
 
     //==========================================================================================================
     // PRIVATE HTML HANDLERS:
 
     function backButtonWasClicked(){
         loadHomePage();
-        deleteGame();
+        deleteMeFromTheWaitList();
     }
 
     //==========================================================================================================
     // SEND MESSAGES TO A SERVER:
 
+    // TODO ask server to delete me from the wait list
+    function deleteMeFromTheWaitList(){
+
+    }
 
     //===========================================================================================================
     // LISTEN TO A SERVER:
-
-
 });
 
 //==============================================================================================================
 // GLOBAL HTML EVENTS HANDLERS:
 
-function loadSinglePlayerPage() {
+function loadWaitForPlayersPage() {
 
     $('.unauthorized').hide();
     $('.profile').hide();
-    $('.home').hide();
     $('.multi-player').hide();
+    $('.single-player').hide();
+    $('.home').hide();
 
     $('.default').show();
     $('.authorized').show();
-    $('.single-player').show();
-    document.getElementById("single-player-messages").innerHTML = "";
+    $('.wait-for-players').show();
 }
 
-function startSinglePlayerGame() {
-    loadSinglePlayerPage();
-    socket.emit('single-player-start-game', category, dbUserObject);
+// TODO ask server to look for players:
+// TODO in the corresponding to the category list
+function startLookingForOtherPlayers(categoryStr){
+    loadWaitForPlayersPage();
+    // TODO EMIT TO SERVER;
 }
-
-
-
-
