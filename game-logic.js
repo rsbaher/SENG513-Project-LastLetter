@@ -11,9 +11,13 @@ module.exports = {
         }
     },
 
-    updateCurrentLetter: function (currentLetter, socket) {
-        updateCurrentLetterHTML(currentLetter,socket);
-    }
+    updateCurrentLetter: function (currentLetterStr, socket) {
+        updateCurrentLetterHTML(currentLetterStr,socket);
+    },
+
+    updateCurrentScore: function (scoreNum, socket) {
+        updateScoreHTML(scoreNum,socket);
+}
 
 };
 
@@ -146,11 +150,11 @@ function displayMessageHTML (outputStr, socket){
     socket.emit('single-player-display-message', outputStr);
 }
 
-function updateScoreHTML(score, socket){
-    socket.emit('single-player-update-score', score);
+function updateScoreHTML(scoreNum, socket){
+    socket.emit('single-player-update-score', scoreNum);
 }
 
-function updateCurrentLetterHTML(currentLetter, socket){
-    socket.emit('single-player-update-current-letter', currentLetter);
+function updateCurrentLetterHTML(currentLetterStr, socket){
+    socket.emit('single-player-update-current-letter', currentLetterStr);
 }
 

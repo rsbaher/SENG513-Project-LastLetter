@@ -5,7 +5,7 @@ $(function() {
     $('#log-out-button-header').on('click', logout);
     $('#my-profile-button-header').on('click', loadMyProfilePage);
     $('#back-to-home-button-1').on('click', loadHomePage);
-    $('#back-to-home-button-2').on('click', loadHomePage);
+
     $('#back-to-home-button-3').on('click', loadHomePage);
 });
 /**
@@ -25,21 +25,6 @@ function loadMyProfilePage(){
     $('#user-color-text').html(dbUserObject.chatColor);
 }
 
-/**
- * Display the home page
- */
-function loadHomePage() {
-    $('.unauthorized').hide();
-    $('.profile').hide();
-    $('.multi-player').hide();
-    $('.single-player').hide();
-    $('.default').show();
-    $('.authorized').show();
-    $('.home').show();
-
-    document.getElementById('login-button-header').disabled = true;
-    document.getElementById('log-out-button-header').disabled = false;
-}
 
 /**
  * Log user out

@@ -1,3 +1,27 @@
+
+//==============================================================================================================
+// LOAD HOME PAGE IN HTML:
+
+/**
+ * Display the home page
+ */
+function loadHomePage() {
+    $('.unauthorized').hide();
+    $('.profile').hide();
+    $('.multi-player').hide();
+    $('.single-player').hide();
+    $('.default').show();
+    $('.authorized').show();
+    $('.home').show();
+
+    document.getElementById('login-button-header').disabled = true;
+    document.getElementById('log-out-button-header').disabled = false;
+}
+
+
+//============================================================================================================
+// LOAD JQUERY ELEMENTS:
+
 // Wrap everything else in JQuery
 $(function() {
 
@@ -12,24 +36,13 @@ $(function() {
     $('#single-player-button').on('click', startSinglePlayerGame).prop('disabled', true);
     $('#multi-player-button').on('click', startMultiPlayerGame).prop('disabled', true);
 });
-/**
- * User starts a single player game with a chosen category
- */
-function startSinglePlayerGame() {
 
-    // Show only single player page
-    $('.unauthorized').hide();
-    $('.profile').hide();
-    $('.home').hide();
-    $('.multi-player').hide();
-    $('.default').show();
-    $('.authorized').show();
-    $('.single-player').show();
-    document.getElementById("single-player-messages").innerHTML = "";
 
-    // Start game
-    socket.emit('single-player-start-game', category, dbUserObject);
-}
+
+
+
+
+
 
 /**
  * User starts a multiplayer game with a chosen category
@@ -70,3 +83,6 @@ socket.on('get leaderboard', function (single, leaderboardEntry) {
     if (single) { $('#singleplayer-leaderboard').append('<li>' + userName + ': ' + userScoreSingle + '</li>'); }
     else { $('#multiplayer-leaderboard').append('<li>' + userName + ': ' + userScoreMulti + '</li>'); }
 });
+
+
+

@@ -59,13 +59,14 @@ io.on('connection', function(socket){
     });
 
     //==========================================================================================================
-    // SINGLE - PLAYER COMMUNICATION WITH A CLIENT:
+    // SINGLE - PLAYER: LISTEN TO A CLIENT:
 
     socket.on('single-player-start-game',function(category, user) {
         let listOfPlayers = [ user ];
         const gameObj = new gameFactory.GameObject(listOfPlayers, category);
         gameFactory.gameObjects.set(user.email, gameObj);
         gameLogic.updateCurrentLetter(gameObj.currentLetter, socket);
+        gameLogic.updateCurrentScore(gameObj.score, socket);
     });
 
     socket.on('single-player-input', function(inputStr, user){
@@ -73,6 +74,9 @@ io.on('connection', function(socket){
         gameLogic.doLogic(gameObj, inputStr, socket, user);
     });
 
+    socket.on('delete-single-player-game', function (user){
+        gameFactory.gameObjects.delete(user);
+    });
 
     //==========================================================================================================
     // DATA BASE COMMUNICATION WITH THE CLIENT:
