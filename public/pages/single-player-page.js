@@ -63,7 +63,7 @@ $(function() {
 });
 
 //==============================================================================================================
-// GLOBAL HTML EVENT HANDLERS:
+// GLOBAL HTML EVENTS HANDLERS:
 
 function loadSinglePlayerPage() {
 
