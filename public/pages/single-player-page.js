@@ -25,11 +25,6 @@ $(function() {
     //==========================================================================================================
     // PRIVATE HTML HANDLERS:
 
-    // TODO IMplement save game for the single player
-    function saveGame(){
-
-    }
-
     function backButtonWasClicked(){
         loadHomePage();
         deleteGame();
@@ -44,6 +39,10 @@ $(function() {
 
     function acceptInput(input){
         socket.emit('single-player-input', input, dbUserObject);
+    }
+
+    function saveGame(){
+        socket.emit('save-single-player-game', dbUserObject);
     }
 
     //===========================================================================================================
