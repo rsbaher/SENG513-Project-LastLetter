@@ -36,7 +36,7 @@ $(function() {
     $('#cities-button').on('click', setCategoryCities);
     $('#countries-button').on('click', setCategoryCountries);
     $('#single-player-button').on('click', startSinglePlayerGame).prop('disabled', true);
-    $('#multi-player-button').on('click', startMultiPlayerGame).prop('disabled', true);
+    $('#multi-player-button').on('click', loadWaitForPlayersPage).prop('disabled', true);
 });
 
 
