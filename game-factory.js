@@ -37,6 +37,8 @@ function returnRandomLetter(){
     const alphabetArray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     return alphabetArray[Math.floor(Math.random()*alphabetArray.length)];
 }
+
+
 function returnRandomLetterCountries() {
     const alphabetArray = "ABCDEFGHIJKLMNOPQRSTUVWYZ";
     return alphabetArray[Math.floor(Math.random() * alphabetArray.length)];

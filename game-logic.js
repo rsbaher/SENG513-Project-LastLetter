@@ -92,14 +92,12 @@ function inputIsValidCitiesDatabase(inputStr) {
     return outputList.length > 0;
 }
 
-// TODO add inputIsValidCountriesDatabase
 
 function inputIsValidCountriesDatabase(inputStr){
     const countries = require('db-country');
     const outputList = countries.findBy('name', inputStr);
     return outputList.length > 0;
 }
-// TODO add inputIsValidAnimalsDatanbase
 
 //======================================================================================================================
 // GENERAL GAME LOGIC:

@@ -19,8 +19,6 @@ const dbAPI = require('./dbAPI');
 const chatAPI = require('./chatAPI');
 const gameFactory = require('./game-factory.js');
 const gameLogic = require('./game-logic.js');
-const userConstructor = require('./user.js');
-
 
 //======================================================================================================================
 // SERVER SETUP

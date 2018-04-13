@@ -1,3 +1,6 @@
+
+//===============================================================================================================
+// LOAD LOGIN PAGE:
 /**
  * Display the login page
  */
@@ -18,6 +21,10 @@ function loadLoginPage() {
     $('#login-button-header').prop('disabled', false);
     $('#log-out-button-header').prop('disabled', true);
 }
+
+
+//===============================================================================================================
+// LOGIN WITH GOOGLE:
 
 /**
  * Login with Google
@@ -56,6 +63,8 @@ function signIn() {
         loadHomePage();
     }
 }
+
+//==============================================================================================================
 
 // On successful login, display home page
 socket.on('login', function () { loadHomePage() });
