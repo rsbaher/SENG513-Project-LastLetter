@@ -10,6 +10,8 @@ function loadLoginPage() {
     $('.profile').hide();
     $('.multi-player').hide();
     $('.single-player').hide();
+    $('.wait-for-players').hide();
+
     $('#everything').show();
     $('.default').show();
     $('.unauthorized').show();

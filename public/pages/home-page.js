@@ -10,6 +10,8 @@ function loadHomePage() {
     $('.profile').hide();
     $('.multi-player').hide();
     $('.single-player').hide();
+    $('.wait-for-players').hide();
+
     $('.default').show();
     $('.authorized').show();
     $('.home').show();
@@ -34,7 +36,7 @@ $(function() {
     $('#cities-button').on('click', setCategoryCities);
     $('#countries-button').on('click', setCategoryCountries);
     $('#single-player-button').on('click', startSinglePlayerGame).prop('disabled', true);
-    $('#multi-player-button').on('click', startMultiPlayerGame).prop('disabled', true);
+    $('#multi-player-button').on('click', loadWaitForPlayersPage).prop('disabled', true);
 });
 
 
@@ -49,10 +51,13 @@ $(function() {
  * TODO
  */
 function startMultiPlayerGame() {
+
     $('.unauthorized').hide();
     $('.profile').hide();
     $('.home').hide();
+    $('.wait-for-players').hide();
     $('.single-player').hide();
+
     $('.default').show();
     $('.authorized').show();
     $('.multi-player').show();
