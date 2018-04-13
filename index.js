@@ -1,5 +1,12 @@
+
 //======================================================================================================================
-// SERVER SET UP:
+// GLOBAL VARIABLES
+
+let onlineUsers = new Map();// active users (email -> User)
+
+//======================================================================================================================
+// DEPENDENCIES
+
 const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
@@ -7,77 +14,93 @@ const io = require('socket.io')(http);
 const port = process.env.PORT || 30000;
 const admin = require('firebase-admin');
 const serviceAccount = require('./key.json');
-const dbAPI = require('./dbAPI');
 
-http.listen( port, function () {
-    console.log('listening on port', port);
-});
+const dbAPI = require('./dbAPI');
+const chatAPI = require('./chatAPI');
+const gameFactory = require('./game-factory.js');
+const gameLogic = require('./game-logic.js');
+
+//======================================================================================================================
+// SERVER SETUP
+
+http.listen( port, function () { console.log('listening on port', port); });
 
 app.use(express.static(__dirname + '/public'));
 
 //======================================================================================================================
-// SET UP FIREBASE:
+// FIREBASE SERVER
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: 'https://seng513-project-lastletter.firebaseio.com'
 });
 
-//======================================================================================================================
-// GLOBAL VARIABLES:
 
-var gameFactory = require('./game-factory.js');
-var gameLogic = require('./game-logic.js');
-var userConstructor = require('./user.js');
-
-
-var onlineUsers = [];
-
-
-
-//======================================================================================================================
-//SERVER LISTENS TO A CLIENT:
-
-// TODO ask Marc if I have to move the following code somewhere after user is authenticated not on connection
-// TODO add color
-// TODO first parameter is name (name from database? how?)
 io.on('connection', function(socket){
 
-    console.log("We have a new user");
+    //======================================================================================================================
+    // DISCONNECT OR EXIT COMMUNICATION WITH A CLIENT:
 
-    //TODO tell the user from which letter to start
-    socket.on('single-player-start-game',function(category){
-        var userObj = new userConstructor.UserObject("someName", "someColor",socket.id);
-        onlineUsers.push(userObj);
-        var gameObj = new gameFactory.GameObject([userObj], category, socket);
-        gameFactory.gameObjects.push(gameObj);
+    // User disconnected
+    socket.on('disconnect', function() { console.log('User disconnected'); });
+    // User logs out
+    socket.on('logout', function(user) { chatAPI.removeUser(user, onlineUsers); });
+    // User closes window
+    socket.on('exit', function(user) { chatAPI.removeUser(user, onlineUsers); });
+
+
+    //===========================================================================================================
+    // LOGIN COMMUNICATION WITH A CLIENT:
+
+    // User log in: Register new users
+    socket.on('login', function(user) {
+        dbAPI.registerUser(admin, socket, user, onlineUsers);
+        socket.emit('login');
+    });
+
+    //==========================================================================================================
+    // SINGLE - PLAYER: LISTEN TO A CLIENT:
+
+    socket.on('single-player-start-game',function(category, user) {
+        let listOfPlayers = [ user ];
+        const gameObj = new gameFactory.GameObject(listOfPlayers, category);
+        gameFactory.gameObjects.set(user.email, gameObj);
         gameLogic.updateCurrentLetter(gameObj.currentLetter, socket);
-
+        gameLogic.updateCurrentScore(gameObj.score, socket);
     });
 
-    // TODO find game based on the socket
-    socket.on('single-player-input', function(inputStr){
-        var gameObj = gameFactory.returnGameObjBasedOnSocket(socket.id);
-        gameLogic.doLogic(gameObj,inputStr,socket);
+    socket.on('single-player-input', function(inputStr, user){
+        const gameObj = gameFactory.returnGameObject(user);
+        gameLogic.doLogic(gameObj, inputStr, socket, user);
     });
 
+    socket.on('delete-single-player-game', function (user){
+        gameFactory.gameObjects.delete(user);
+    });
 
-
-
-    // User log in: Check if new or returning user
-    socket.on('login', function(user) { dbAPI.registerUser(admin, socket, user); });
+    //==========================================================================================================
+    // DATA BASE COMMUNICATION WITH THE CLIENT:
 
     // User data requested
     socket.on('get user', function(user) { dbAPI.getUser(admin, socket, user); });
 
     // User name change requested
-    socket.on('new name', function(user, newName) { dbAPI.changeUserName(admin, user, newName, socket); });
+    socket.on('new name', function(user, name) { dbAPI.changeUserName(admin, user, name, socket); });
+
+    //User color change requested
+    socket.on('new color', function(user, color) { dbAPI.changeUserColor(admin, user, color, socket) });
 
     // Leaderboard data requested
     socket.on('get leaderboard', function() { dbAPI.getLeaderboard(admin, socket); });
 
-    // On disconnection
-    socket.on('disconnect', function(){
-        console.log("User disconnected");
-    });
+
+
+    //==========================================================================================================
+    // CHAT COMMUNICATION WITH A CLIENT:
+
+    // User sends a message to the chat
+    socket.on('chat', function(user, message) { chatAPI.broadcastMessage(io, message, user.name, user.chatColor); });
+
+    // User sends a message to another user during a game
+    socket.on('message', function(user, message) { chatAPI.sendMessage(socket, message, user.name, user.chatColor); });
 });

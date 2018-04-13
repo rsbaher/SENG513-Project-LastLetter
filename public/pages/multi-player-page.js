@@ -1,26 +1,12 @@
-//======================================================================================================================
-// UPDATE HTML:
-function loadMultiPlayerPage(){
+// Wrap everything else in JQuery
+$(function() {
 
-    $('.unauthorized').hide();
-    $('.profile').hide();
-    $('.home').hide();
-    $('.single-player').hide();
-
-    $('.default').show();
-    $('.authorized').show();
-    $('.multi-player').show();
-}
-
-
-//======================================================================================================================
-// EVENTS FROM HTML:
-
-
-//======================================================================================================================
-// SEND INFO TO THE SERVER
-
-
-
-//======================================================================================================================
-// GET INFO FROM THE SERVER
+    // Set up multi player input by assigning a form submit handler
+    $('#multi-player-form').submit(function () {
+        let m = $('#multi-player-input');
+        socket.emit('multi-player-input', m.val(), dbUserObject);
+        m.val('');
+        m.focus().select();
+        return false;
+    });
+});
