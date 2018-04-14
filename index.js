@@ -65,8 +65,8 @@ io.on('connection', function(socket){
         let listOfPlayers = [ user ];
         const gameObj = new gameFactory.GameObject(listOfPlayers, category);
         gameFactory.gameObjects.set(user.email, gameObj);
-        gameLogic.updateCurrentLetter(gameObj.currentLetter, socket);
-        gameLogic.updateCurrentScore(gameObj.score, socket);
+        gameLogic.updateCurrentLetter(gameObj, socket);
+        gameLogic.updateCurrentScore(gameObj, socket);
     });
 
     socket.on('single-player-input', function(inputStr, user){

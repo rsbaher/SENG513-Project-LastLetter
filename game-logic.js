@@ -11,8 +11,8 @@ module.exports = {
         }
     },
 
-    updateCurrentLetter: function (currentLetterStr, socket) {
-        updateCurrentLetterHTML(currentLetterStr,socket);
+    updateCurrentLetter: function (gameObj, socket) {
+        updateCurrentLetterHTML(gameObj,socket);
     },
 
     updateCurrentScore: function (scoreNum, socket) {
@@ -110,7 +110,7 @@ function performGeneralLogic(gameObj, inputStr, socket) {
     updateScore(gameObj,socket);
     changeTurn(gameObj);
     updateCurrentLetter(gameObj,inputStr);
-    updateCurrentLetterHTML(gameObj.currentLetter, socket);
+    updateCurrentLetterHTML(gameObj, socket);
     updateGameAnswers(gameObj, inputStr);
     displayMessageHTML("Last entry: " + inputStr + "\n" +
         "Your letter is: " + gameObj.currentLetter, socket);
@@ -150,11 +150,21 @@ function displayMessageHTML (outputStr, socket){
     socket.emit('single-player-display-message', outputStr);
 }
 
-function updateScoreHTML(scoreNum, socket){
-    socket.emit('single-player-update-score', scoreNum);
+function updateScoreHTML(gameObj, socket){
+    if (gameObj.category === "singlePlayer"){
+        socket.emit('single-player-update-score', gameObj.score);
+    }
+    if (gameObj.category === "multiPlayer"){
+        socket.emit('multi-player-update-score', gameObj.score);
+    }
 }
 
-function updateCurrentLetterHTML(currentLetterStr, socket){
-    socket.emit('single-player-update-current-letter', currentLetterStr);
+function updateCurrentLetterHTML(gameObj, socket){
+    if (gameObj.category === "singlePlayer") {
+        socket.emit('single-player-update-current-letter', gameObj.currentLetter);
+    }
+    if (gameObj.category === "multiPlayer"){
+        socket.emit('multi-player-update-current-letter', gameObj.currentLetter);
+    }
 }
 
