@@ -21,7 +21,8 @@ module.exports = {
                     chatColor: '#000000',   // Chat message color
                     imageLink: null,        // User profile image URL
                     gameInProgress: false,  // Is the user in a game right now?
-                    savedGame: null         // Previously saved single player game
+                    savedGame: null,        // Previously saved single player game
+                    mySocket: socket.id,
                 })
                     // Success
                     .then(function() { users.set(user.email, user); })
@@ -63,7 +64,8 @@ module.exports = {
             chatColor: user.chatColor,              // Chat message color
             imageLink: user.imageLink,              // User profile image URL
             gameInProgress: user.gameInProgress,    // Is the user in a game right now?
-            savedGame: user.savedGame               // Previously saved single player game
+            savedGame: user.savedGame,               // Previously saved single player game
+            mySocket: user.mySocket,
         };
         ref.set(data)
 
@@ -89,7 +91,8 @@ module.exports = {
             chatColor: newColor,                    // New Chat message color
             imageLink: user.imageLink,              // User profile image URL
             gameInProgress: user.gameInProgress,    // Is the user in a game right now?
-            savedGame: user.savedGame               // Previously saved single player game
+            savedGame: user.savedGame,               // Previously saved single player game
+            mySocket: user.mySocket,
         };
         ref.set(data)
 
@@ -99,6 +102,63 @@ module.exports = {
             // Error
             .catch(function(error) { console.error('Error: ', error); });
     },
+
+
+    /**
+     * Change a user's name in the DB
+     */
+    changeUserName: function(admin, user, newName, socket) {
+
+        // Get reference to user in DB and update it
+        const ref = admin.firestore().collection('users').doc(user.email);
+        let data = {
+            email: user.email,                      // Email = Key
+            name: newName,                          // New username
+            singleHighScore: user.singleHighScore,  // Single player high score
+            multiHighScore: user.multiHighScore,    // Multi player high score
+            chatColor: user.chatColor,              // Chat message color
+            imageLink: user.imageLink,              // User profile image URL
+            gameInProgress: user.gameInProgress,    // Is the user in a game right now?
+            savedGame: user.savedGame,              // Previously saved single player game
+            mySocket: user.mySocket,
+        };
+        ref.set(data)
+
+        // Success
+            .then(function () { socket.emit('new name', newName); })
+
+            // Error
+            .catch(function(error) { console.error('Error: ', error); });
+    },
+
+    /**
+     * Change a user's socket id in the DB
+     */
+    changeUserSocketID: function(admin, user, socket) {
+
+        // Get reference to user in DB and update it
+        const ref = admin.firestore().collection('users').doc(user.email);
+        let data = {
+            email: user.email,                      // Email = Key
+            name: user.name,                        // Username
+            singleHighScore: user.singleHighScore,  // Single player high score
+            multiHighScore: user.multiHighScore,    // Multi player high score
+            chatColor: user.chatColor,                    // New Chat message color
+            imageLink: user.imageLink,              // User profile image URL
+            gameInProgress: user.gameInProgress,    // Is the user in a game right now?
+            savedGame: user.savedGame,               // Previously saved single player game
+            mySocket: socket.id,
+        };
+        ref.set(data)
+
+        // Success
+            .then(function () { // TODO do something here
+            })
+
+            // Error
+            .catch(function(error) { console.error('Error: ', error); });
+    },
+
 
     /**
      * Get the top 10 players for single and multi player from the DB

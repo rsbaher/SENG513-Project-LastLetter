@@ -2,7 +2,8 @@
 //======================================================================================================================
 // GLOBAL VARIABLES
 
-let onlineUsers = new Map();// active users (email -> User)
+var onlineUsers = new Map();// active users (email -> User)
+
 
 //======================================================================================================================
 // DEPENDENCIES
@@ -19,6 +20,7 @@ const dbAPI = require('./dbAPI');
 const chatAPI = require('./chatAPI');
 const gameFactory = require('./game-factory.js');
 const gameLogic = require('./game-logic.js');
+const multiPlayerLogic = require('./multi-player-logic.js');
 
 //======================================================================================================================
 // SERVER SETUP
@@ -37,6 +39,8 @@ admin.initializeApp({
 
 
 io.on('connection', function(socket){
+
+
 
     //======================================================================================================================
     // DISCONNECT OR EXIT COMMUNICATION WITH A CLIENT:
@@ -61,22 +65,42 @@ io.on('connection', function(socket){
     //==========================================================================================================
     // SINGLE - PLAYER: LISTEN TO A CLIENT:
 
-    socket.on('single-player-start-game',function(category, user) {
+    socket.on('single-player-start-game',function(categoryStr, user) {
         let listOfPlayers = [ user ];
-        const gameObj = new gameFactory.GameObject(listOfPlayers, category);
+        let gameObj = new gameFactory.GameObject(listOfPlayers, categoryStr);
         gameFactory.gameObjects.set(user.email, gameObj);
-        gameLogic.updateCurrentLetter(gameObj.currentLetter, socket);
-        gameLogic.updateCurrentScore(gameObj.score, socket);
+        gameLogic.updateCurrentLetterSinglePlayer(gameObj.currentLetter, socket);
+        gameLogic.updateCurrentScoreSinglePlayer(gameObj.score, socket);
     });
 
     socket.on('single-player-input', function(inputStr, user){
-        const gameObj = gameFactory.returnGameObject(user);
+        let gameObj = gameFactory.returnGameObject(user);
         gameLogic.doLogic(gameObj, inputStr, socket, user);
     });
 
     socket.on('delete-single-player-game', function (user){
         gameFactory.gameObjects.delete(user);
     });
+
+    //==========================================================================================================
+    // MULTI=PLAYER:
+
+    socket.on('add-me-to-wait-list-or-give-a-player', function(user, categoryStr){
+        let listOfPlayers = multiPlayerLogic.addMeToTheListOrGiveAPlayer(socket, user, categoryStr);
+        if (listOfPlayers.length > 0){
+            let gameObj = new gameFactory.GameObject(listOfPlayers, categoryStr);
+
+            let socket1 = listOfPlayers[0].socket;
+            let socket2 = listOfPlayers[1].socket;
+
+            gameLogic.updateCurrentScoreMultiPlayer(gameObj.score, socket1 );
+            gameLogic.updateCurrentLetterSinglePlayer(gameObj.currentLetter, socket1);
+
+            gameLogic.updateCurrentScoreMultiPlayer(gameObj.score, socket2 );
+            gameLogic.updateCurrentLetterSinglePlayer(gameObj.currentLetter, socket2);
+        }
+    });
+
 
     //==========================================================================================================
     // DATA BASE COMMUNICATION WITH THE CLIENT:

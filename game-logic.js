@@ -11,13 +11,24 @@ module.exports = {
         }
     },
 
-    updateCurrentLetter: function (currentLetterStr, socket) {
-        updateCurrentLetterHTML(currentLetterStr,socket);
+    updateCurrentLetterSinglePlayer: function (currentLetterStr, socket) {
+        updateCurrentLetterHTMLSinglePlayer(currentLetterStr,socket);
     },
 
-    updateCurrentScore: function (scoreNum, socket) {
-        updateScoreHTML(scoreNum,socket);
-}
+    updateCurrentScoreSinglePlayer: function (scoreNum, socket) {
+        updateScoreHTMLSinglePlayer (scoreNum,socket);
+    },
+
+    updateCurrentLetterMultiPlayer: function (currentLetterStr, socket) {
+        updateCurrentLetterHTMLMultiPlayer(currentLetterStr,socket);
+    },
+
+    updateCurrentScoreMultiPlayer: function (scoreNum, socket) {
+        updateScoreHTMLMultiPlayer (scoreNum,socket);
+    },
+
+
+
 
 };
 
@@ -110,7 +121,7 @@ function performGeneralLogic(gameObj, inputStr, socket) {
     updateScore(gameObj,socket);
     changeTurn(gameObj);
     updateCurrentLetter(gameObj,inputStr);
-    updateCurrentLetterHTML(gameObj.currentLetter, socket);
+    updateCurrentLetterHTMLSinglePlayer(gameObj.currentLetter, socket);
     updateGameAnswers(gameObj, inputStr);
     displayMessageHTML("Last entry: " + inputStr + "\n" +
         "Your letter is: " + gameObj.currentLetter, socket);
@@ -118,7 +129,7 @@ function performGeneralLogic(gameObj, inputStr, socket) {
 
 function updateScore(gameObj, socket){
     gameObj.score++;
-    updateScoreHTML(gameObj.score,socket);
+    updateScoreHTMLSinglePlayer (gameObj.score,socket);
 }
 
 function changeTurn(gameObj){
@@ -150,11 +161,20 @@ function displayMessageHTML (outputStr, socket){
     socket.emit('single-player-display-message', outputStr);
 }
 
-function updateScoreHTML(scoreNum, socket){
+function updateScoreHTMLSinglePlayer(scoreNum, socket){
     socket.emit('single-player-update-score', scoreNum);
 }
 
-function updateCurrentLetterHTML(currentLetterStr, socket){
+function updateCurrentLetterHTMLSinglePlayer(currentLetterStr, socket){
     socket.emit('single-player-update-current-letter', currentLetterStr);
 }
+
+function updateScoreHTMLMultiPlayer(scoreNum, socket){
+    socket.emit('multi-player-update-score', scoreNum);
+}
+
+function updateCurrentLetterHTMLMultiPlayer(currentLetterStr, socket){
+    socket.emit('multi-player-update-current-letter', currentLetterStr);
+}
+
 

@@ -22,11 +22,8 @@ $(function() {
 
     // TODO ask server to delete me from the wait list
     function deleteMeFromTheWaitList(){
-
+        socket.emit('multiplayer-delete-me-from-wait-list', dbUserObject);
     }
-
-    //===========================================================================================================
-    // LISTEN TO A SERVER:
 });
 
 //==============================================================================================================
@@ -45,9 +42,11 @@ function loadWaitForPlayersPage() {
     $('.wait-for-players').show();
 }
 
-// TODO ask server to look for players:
-// TODO in the corresponding to the category list
+function addMeToListOrGivePlayer(){
+
+}
+
 function startLookingForOtherPlayers(categoryStr){
     loadWaitForPlayersPage();
-    // TODO EMIT TO SERVER;
+    addMeToListOrGivePlayer();
 }

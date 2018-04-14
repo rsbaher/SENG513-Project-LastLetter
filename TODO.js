@@ -17,6 +17,8 @@
 // TODO how to make sure that one person have not been chosen by multiple players?
 // TODO boolean available??????
 
+// TODO remove user from wait list in multiplayer if he exits the game?
+
 
 //========================================================================================
 // TODO FINISHED:
