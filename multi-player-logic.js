@@ -43,14 +43,16 @@ module.exports = {
         this.addSocketToWaitList(socket, user, correspondingCategoryList);
 
         let keysList = correspondingCategoryList.entries();
-        console.log(keysList);
-            if (keysList.length > 1){
-                console.log("got here");
-                let socket1 = keysList[0];
-                let socket2 = keysList[1];
+            if (correspondingCategoryList.size > 1){
+                let socket1 = keysList.next().value[0]; //0, user1
+                let socket2 = keysList.next().value[0]; //1, user2
+                //console.log(socket1);
+                //console.log(socket2);
 
                 let user1 = correspondingCategoryList.get(socket1);
                 let user2 = correspondingCategoryList.get(socket2);
+                //console.log(user1);
+                //console.log(user2);
 
                 this.removeSocketFromWaitList(socket1);
                 this.removeSocketFromWaitList(socket2);
