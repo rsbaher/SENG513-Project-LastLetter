@@ -1,6 +1,6 @@
 module.exports = {
 
-     GameObject: function(listOfPlayers, categoryStr) {
+     GameObject: function(listOfPlayers, categoryStr, mapUserToSocket) {
         this.listOfPlayers = listOfPlayers;
         this.player1 = listOfPlayers[0];
 

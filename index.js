@@ -2,7 +2,8 @@
 //======================================================================================================================
 // GLOBAL VARIABLES
 
-var onlineUsers = new Map();// active users (email -> User)
+let onlineUsers = new Map();// active users (email -> User)
+let userToGame = new Map();
 
 //======================================================================================================================
 // DEPENDENCIES
@@ -68,6 +69,7 @@ io.on('connection', function(socket){
     // SINGLE - PLAYER: LISTEN TO A CLIENT:
 
     socket.on('single-player-start-game',function(categoryStr, user) {
+        console.log("user from single player" + user);
         let listOfPlayers = [ user ];
         let gameObj = new gameFactory.GameObject(listOfPlayers, categoryStr);
         gameFactory.gameObjects.set(user.email, gameObj);
@@ -91,19 +93,31 @@ io.on('connection', function(socket){
         multiPlayerLogic.removeSocketFromWaitList(socket);
     });
 
-    socket.on('add-me-to-wait-list-or-give-a-player', function(user, categoryStr){
-        let listOfPlayers = multiPlayerLogic.addMeToTheListOrGiveAPlayer(socket, user, categoryStr);
-        if (listOfPlayers.length > 0){
-            let gameObj = new gameFactory.GameObject(listOfPlayers, categoryStr);
+    socket.on('add-me-to-wait-list-or-give-a-player', function(categoryStr, user){
+        //categoryStr = "cities";
 
-            let socket1 = listOfPlayers[0].socket;
-            let socket2 = listOfPlayers[1].socket;
+        console.log("user was added to wait list" + user);
+        let mapUserToSocket = multiPlayerLogic.addMeToTheListOrGiveAPlayer(socket, user, categoryStr);
+        console.log(mapUserToSocket);
+        let listOfKeys = mapUserToSocket.entries();
+        if (listOfKeys.length > 0){
+
+            let gameObj = new gameFactory.GameObject(listOfKeys, categoryStr, mapUserToSocket);
 
             gameLogic.updateCurrentScoreMultiPlayer(gameObj.score, socket1 );
             gameLogic.updateCurrentLetterSinglePlayer(gameObj.currentLetter, socket1);
 
             gameLogic.updateCurrentScoreMultiPlayer(gameObj.score, socket2 );
             gameLogic.updateCurrentLetterSinglePlayer(gameObj.currentLetter, socket2);
+
+            let key1 = listOfKeys[0];
+            let key2 = listOfKeys[1];
+
+            let socket1 = mapUserToSocket.get(key1);
+            let socket2 = mapUserToSocket.get(key2);
+
+            gameLogic.updatePageToGame(socket1);
+            gameLogic.updatePageToGame(socket2);
 
             
         }

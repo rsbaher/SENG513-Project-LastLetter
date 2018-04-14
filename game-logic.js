@@ -27,6 +27,9 @@ module.exports = {
         updateScoreHTMLMultiPlayer (scoreNum,socket);
     },
 
+    updatePageToGame: function(socket){
+        updatePageHTMLMultiPlayer(socket);
+    }
 
 
 
@@ -175,6 +178,11 @@ function updateScoreHTMLMultiPlayer(scoreNum, socket){
 
 function updateCurrentLetterHTMLMultiPlayer(currentLetterStr, socket){
     socket.emit('multi-player-update-current-letter', currentLetterStr);
+}
+
+
+function updatePageHTMLMultiPlayer(socket){
+    socket.emit('update-page-to-multi-player-game');
 }
 
 

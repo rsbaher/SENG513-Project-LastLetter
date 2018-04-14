@@ -40,13 +40,16 @@ function loadWaitForPlayersPage() {
     $('.default').show();
     $('.authorized').show();
     $('.wait-for-players').show();
+
+    console.log("hello");
+    addMeToListOrGivePlayer();
 }
 
 function addMeToListOrGivePlayer(){
-    socket.emit('add-me-to-wait-list-or-give-a-player');
+    console.log("Send message to the server asking to add to list");
+    socket.emit('add-me-to-wait-list-or-give-a-player',category, dbUserObject);
 }
 
 function startLookingForOtherPlayers(categoryStr){
     loadWaitForPlayersPage();
-    addMeToListOrGivePlayer();
 }

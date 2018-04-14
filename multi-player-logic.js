@@ -35,25 +35,32 @@ module.exports = {
     // RETURN PLAYERS IF POSSIBLE OR ADD ME TO THE LIST:
 
     addMeToTheListOrGiveAPlayer: function(socket, user, categoryStr){
-
-        let arrayOfUsersReadyToPlay = [];
+        console.log("my user is:" + user);
+        let mapUserToSocket = new Map();
 
         let correspondingCategoryList = this.returnCorrespondingCategoryList(categoryStr);
+
         this.addSocketToWaitList(socket, user, correspondingCategoryList);
 
         let keysList = correspondingCategoryList.entries();
+        console.log(keysList);
             if (keysList.length > 1){
+                console.log("got here");
                 let socket1 = keysList[0];
                 let socket2 = keysList[1];
 
-                let user1 = this.correspondingCategoryList.get(socket1);
-                let user2 = this.correspondingCategoryList.get(socket2);
+                let user1 = correspondingCategoryList.get(socket1);
+                let user2 = correspondingCategoryList.get(socket2);
 
                 this.removeSocketFromWaitList(socket1);
                 this.removeSocketFromWaitList(socket2);
 
-                arrayOfUsersReadyToPlay = [user1, user2];
+                mapUserToSocket.set(user1,socket1);
+                mapUserToSocket.set(user2,socket2);
+
+                return mapUserToSocket;
             }
-        return arrayOfUsersReadyToPlay;
-    },
+        return mapUserToSocket;
+
+    }
 };

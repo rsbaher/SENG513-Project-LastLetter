@@ -10,5 +10,11 @@ $(function() {
         return false;
     });
 });
+//======================================================================================================================
+// GET MESSAGES FROM THE SERVER
 
 // TODO: multi-player-update-score, message.....
+socket.on('update-page-to-multi-player-game', function () {
+    console.log("was asked to update the page");
+    startMultiPlayerGame();
+});
