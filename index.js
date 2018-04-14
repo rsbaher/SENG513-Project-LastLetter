@@ -4,7 +4,6 @@
 
 var onlineUsers = new Map();// active users (email -> User)
 
-
 //======================================================================================================================
 // DEPENDENCIES
 
@@ -37,10 +36,12 @@ admin.initializeApp({
     databaseURL: 'https://seng513-project-lastletter.firebaseio.com'
 });
 
+//====================================================================================================================
+// GET MESSAGES FROM A CLIENT:
 
 io.on('connection', function(socket){
 
-
+    // TODO , find a user, get socket if available, set a new one
 
     //======================================================================================================================
     // DISCONNECT OR EXIT COMMUNICATION WITH A CLIENT:
@@ -85,6 +86,10 @@ io.on('connection', function(socket){
     //==========================================================================================================
     // MULTI=PLAYER:
 
+    socket.on('multiplayer-delete-me-from-wait-list', function(){
+        multiPlayerLogic.removeSocketFromWaitList(socket);
+    });
+
     socket.on('add-me-to-wait-list-or-give-a-player', function(user, categoryStr){
         let listOfPlayers = multiPlayerLogic.addMeToTheListOrGiveAPlayer(socket, user, categoryStr);
         if (listOfPlayers.length > 0){
@@ -100,7 +105,6 @@ io.on('connection', function(socket){
             gameLogic.updateCurrentLetterSinglePlayer(gameObj.currentLetter, socket2);
         }
     });
-
 
     //==========================================================================================================
     // DATA BASE COMMUNICATION WITH THE CLIENT:
@@ -123,8 +127,21 @@ io.on('connection', function(socket){
     // CHAT COMMUNICATION WITH A CLIENT:
 
     // User sends a message to the chat
-    socket.on('chat', function(user, message) { chatAPI.broadcastMessage(io, message, user.name, user.chatColor); });
+    socket.on('chat', function(user, message) {
+        chatAPI.broadcastMessage(io, message, user.name, user.chatColor);
+    });
 
     // User sends a message to another user during a game
-    socket.on('message', function(user, message) { chatAPI.sendMessage(socket, message, user.name, user.chatColor); });
+    socket.on('message', function(user, message) {
+        chatAPI.sendMessage(socket, message, user.name, user.chatColor);
+    });
+
+
+    //===============================================================================================================
+    // COOKIES:
+
+    
+
+
+
 });

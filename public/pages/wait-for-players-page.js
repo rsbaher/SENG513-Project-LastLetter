@@ -43,7 +43,7 @@ function loadWaitForPlayersPage() {
 }
 
 function addMeToListOrGivePlayer(){
-
+    socket.emit('add-me-to-wait-list-or-give-a-player');
 }
 
 function startLookingForOtherPlayers(categoryStr){

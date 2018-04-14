@@ -25,8 +25,10 @@ module.exports = {
         correspondingCategoryList.set(socket, user);
     },
 
-    removeSocketFromWaitList: function(socket, user, correspondingCategoryList){
-       correspondingCategoryList.delete(socket);
+    removeSocketFromWaitList: function(socket){
+       this.socketsWaitingForOpponentCountries.delete(socket);
+       this.socketsWaitingForOpponentCities.delete(socket);
+        console.log("User was removed from the wait list");
     },
 
     //=================================================================================================================
@@ -47,8 +49,8 @@ module.exports = {
                 let user1 = this.correspondingCategoryList.get(socket1);
                 let user2 = this.correspondingCategoryList.get(socket2);
 
-                this.removeSocketFromWaitList(correspondingCategoryList, socket1);
-                this.removeSocketFromWaitList(correspondingCategoryList, socket2);
+                this.removeSocketFromWaitList(socket1);
+                this.removeSocketFromWaitList(socket2);
 
                 arrayOfUsersReadyToPlay = [user1, user2];
             }
