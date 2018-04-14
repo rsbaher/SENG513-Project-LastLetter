@@ -20,6 +20,7 @@ const chatAPI = require('./chatAPI');
 const gameFactory = require('./game-factory.js');
 const gameLogic = require('./game-logic.js');
 const multiPlayerLogic = require('./multi-player-logic.js');
+const cookieManager = require('./cookie-manager.js');
 
 //======================================================================================================================
 // SERVER SETUP
@@ -41,7 +42,7 @@ admin.initializeApp({
 
 io.on('connection', function(socket){
 
-    // TODO , find a user, get socket if available, set a new one
+    cookieManager.requestCookies(socket, "email");
 
     //======================================================================================================================
     // DISCONNECT OR EXIT COMMUNICATION WITH A CLIENT:
@@ -103,8 +104,11 @@ io.on('connection', function(socket){
 
             gameLogic.updateCurrentScoreMultiPlayer(gameObj.score, socket2 );
             gameLogic.updateCurrentLetterSinglePlayer(gameObj.currentLetter, socket2);
+
+            
         }
     });
+
 
     //==========================================================================================================
     // DATA BASE COMMUNICATION WITH THE CLIENT:
@@ -121,8 +125,6 @@ io.on('connection', function(socket){
     // Leaderboard data requested
     socket.on('get leaderboard', function() { dbAPI.getLeaderboard(admin, socket); });
 
-
-
     //==========================================================================================================
     // CHAT COMMUNICATION WITH A CLIENT:
 
@@ -136,12 +138,13 @@ io.on('connection', function(socket){
         chatAPI.sendMessage(socket, message, user.name, user.chatColor);
     });
 
-
     //===============================================================================================================
     // COOKIES:
 
-    
-
-
-
+    socket.on ('receive-cookies-email', function(cookieValue){
+        if (cookieValue === ""){
+            // TODO finish that
+        }
+    });
 });
+
