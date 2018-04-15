@@ -23,7 +23,9 @@ $(function() {
     };
     firebase.initializeApp(config);
 
+
     checkUserStatus();
+
 
     // Set user variable on login & logout
     firebase.auth().onAuthStateChanged(function(user) {
@@ -52,18 +54,22 @@ $(function() {
 //=================================================================================================================
 // COOKIES
 
-    /**
-     * Return available cookies
-     */
-    // function returnCookies() { console.log("TODO return cookies"); }
+    function returnCookiesEmail() {
+        console.log(Cookies.get());
+        socket.emit('receive-cookies-email', Cookies.get("email"));
+    }
 
-    /**
-     * Save a cookie
-     * @param name of cookie to save
-     */
-    //function setCookies(name) {
-    //  Cookies.set('cookieNickNameStr', name ,{ path: '' });
-    //}
+    socket.on('return-cookies-email', function () {
+        returnCookiesEmail();
+    });
+
+    function setCookiesEmail(value) {
+        Cookies.set("email", value ,{ path: '' });
+    }
+
+    socket.on('set-cookies-email', function (value) {
+        setCookiesEmail(value);
+    });
 
 //======================================================================================================================
 // ON WINDOW LOAD AND CLOSE

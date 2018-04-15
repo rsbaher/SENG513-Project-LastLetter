@@ -7,14 +7,10 @@ DOCUMENT METADATA:                                                              
 <head>
     <title>LAST LETTER</title>                                      <!-- Define the title in the browser -->
     <link rel="stylesheet" href="style.css">                        <!-- Link to an external style file -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content ="width=device-width, initial-scale=1">
 
     <!--Firebase-->
     <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
-
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <!-- JQuery: -->
     <script
@@ -39,6 +35,8 @@ DOCUMENT METADATA:                                                              
     <script src="pages/multi-player-page.js"></script>
     <script src="pages/profile-page.js"></script>
     <script src="pages/wait-for-players-page.js"></script>
+    <script src="pages/lost-game-page.js"></script>
+    <script src="pages/won-game-page.js"></script>
 </head>
 
 <!--====================================================================================================================
@@ -46,32 +44,18 @@ BODY-->
 <body>
 <div id="everything">
 
-<!--
+
     <header id="header-container">
-        <p class="default">logo will be here and</p>
+        <p class ="default">logo will be here and</p>
         <button id="login-button-header" class="unauthorized">Login in</button>
         <button id="my-profile-button-header" class="authorized, home">My Profile</button>
         <button id="log-out-button-header" class="authorized, default">Log out</button>
-    </header> -->
-    <nav class="navbar navbar-inverse" id="header-container">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Last Letter</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li><a href="#">Home</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li id="login-button-header" class="unauthorized"><a href='#'><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                <li id="my-profile-button-header" class="authorized"><a href='#'><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
-                <li id="log-out-button-header" class="authorized"><a href='#'><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
-            </ul>
-        </div>
-    </nav>
+    </header>
+
 
     <div id="about-container" class="unauthorized, home">
-        <h2 class="center">About section</h2>
-        <p class="center">Online Last Letter is a Single Page Application game. It is being developed as the
+        <p>About section</p>
+        <p>Online Last Letter is a Single Page Application game. It is being developed as the
             final deliverable for Software Engineering course SENG513 at the University of Calgary
             in the course of the Winter Semester 2018. The game is inspired by similar offline
             games like "Going on a Picnic", and attempts to recreate that experience online. Online
@@ -81,12 +65,8 @@ BODY-->
 
 
     <div id="login-container" class="unauthorized">
-        <p>
-            <iframe class="center" width="560" height="315" src="https://www.youtube.com/embed/2NKIuH8gtxc"></iframe>
-        </p>
-        <p>
-            <button id="login-button-unauthorized-user-container" class="btn-primary btn-lg center"><span class="glyphicon glyphicon-log-in"></span> Login</button>
-        </p>
+        <p><iframe width="560" height="315" src="https://www.youtube.com/embed/2NKIuH8gtxc"></iframe></p>
+        <p><button id="login-button-unauthorized-user-container">Login in</button></p>
     </div>
 
 
@@ -114,8 +94,7 @@ BODY-->
                 <li>Test</li>
             </ul>
             <form id="chat-form" action="">
-                <input title="input" id="m" autocomplete="off"/>
-                <button id="chat-button">Send</button>
+                <input title="input" id="m" autocomplete="off" /><button id="chat-button">Send</button>
             </form>
         </div>
         <div id="users-container">
@@ -140,7 +119,7 @@ BODY-->
     </div>
 
 
-    <div id="my-profile-container" class="profile">
+    <div id = "my-profile-container" class="profile">
         <button id="back-to-home-button-1">BACK TO HOME</button>
         <p>My profile</p>
         <p>Email: <span id="user-email-text"></span></p>
@@ -152,33 +131,40 @@ BODY-->
     </div>
 
 
-    <div id="single-player-container" class="single-player">
+    <div id ="single-player-container" class="single-player">
         <button id="back-to-home-button-single">BACK TO HOME</button>
-      
         <p id ="single-player-messages">Message:</p>
         <p id ="single-player-score">Score: <span id="single-player-score-text">0</span></p>
         <p>Category: <span id="single-player-category"></span></p>
         <p id = "single-player-current-letter">Current Letter</p>
-  
         <form id="single-player-form" action="">
-            <input title='input' id='single-player-input' autocomplete="off"/>
-            <button id="single-player-input-button">Send</button>
+            <input title='input' id='single-player-input' autocomplete="off" />
+            <button id="single-player-input-button">
+                Send
+            </button>
         </form>
         <button id="save-game-button-single">Save game</button>
     </div>
 
 
-    <div id="multi-player-container" class="multi-player">
+    <div id ="multi-player-container" class="multi-player">
         <button id="back-to-home-button-multiplayer">BACK TO HOME</button>
-        <p>messages to multiplayer user</p>
+
         <p>Category: <span id="multi-player-category"></span></p>
+        <p id="multi-player-messages">messages to multiplayer user</p>
+        <p id ="multi-player-score">Score:</p>
+        <p id = "multi-player-current-letter">Current Letter</p>
+
+
         <form action="" id="multi-player-form">
-            <input title="input" id="multi-player-input" autocomplete="off"/>
-            <button id="multi-player-input-button">Send</button>
+            <input title="input" id="multi-player-input" autocomplete="off" />
+            <button id="multi-player-input-button">
+                Send
+            </button>
         </form>
     </div>
 
-
+    
     <div class="wait-for-players">
         <button id="back-to-home-button-wait-for-players">BACK TO HOME</button>
         <p> We are looking for other players, please wait</p>
@@ -186,20 +172,26 @@ BODY-->
     </div>
 
 
-    <nav class="footer navbar navbar-inverse navbar-fixed-bottom" style="line-height: 100%">
-        <div class="container-fluid v-center">
-            <span style="vertical-align: middle;">By Olga Chitsvarina, Jared Madden, Olga Bogdanova, Regina Baher, and Marc Fichtel</span>
-            <div class="navbar-right"><a href="https://twitter.com/share?ref_src=twsrc%5Etfw"
-                                         class="twitter-share-button"
-                                         data-show-count="false">Tweet</a>
-                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
-                <script type="IN/Share" data-url="localhost:30000"></script>
-                <script src="https://apis.google.com/js/platform.js" async defer></script>
-                <div class="g-plus" data-action="share"></div>
-            </div>
-        </div>
-    </nav>
+    <div class ="lost-game">
+        <button id="back-to-home-lost-game">BACK TO HOME</button>
+        <p>You lost the game</p>
+        <p id = "lost-game-score">Score:</p>
+    </div>
+
+
+    <div class ="won-game">
+        <button id="back-to-home-won-game">BACK TO HOME</button>
+        <p>You won the game</p>
+        <p id = "won-game-score">Score:</p>
+    </div>
+
+
+    <footer class ="default">
+        <p>By Olga Chitsvarina, Jared Madden, Olga Bogdanova, Regina Baher, and Marc Fichtel</p>
+        <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script><script type="IN/Share" data-url="localhost:30000"></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script><div class="g-plus" data-action="share"></div>
+    </footer>
 
 
 </div>

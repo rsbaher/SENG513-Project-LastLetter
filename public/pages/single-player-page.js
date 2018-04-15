@@ -61,11 +61,16 @@ $(function() {
         document.getElementById("single-player-current-letter").innerHTML = "Current Letter :" + currentLetter;
     });
 
-    socket.on('load-single-player-game', function () { loadSinglePlayerPage(); });
 
-    socket.on('save-single-player-game', function (gameObj) {
-        dbUserObject.savedGame = gameObj;
-    });
+    socket.on('redirect-to-lost-game', function(score){
+        console.log("received message about redirectjgkjgl");
+        loadLostGamePage(score);
+        });
+
+ //   socket.on('load-single-player-game', function () { loadSinglePlayerPage(); });
+
+  //  socket.on('save-single-player-game', function (gameObj) {
+    //    dbUserObject.savedGame = gameObj;
 });
 
 //==============================================================================================================
@@ -77,6 +82,9 @@ function loadSinglePlayerPage() {
     $('.profile').hide();
     $('.home').hide();
     $('.multi-player').hide();
+    $('.lost-game').hide();
+    $('.won-game').hide();
+
     $('.default').show();
     $('.authorized').show();
     $('.single-player').show();

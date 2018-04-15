@@ -21,8 +21,10 @@ module.exports = {
                     chatColor: '#000000',   // Chat message color
                     imageLink: null,        // User profile image URL
                     gameInProgress: false,  // Is the user in a game right now?
+
                     socket: JSON.stringify(socket),
                     savedGame: null         // Previously saved single player game
+
                 })
                     // Success
                     .then(function() { users.set(user.email, user); })
@@ -53,15 +55,25 @@ module.exports = {
      * Change a user's name in the DB
      */
     changeUserName: function(admin, user, newName, socket) {
+
+
         updateProperty(admin, user, 'name', newName, socket, 'new name');
+
     },
 
     /**
      * Change a user's color in the DB
      */
     changeUserColor: function(admin, user, newColor, socket) {
+
         updateProperty(admin, user, 'chatColor', '#' + newColor, socket, 'new color');
+
     },
+
+
+    
+   
+
 
     /**
      * Get the top 10 players for single and multi player from the DB

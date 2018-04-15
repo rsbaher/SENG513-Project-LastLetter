@@ -13,11 +13,18 @@
 // TODO how to make sure that one person have not been chosen by multiple players?
 // TODO boolean available??????
 
+
+  // TODO remove user from wait list in multiplayer if he exits
+
+// TODO may need to change later that can get a user obj if close the window and open again (Index.js emailToGame)
+
+// TODO dictionary email to userObj
 // TODO what if user opens window in two tabs???
 // TODO authorized user is on home page, he opens another link in his browser,
 // TODO then comes back, he sees a login page, but should see a page from which he left a game
 
 // TODO deploy final version before deadline
+
 
 //========================================================================================
 // TODO FINISHED:

@@ -22,11 +22,8 @@ $(function() {
 
     // TODO ask server to delete me from the wait list
     function deleteMeFromTheWaitList(){
-
+        socket.emit('multiplayer-delete-me-from-wait-list', dbUserObject);
     }
-
-    //===========================================================================================================
-    // LISTEN TO A SERVER:
 });
 
 //==============================================================================================================
@@ -39,15 +36,20 @@ function loadWaitForPlayersPage() {
     $('.multi-player').hide();
     $('.single-player').hide();
     $('.home').hide();
+    $('.lost-game').hide();
+    $('.won-game').hide();
 
     $('.default').show();
     $('.authorized').show();
     $('.wait-for-players').show();
 }
 
-// TODO ask server to look for players:
-// TODO in the corresponding to the category list
+function addMeToListOrGivePlayer(){
+    console.log("Send message to the server asking to add to list");
+    socket.emit('add-me-to-wait-list-or-give-a-player',category, dbUserObject);
+}
+
 function startLookingForOtherPlayers(categoryStr){
     loadWaitForPlayersPage();
-    // TODO EMIT TO SERVER;
+    addMeToListOrGivePlayer();
 }
