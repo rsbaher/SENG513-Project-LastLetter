@@ -69,10 +69,10 @@ function signIn() {
 //==============================================================================================================
 
 // On successful login, display home page
-socket.on('login', function () { loadHomePage() });
+//socket.on('login', function () {  });
 
 // Server sends user data
 socket.on('get user', function(obj) {
     dbUserObject = obj;
-    socket.emit('add user', dbUserObject);
+    loadHomePage();
 });
