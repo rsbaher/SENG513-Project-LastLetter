@@ -135,6 +135,8 @@ function sendLeaderboardEntries(admin, socket, score) {
  */
 function updateProperty(admin, user, property, updatedValue, socket, event) {
 
+    console.log("Updating ", property, ": ", updatedValue);
+
     // Get reference to user in DB
     const ref = admin.firestore().collection('users').doc(user.email);
 

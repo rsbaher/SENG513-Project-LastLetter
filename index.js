@@ -2,8 +2,9 @@
 //======================================================================================================================
 // GLOBAL VARIABLES
 
-let onlineUsers = new Map();// active users (email -> User)
-let emailToGame = new Map();
+let onlineUsers = new Map();    // active users (email -> User)
+let emailToGame = new Map();    // active games (email -> Game)
+let multiGameSocket = new Map();// multiplayer game sockets (socketID -> socket)
 
 //======================================================================================================================
 // DEPENDENCIES
@@ -69,7 +70,6 @@ io.on('connection', function(socket){
     // SINGLE - PLAYER: LISTEN TO A CLIENT:
 
     socket.on('single-player-start-game',function(categoryStr, user) {
-        console.log("user from single player" + user);
         let listOfPlayers = [user];
 
         let emailToSocket = new Map;
@@ -78,8 +78,8 @@ io.on('connection', function(socket){
         let gameObj = new gameFactory.GameObject(listOfPlayers, categoryStr, emailToSocket);
 
         gameFactory.gameObjects.set(user.email, gameObj);
-        gameLogic.updateCurrentLetterSinglePlayer(gameObj);
-        gameLogic.updateCurrentScoreSinglePlayer(gameObj);
+        gameLogic.updateCurrentLetterSinglePlayer(gameObj, socket);
+        gameLogic.updateCurrentScoreSinglePlayer(gameObj, socket);
     });
 
     socket.on('single-player-input', function(inputStr, user){
@@ -99,10 +99,11 @@ io.on('connection', function(socket){
 
     socket.on('load-single-player-game', function (user) {
         const gameObj = JSON.parse(user.savedGame);
+
         gameFactory.gameObjects.set(user.email, gameObj);
 
-        gameLogic.updateCurrentLetterSinglePlayer(gameObj);
-        gameLogic.updateCurrentScoreSinglePlayer(gameObj);
+        gameLogic.updateCurrentLetterSinglePlayer(gameObj, socket);
+        gameLogic.updateCurrentScoreSinglePlayer(gameObj, socket);
 
         socket.emit('load-single-player-game', gameObj);
     });
@@ -115,11 +116,8 @@ io.on('connection', function(socket){
     });
 
     socket.on('add-me-to-wait-list-or-give-a-player', function(categoryStr, user){
-        //categoryStr = "cities";
 
-        console.log("user was added to wait list" + user);
         let mapUserToSocket = multiPlayerLogic.addMeToTheListOrGiveAPlayer(socket, user, categoryStr);
-        //console.log(mapUserToSocket);
         let listOfKeys = mapUserToSocket.entries();
         if (mapUserToSocket.size > 0){
 
@@ -135,15 +133,11 @@ io.on('connection', function(socket){
             emailToSocket.set(user1.email, socket1);
             emailToSocket.set(user2.email, socket2);
 
-
-            console.log("First check lit of players" + listOfPlayers);
             let gameObj = new gameFactory.GameObject(listOfPlayers, categoryStr, emailToSocket);
 
 
             emailToGame.set(user1.email, gameObj);
             emailToGame.set(user2.email, gameObj);
-
-            console.log(emailToGame.get(user1));
 
             gameLogic.updateCurrentScoreMultiPlayer(gameObj );
             gameLogic.updateCurrentLetterMultiPlayer(gameObj);

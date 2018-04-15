@@ -16,12 +16,12 @@ module.exports = {
 
     },
 
-    updateCurrentLetterSinglePlayer: function (gameObj) {
-        updateCurrentLetterHTMLSinglePlayer(gameObj);
+    updateCurrentLetterSinglePlayer: function (gameObj, socket) {
+        updateCurrentLetterHTMLSinglePlayer(gameObj, socket);
     },
 
-    updateCurrentScoreSinglePlayer: function (gameObj) {
-        updateScoreHTMLSinglePlayer (gameObj);
+    updateCurrentScoreSinglePlayer: function (gameObj, socket) {
+        updateScoreHTMLSinglePlayer (gameObj, socket);
     },
 
     updateCurrentLetterMultiPlayer: function (gameObj) {
@@ -124,7 +124,6 @@ function inputIsValidCountriesDatabase(inputStr){
 
 function returnSocketCurrentUser(gameObj){
     let turn = gameObj.turn;
-    console.log(turn);
     let currentEmail = gameObj.listOfPlayers[turn].email;
     return gameObj.emailToSocket.get(currentEmail);
 }
@@ -137,21 +136,21 @@ function returnSocketOtherUser(gameObj){
 
 
 function performGeneralLogic(gameObj, inputStr, socket) {
-    updateScore(gameObj);
+    updateScore(gameObj, socket);
     changeTurn(gameObj, inputStr);
     updateCurrentLetter(gameObj, inputStr);
-    updateCurrentLetterHTML(gameObj);
+    updateCurrentLetterHTML(gameObj, socket);
     updateGameAnswers(gameObj, inputStr);
     displayMessageHTML(inputStr + " was an accepted answer. <br> It is currently not your turn." +
                         "Please wait for your opponent.", socket, gameObj.mode);
 }
 
-function updateScore(gameObj){
+function updateScore(gameObj, socket){
     gameObj.score++;
     if(gameObj.mode === "multiPlayer"){
         updateScoreHTMLMultiPlayer(gameObj);
     }else{
-        updateScoreHTMLSinglePlayer (gameObj);
+        updateScoreHTMLSinglePlayer (gameObj, socket);
     }
 }
 
@@ -192,17 +191,16 @@ function displayMessageHTMLMulti (outputStr, socket){
 }
 
 function displayMessageHTML (outputStr, socket, modeStr){
-    console.log(modeStr);
     if (modeStr === "multiPlayer"){
         displayMessageHTMLMulti(outputStr,socket);
-    } else{
+    } else {
         displayMessageHTMLSingle(outputStr, socket);
     }
 
 }
 
-function updateScoreHTMLSinglePlayer(gameObj){
-    returnSocketCurrentUser(gameObj).emit('single-player-update-score', gameObj.score);
+function updateScoreHTMLSinglePlayer(gameObj, socket){
+    socket.emit('single-player-update-score', gameObj.score);
 }
 
 function updateScoreHTMLMultiPlayer(gameObj){
@@ -211,18 +209,18 @@ function updateScoreHTMLMultiPlayer(gameObj){
 }
 
 
-function updateCurrentLetterHTMLSinglePlayer(gameObj){
-    returnSocketCurrentUser(gameObj).emit('single-player-update-current-letter', gameObj.currentLetter);
+function updateCurrentLetterHTMLSinglePlayer(gameObj, socket){
+    socket.emit('single-player-update-current-letter', gameObj.currentLetter);
 }
 function updateCurrentLetterHTMLMultiPlayer(gameObj){
     returnSocketCurrentUser(gameObj).emit('multi-player-update-current-letter', gameObj.currentLetter);
     returnSocketOtherUser(gameObj).emit('multi-player-update-current-letter', gameObj.currentLetter);
 }
-function updateCurrentLetterHTML(gameObj){
+function updateCurrentLetterHTML(gameObj, socket){
     if(gameObj.mode === "multiPlayer"){
         updateCurrentLetterHTMLMultiPlayer(gameObj);
     }
-    updateCurrentLetterHTMLSinglePlayer(gameObj)
+    updateCurrentLetterHTMLSinglePlayer(gameObj, socket)
 }
 
 
@@ -232,7 +230,7 @@ function updatePageHTMLMultiPlayer(socket){
 
 
 
-function redirectToLostGame(gameObj,socket) {
+function redirectToLostGame(gameObj) {
     if (gameObj.mode === "multiPlayer"){
         returnSocketCurrentUser(gameObj).emit('redirect-to-lost-game', 0);
         returnSocketOtherUser(gameObj).emit('redirect-to-won-game',gameObj.score);
