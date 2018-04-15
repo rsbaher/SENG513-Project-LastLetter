@@ -3,7 +3,7 @@
 // GLOBAL VARIABLES
 
 let onlineUsers = new Map();// active users (email -> User)
-let userToGame = new Map();
+let emailToGame = new Map();
 
 //======================================================================================================================
 // DEPENDENCIES
@@ -70,11 +70,16 @@ io.on('connection', function(socket){
 
     socket.on('single-player-start-game',function(categoryStr, user) {
         console.log("user from single player" + user);
-        let listOfPlayers = [ user ];
-        let gameObj = new gameFactory.GameObject(listOfPlayers, categoryStr);
+        let listOfPlayers = [user];
+
+        let emailToSocket = new Map;
+        emailToSocket.set(user.email, socket);
+
+        let gameObj = new gameFactory.GameObject(listOfPlayers, categoryStr, emailToSocket);
+
         gameFactory.gameObjects.set(user.email, gameObj);
-        gameLogic.updateCurrentLetterSinglePlayer(gameObj.currentLetter, socket);
-        gameLogic.updateCurrentScoreSinglePlayer(gameObj.score, socket);
+        gameLogic.updateCurrentLetterSinglePlayer(gameObj);
+        gameLogic.updateCurrentScoreSinglePlayer(gameObj);
     });
 
     socket.on('single-player-input', function(inputStr, user){
@@ -102,24 +107,42 @@ io.on('connection', function(socket){
         let listOfKeys = mapUserToSocket.entries();
         if (mapUserToSocket.size > 0){
 
-            let gameObj = new gameFactory.GameObject(listOfKeys, categoryStr, mapUserToSocket);
-            let key1 = listOfKeys.next().value[0];
-            let key2 = listOfKeys.next().value[0];
+            let user1 = listOfKeys.next().value[0];
+            let user2 = listOfKeys.next().value[0];
 
-            let socket1 = mapUserToSocket.get(key1);
-            let socket2 = mapUserToSocket.get(key2);
+            let socket1 = mapUserToSocket.get(user1);
+            let socket2 = mapUserToSocket.get(user2);
 
-            gameLogic.updateCurrentScoreMultiPlayer(gameObj.score, socket1 );
-            gameLogic.updateCurrentLetterSinglePlayer(gameObj.currentLetter, socket1);
+            let listOfPlayers = [user1, user2];
 
-            gameLogic.updateCurrentScoreMultiPlayer(gameObj.score, socket2 );
-            gameLogic.updateCurrentLetterSinglePlayer(gameObj.currentLetter, socket2);
+            let emailToSocket = new Map;
+            emailToSocket.set(user1.email, socket1);
+            emailToSocket.set(user2.email, socket2);
+
+
+            console.log("First check lit of players" + listOfPlayers);
+            let gameObj = new gameFactory.GameObject(listOfPlayers, categoryStr, emailToSocket);
+
+
+            emailToGame.set(user1.email, gameObj);
+            emailToGame.set(user2.email, gameObj);
+
+            console.log(emailToGame.get(user1));
+
+            gameLogic.updateCurrentScoreMultiPlayer(gameObj );
+            gameLogic.updateCurrentLetterMultiPlayer(gameObj);
 
             gameLogic.updatePageToGame(socket1);
             gameLogic.updatePageToGame(socket2);
 
-            
+            gameLogic.sendMessageMultiPlayer("This is you turn", socket1, gameObj);
         }
+
+        socket.on('multi-player-input', function(inputStr, user) {
+
+            let gameObj = emailToGame.get(user.email);
+            gameLogic.doLogic(gameObj,inputStr,socket,user);
+        });
     });
 
 

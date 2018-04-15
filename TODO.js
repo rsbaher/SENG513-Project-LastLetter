@@ -19,6 +19,10 @@
 
 // TODO remove user from wait list in multiplayer if he exits
 
+// TODO may need to change later that can get a user obj if close the window and open again (Index.js emailToGame)
+
+// TODO dictionary email to userObj
+
 
 //========================================================================================
 // TODO FINISHED:

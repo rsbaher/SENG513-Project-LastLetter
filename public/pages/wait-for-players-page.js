@@ -42,7 +42,6 @@ function loadWaitForPlayersPage() {
     $('.wait-for-players').show();
 
     console.log("hello");
-    addMeToListOrGivePlayer();
 }
 
 function addMeToListOrGivePlayer(){
@@ -52,4 +51,5 @@ function addMeToListOrGivePlayer(){
 
 function startLookingForOtherPlayers(categoryStr){
     loadWaitForPlayersPage();
+    addMeToListOrGivePlayer();
 }

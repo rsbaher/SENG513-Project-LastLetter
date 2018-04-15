@@ -36,36 +36,9 @@ $(function() {
     $('#cities-button').on('click', setCategoryCities);
     $('#countries-button').on('click', setCategoryCountries);
     $('#single-player-button').on('click', startSinglePlayerGame).prop('disabled', true);
-    $('#multi-player-button').on('click', loadWaitForPlayersPage).prop('disabled', true);
+    $('#multi-player-button').on('click', startLookingForOtherPlayers).prop('disabled', true);
 });
 
-
-
-
-
-
-
-
-/**
- * User starts a multiplayer game with a chosen category
- * TODO
- */
-function startMultiPlayerGame() {
-
-    $('.unauthorized').hide();
-    $('.profile').hide();
-    $('.home').hide();
-    $('.wait-for-players').hide();
-    $('.single-player').hide();
-
-    $('.default').show();
-    $('.authorized').show();
-    $('.multi-player').show();
-
-    //TODO
-
-    console.log('Clicked Multiplayer Game button');
-}
 
 /**
  * Set category based on clicked button
