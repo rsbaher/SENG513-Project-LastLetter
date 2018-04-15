@@ -21,6 +21,7 @@ module.exports = {
                     chatColor: '#000000',   // Chat message color
                     imageLink: null,        // User profile image URL
                     gameInProgress: false,  // Is the user in a game right now?
+                    socket: JSON.stringify(socket),
                     savedGame: null         // Previously saved single player game
                 })
                     // Success
@@ -52,52 +53,14 @@ module.exports = {
      * Change a user's name in the DB
      */
     changeUserName: function(admin, user, newName, socket) {
-
-        // Get reference to user in DB and update it
-        const ref = admin.firestore().collection('users').doc(user.email);
-        let data = {
-            email: user.email,                      // Email = Key
-            name: newName,                          // New username
-            singleHighScore: user.singleHighScore,  // Single player high score
-            multiHighScore: user.multiHighScore,    // Multi player high score
-            chatColor: user.chatColor,              // Chat message color
-            imageLink: user.imageLink,              // User profile image URL
-            gameInProgress: user.gameInProgress,    // Is the user in a game right now?
-            savedGame: user.savedGame               // Previously saved single player game
-        };
-        ref.set(data)
-
-            // Success
-            .then(function () { socket.emit('new name', newName); })
-
-            // Error
-            .catch(function(error) { console.error('Error: ', error); });
+        updateProperty(admin, user, 'name', newName, socket, 'new name');
     },
 
     /**
      * Change a user's color in the DB
      */
     changeUserColor: function(admin, user, newColor, socket) {
-
-        // Get reference to user in DB and update it
-        const ref = admin.firestore().collection('users').doc(user.email);
-        let data = {
-            email: user.email,                      // Email = Key
-            name: user.name,                        // Username
-            singleHighScore: user.singleHighScore,  // Single player high score
-            multiHighScore: user.multiHighScore,    // Multi player high score
-            chatColor: newColor,                    // New Chat message color
-            imageLink: user.imageLink,              // User profile image URL
-            gameInProgress: user.gameInProgress,    // Is the user in a game right now?
-            savedGame: user.savedGame               // Previously saved single player game
-        };
-        ref.set(data)
-
-        // Success
-            .then(function () { socket.emit('new color', newColor); })
-
-            // Error
-            .catch(function(error) { console.error('Error: ', error); });
+        updateProperty(admin, user, 'chatColor', '#' + newColor, socket, 'new color');
     },
 
     /**
@@ -106,6 +69,22 @@ module.exports = {
     getLeaderboard: function(admin, socket) {
         sendLeaderboardEntries(admin, socket, 'singleHighScore');
         sendLeaderboardEntries(admin, socket, 'multiHighScore');
+    },
+
+    /**
+     * Update a player's single player high score if necessary
+     */
+    updateSinglePlayerHighScore: function(admin, user, newScore) {
+        if (newScore > user.singleHighScore) {
+            updateProperty(admin, user, 'singleHighScore', newScore);
+        }
+    },
+
+    /**
+     * Update a player's saved single player game
+     */
+    updateSinglePlayerGame: function(admin, user, game, socket) {
+        updateProperty(admin, user, 'savedGame', JSON.stringify(game), socket, 'save-single-player-game');
     }
 };
 
@@ -131,4 +110,26 @@ function sendLeaderboardEntries(admin, socket, score) {
 
         // Error
         .catch(function(error) { console.error("Error: ", error) });
+}
+
+/**
+ * Update a user's property in the DB
+ * @param admin for firebase
+ * @param user to update
+ * @param property to update
+ * @param updatedValue to insert
+ * @param socket to inform on success
+ * @param event to send on to socket
+ */
+function updateProperty(admin, user, property, updatedValue, socket, event) {
+
+    // Get reference to user in DB
+    const ref = admin.firestore().collection('users').doc(user.email);
+
+    // Update the specified property and inform client if necessary
+    let data = {};
+    data[property] = updatedValue;
+    ref.update(data)
+        .then(function() { if (socket !== undefined) { socket.emit(event, updatedValue); } })
+        .catch(function(error) { console.error('Error: ' + error); });
 }

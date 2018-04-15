@@ -16,6 +16,16 @@ function loadHomePage() {
 
     document.getElementById('login-button-header').disabled = true;
     document.getElementById('log-out-button-header').disabled = false;
+
+    category = null;
+    $('#single-player-button').on('click', startSinglePlayerGame).prop('disabled', true);
+    $('#multi-player-button').on('click', startMultiPlayerGame).prop('disabled', true);
+
+    if (dbUserObject.savedGame === null) {
+        $('#load-single-player-game-button').on('click', loadGame).prop('disabled', true);
+    } else {
+        $('#load-single-player-game-button').on('click', loadGame);
+    }
 }
 
 
@@ -35,14 +45,9 @@ $(function() {
     $('#countries-button').on('click', setCategoryCountries);
     $('#single-player-button').on('click', startSinglePlayerGame).prop('disabled', true);
     $('#multi-player-button').on('click', startMultiPlayerGame).prop('disabled', true);
+
+    $('#load-single-player-game-button').on('click', loadGame);
 });
-
-
-
-
-
-
-
 
 /**
  * User starts a multiplayer game with a chosen category
@@ -72,6 +77,11 @@ function setCategory(choice) {
     $('#single-player-button').prop('disabled', false);
     $('#multi-player-button').prop('disabled', false);
 }
+
+/**
+ * Load a single player game
+ */
+function loadGame() { socket.emit('load-single-player-game', dbUserObject); }
 
 // Server is sending a leaderboard entry
 socket.on('get leaderboard', function (single, leaderboardEntry) {
