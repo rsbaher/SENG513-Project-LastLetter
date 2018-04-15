@@ -76,7 +76,7 @@ io.on('connection', function(socket){
 
     socket.on('delete-single-player-game', function (user, score) {
         gameFactory.gameObjects.delete(user);
-        dbAPI.updateSinglePlayerHighScore(admin, user, score)
+        dbAPI.updateSinglePlayerHighScore(admin, user, Number(score));
     });
 
     socket.on('save-single-player-game', function (user) {
