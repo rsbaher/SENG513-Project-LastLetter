@@ -59,6 +59,8 @@ function setCategory(choice) {
     category = choice;
     $('#single-player-button').prop('disabled', false);
     $('#multi-player-button').prop('disabled', false);
+    $('#single-player-category').html(choice);
+    $('#multi-player-category').html(choice);
 }
 
 /**
