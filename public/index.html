@@ -91,7 +91,7 @@ BODY-->
         </p>
         <p>
             <button id="login-button-unauthorized-user-container" class="btn-lg center-block blue"><span
-                    class="glyphicon glyphicon-log-in"></span>  Login
+                    class="glyphicon glyphicon-log-in"></span>  Start!
             </button>
         </p>
     </div>
@@ -164,7 +164,7 @@ BODY-->
                 <h1 class="page-header">My profile</h1>
                 <form class="form-horizontal" style="padding-left: 2%;padding-right: 1%;">
                     <div class="form-group">
-                        <label class="control-label col-sm-3" style="" for="email">Email:</label>
+                        <label class="control-label col-sm-3" style="">Email:</label>
                         <div class="col-sm-8">
                             <p class="form-control-static" style=""><span
                                     id="user-email-text"></span></p>
@@ -221,31 +221,38 @@ BODY-->
         </div>
     </div>
 
-    <div id="single-player-container" class="single-player">
-        <button id="back-to-home-button-single">BACK TO HOME</button>
-        <p id="single-player-messages">Message:</p>
-        <p id="single-player-score">Score:</p>
-        <p id="single-player-current-letter">Current Letter</p>
+    <div id="single-player-container" class="single-player center left-pad right-pad">
+        <h1 class="page-header">Single Player Game</h1>
+        <button class="btn blue" id="back-to-home-button-single">
+            <span class="glyphicon glyphicon-chevron-left"></span> BACK HOME
+        </button>
+        <p id="single-player-messages" class="form-control-static">Message:</p>
+        <p id="single-player-score" class="form-control-static">Score:</p>
+        <p id="single-player-current-letter" class="form-control-static" >Current Letter</p>
         <form id="single-player-form" action="">
-            <input title='input' id='single-player-input' autocomplete="off"/>
-            <button id="single-player-input-button">Send</button>
+            <input title='input' id='single-player-input' class="form-control" style="width: 75%;" autocomplete="off"/>
+            <button class="btn blue pull-right" style="width: 24%;" id="single-player-input-button">Send</button>
         </form>
-        <button id="save-game-button-single">Save game</button>
+        <button class="btn purple" id="save-game-button-single">
+            <span class="glyphicon glyphicon-floppy-disk"></span> Save game
+        </button>
     </div>
 
 
     <div id="multi-player-container" class="multi-player">
-        <button id="back-to-home-button-multiplayer">BACK TO HOME</button>
+        <button class="btn blue" id="back-to-home-button-multiplayer">
+            <span class="glyphicon glyphicon-chevron-left"></span> BACK HOME</button>
         <p>messages to multiplayer user</p>
         <form action="" id="multi-player-form">
             <input title="input" id="multi-player-input" autocomplete="off"/>
-            <button id="multi-player-input-button">Send</button>
+            <button class="btn blue" id="multi-player-input-button">Send</button>
         </form>
     </div>
 
 
     <div class="wait-for-players">
-        <button id="back-to-home-button-wait-for-players">BACK TO HOME</button>
+        <button class="btn blue" id="back-to-home-button-wait-for-players">
+            <span class="glyphicon glyphicon-chevron-left"></span> BACK HOME</button>
         <p> We are looking for other players, please wait</p>
         <p><img src="./pictures/spinner.gif" alt="Spinner" height="42" width="42"></p>
     </div>

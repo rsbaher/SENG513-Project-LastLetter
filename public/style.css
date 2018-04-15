@@ -88,3 +88,10 @@ body {
     margin-left: 1%;
     margin-right: 1%;
 }
+
+.left-pad {
+    padding-left: 2%;
+}
+.right-pad {
+    padding-right: 1%;
+}
