@@ -1,21 +1,56 @@
-body {
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+@import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
+/*#00aedb,#a200ff,#f47835,#d41243,#8ec127*/
+
+/* Background  Colour Definitions */
+.blue {background-color: #00aedb; border-color: #008baf; color: #fff;}
+.blue-border {border-color: #00aedb;}
+.purple {background-color: #a200ff; border-color: #8100cc; color: #fff;}
+.purple-border {border-color: #a200ff;}
+.orange {background-color: #f47835; border-color: #c3602a; color: #fff;}
+.orange-border {border-color: #f47835;}
+.red {background-color: #d41243; border-color: #a90e35; color: #fff;}
+.green {background-color: #8ec127; border-color: #719a1f; color: #fff;}
+.green-border {border-color: #8ec127;}
+
+/*Custom Scroll Bar*/
+::-webkit-scrollbar {
+    width: 10px;
 }
+::-webkit-scrollbar-track {
+    background: #ebebeb;
+}
+::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #888;
+}
+
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 .v-center {
     line-height: 100%;
     vertical-align: middle;
 }
+
 .center {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
 }
+
 .left {
-    margin-left: 1.5%;
+    position: relative;
+    left: 0;
 }
-.right-pad {
-    padding-right: 3%;
-    right: 2%;
+
+.right{
+    position: relative;
+    margin-left: 75%;
+    right: 0;
 }
 
 .footer {
@@ -27,4 +62,25 @@ body {
     width: 100%;
     text-align: center;
     padding: 1%;
+}
+
+.chat {
+    border-radius: 3%;
+    border-style: solid;
+    border-collapse: collapse;
+    border-width: 1%;
+    width: 25%;
+    text-align: center;
+}
+
+.border-head {
+    padding: 2%;
+    border-width: 4%;
+    border-style: solid;
+    border-collapse: collapse;
+}
+.border-body {
+    border-width: 2%;
+    border-style: solid;
+    border-collapse: collapse;
 }

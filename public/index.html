@@ -13,8 +13,8 @@ DOCUMENT METADATA:                                                              
     <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
 
     <!-- Bootstrap -->
+    <link rel="stylesheet" href="/Bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <!-- JQuery: -->
     <script
@@ -46,13 +46,13 @@ BODY-->
 <body>
 <div id="everything">
 
-<!--
-    <header id="header-container">
-        <p class="default">logo will be here and</p>
-        <button id="login-button-header" class="unauthorized">Login in</button>
-        <button id="my-profile-button-header" class="authorized">My Profile</button>
-        <button id="log-out-button-header" class="authorized, default">Log out</button>
-    </header> -->
+    <!--
+        <header id="header-container">
+            <p class="default">logo will be here and</p>
+            <button id="login-button-header" class="unauthorized">Login in</button>
+            <button id="my-profile-button-header" class="authorized">My Profile</button>
+            <button id="log-out-button-header" class="authorized, default">Log out</button>
+        </header> -->
     <nav class="navbar navbar-inverse" id="header-container">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -62,15 +62,18 @@ BODY-->
                 <li><a href="#">Home</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li id="login-button-header" class="unauthorized"><a href='#'><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                <li id="my-profile-button-header" class="authorized"><a href='#'><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
-                <li id="log-out-button-header" class="authorized"><a href='#'><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+                <li id="login-button-header" class="unauthorized"><a href='#'><span
+                        class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <li id="my-profile-button-header" class="authorized"><a href='#'><span
+                        class="glyphicon glyphicon-user"></span> My Profile</a></li>
+                <li id="log-out-button-header" class="authorized"><a href='#'><span
+                        class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
             </ul>
         </div>
     </nav>
 
     <div id="about-container" class="unauthorized, home">
-        <h2 class="center">About section</h2>
+        <h2 class="h2 center page-header">About</h2>
         <p class="center">Online Last Letter is a Single Page Application game. It is being developed as the
             final deliverable for Software Engineering course SENG513 at the University of Calgary
             in the course of the Winter Semester 2018. The game is inspired by similar offline
@@ -82,118 +85,134 @@ BODY-->
 
     <div id="login-container" class="unauthorized">
         <p>
-            <iframe class="center" width="560" height="315" src="https://www.youtube.com/embed/2NKIuH8gtxc"></iframe>
+            <iframe class="center-block" width="560" height="315"
+                    src="https://www.youtube.com/embed/2NKIuH8gtxc"></iframe>
         </p>
         <p>
-            <button id="login-button-unauthorized-user-container" class="btn-primary btn-lg center"><span class="glyphicon glyphicon-log-in"></span> Login</button>
+            <button id="login-button-unauthorized-user-container" class="btn-lg center-block blue"><span
+                    class="glyphicon glyphicon-log-in"></span> Login
+            </button>
         </p>
     </div>
 
-
-    <div id="select-category-and-mode-container" class="home">
-        <p>
-            <button id="cities-button">CITIES</button>
-            <button id="countries-button">COUNTRIES</button>
+    <hr class="home"/>
+    <div id="select-category-and-mode-container" class="home center">
+        <p class="btn-group center">
+            <button class="btn blue center" id="cities-button">CITIES</button>
+            <button class="btn purple center" id="countries-button">COUNTRIES</button>
         </p>
-        <p>
-            <button id="single-player-button">SINGLE-PLAYER</button>
-            <button id="multi-player-button">MULTI-PLAYER</button>
+        <p class="btn-group center">
+            <button class="btn orange center" id="single-player-button">SINGLE-PLAYER</button>
+            <button class="btn orange center" id="multi-player-button">MULTI-PLAYER</button>
         </p>
     </div>
-
-
-    <div id="chat-container" class="home">
-        <div id="message-container">
-            <h2 id="username">foo</h2>
-            <ul id="messages">
-                <li>Test</li>
-            </ul>
-            <form id="chat-form" action="">
-                <input title="input" id="m" autocomplete="off"/>
-                <button id="chat-button">Send</button>
-            </form>
-        </div>
-        <div id="users-container">
-            <h2>Online users:</h2>
-            <ul id="users"></ul>
-        </div>
-    </div>
-
-
-    <div id="leaderboard-container" class="home">
-        <h3>Leaderboards</h3>
-        <p>Single Player</p>
-        <ol id="singleplayer-leaderboard" class="home">
-            <li>Some User: 9999</li>
-            <li>Another User: 9998</li>
-        </ol>
-        <p>Multi Player</p>
-        <ol id="multiplayer-leaderboard" class="home">
-            <li>Some User: 9999</li>
-            <li>Another User: 9998</li>
-        </ol>
-    </div>
-
-
-    <div id="my-profile-container" class="profile">
-        <button id="back-to-home-button-1">BACK TO HOME</button>
-        <p>My profile</p>
-        <p>Email: <span id="user-email-text"></span></p>
-        <p>Name: <span id="user-name-text"></span></p>
-        <button id="edit-name-button">Edit Name</button>
-        <p>Chat Color: <span id="user-color-text"></span></p>
-        <button id="edit-color-button">Change Color</button>
-        <p>statistics goes here</p>
-    </div>
-
-
-    <div id="single-player-container" class="single-player">
-        <button id="back-to-home-button-single">BACK TO HOME</button>
-        <p id="single-player-messages">Message:</p>
-        <p id="single-player-score">Score:</p>
-        <p id="single-player-current-letter">Current Letter</p>
-        <form id="single-player-form" action="">
-            <input title='input' id='single-player-input' autocomplete="off"/>
-            <button id="single-player-input-button">Send</button>
-        </form>
-        <button id="save-game-button-single">Save game</button>
-    </div>
-
-
-    <div id="multi-player-container" class="multi-player">
-        <button id="back-to-home-button-multiplayer">BACK TO HOME</button>
-        <p>messages to multiplayer user</p>
-        <form action="" id="multi-player-form">
-            <input title="input" id="multi-player-input" autocomplete="off"/>
-            <button id="multi-player-input-button">Send</button>
-        </form>
-    </div>
-
-
-    <div class="wait-for-players">
-        <button id="back-to-home-button-wait-for-players">BACK TO HOME</button>
-        <p> We are looking for other players, please wait</p>
-        <p><img src="./pictures/spinner.gif" alt="Spinner" height="42" width="42"></p>
-    </div>
-
-
-    <nav class="footer navbar navbar-inverse navbar-fixed-bottom" style="line-height: 100%">
-        <div class="container-fluid v-center">
-            <span style="vertical-align: middle;">By Olga Chitsvarina, Jared Madden, Olga Bogdanova, Regina Baher, and Marc Fichtel</span>
-            <div class="navbar-right"><a href="https://twitter.com/share?ref_src=twsrc%5Etfw"
-                                         class="twitter-share-button"
-                                         data-show-count="false">Tweet</a>
-                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
-                <script type="IN/Share" data-url="localhost:30000"></script>
-                <script src="https://apis.google.com/js/platform.js" async defer></script>
-                <div class="g-plus" data-action="share"></div>
+    <hr class="home"/>
+    <div class="row">
+        <div class="col-sm-8">
+            <div id="chat-container" class="home center">
+                <div id="message-container" style="width: 75%;" class="center">
+                    <h2 id="username">foo</h2>
+                    <ul id="messages" class="well list-unstyled">
+                        <li class="chat blue left">Test</li>
+                        <li class="chat purple right">Test</li>
+                    </ul>
+                    <form id="chat-form" action="">
+                        <input title="input" id="m" class="form-control pull-left" style="width: 77%;"
+                               autocomplete="off"/>
+                        <button id="chat-button" class="btn blue pull-right" style="width: 20%;">Send</button>
+                    </form>
+                </div>
+                <br/>
+                <div id="users-container" class="center" style="margin-top: 5%; width: 75%;">
+                    <div class="border-head blue"><h2>Online users</h2></div>
+                    <div class="border-body blue-border">
+                        <ul id="users"></ul>
+                    </div>
+                </div>
             </div>
         </div>
-    </nav>
+
+        <div class="col-sm-4" style="margin-bottom: 8%; padding-bottom: 2%;">
+            <div id="leaderboard-container" class="home">
+                <h3 class="center">Leaderboards</h3>
+                <div class="border-head purple"><h4>Single Player</h4></div>
+                <div class="border-body purple-border">
+                    <ol id="singleplayer-leaderboard" class="home">
+                        <li>Some User: 9999</li>
+                        <li>Another User: 9998</li>
+                    </ol>
+                </div> <br/>
+
+                <div class="border-head green"><h4>Multi Player</h4></div>
+                <div class="border-body green-border">
+                    <ol id="multiplayer-leaderboard" class="home">
+                        <li>Some User: 9999</li>
+                        <li>Another User: 9998</li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+    </div>
+        <div id="my-profile-container" class="profile">
+            <button id="back-to-home-button-1">BACK TO HOME</button>
+            <p>My profile</p>
+            <p>Email: <span id="user-email-text"></span></p>
+            <p>Name: <span id="user-name-text"></span></p>
+            <button id="edit-name-button">Edit Name</button>
+            <p>Chat Color: <span id="user-color-text"></span></p>
+            <button id="edit-color-button">Change Color</button>
+            <p>statistics goes here</p>
+        </div>
 
 
-</div>
+        <div id="single-player-container" class="single-player">
+            <button id="back-to-home-button-single">BACK TO HOME</button>
+            <p id="single-player-messages">Message:</p>
+            <p id="single-player-score">Score:</p>
+            <p id="single-player-current-letter">Current Letter</p>
+            <form id="single-player-form" action="">
+                <input title='input' id='single-player-input' autocomplete="off"/>
+                <button id="single-player-input-button">Send</button>
+            </form>
+            <button id="save-game-button-single">Save game</button>
+        </div>
+
+
+        <div id="multi-player-container" class="multi-player">
+            <button id="back-to-home-button-multiplayer">BACK TO HOME</button>
+            <p>messages to multiplayer user</p>
+            <form action="" id="multi-player-form">
+                <input title="input" id="multi-player-input" autocomplete="off"/>
+                <button id="multi-player-input-button">Send</button>
+            </form>
+        </div>
+
+
+        <div class="wait-for-players">
+            <button id="back-to-home-button-wait-for-players">BACK TO HOME</button>
+            <p> We are looking for other players, please wait</p>
+            <p><img src="./pictures/spinner.gif" alt="Spinner" height="42" width="42"></p>
+        </div>
+
+
+        <nav class="footer navbar navbar-inverse navbar-fixed-bottom" style="line-height: 100%;">
+            <div class="container-fluid v-center">
+                <span style="vertical-align: middle;">By Olga Chitsvarina, Jared Madden, Olga Bogdanova, Regina Baher, and Marc Fichtel</span>
+                <div class="navbar-right"><a href="https://twitter.com/share?ref_src=twsrc%5Etfw"
+                                             class="twitter-share-button"
+                                             data-show-count="false">Tweet</a>
+                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
+                    <script type="IN/Share" data-url="localhost:30000"></script>
+                    <script src="https://apis.google.com/js/platform.js" async defer></script>
+                    <div class="g-plus" data-action="share"></div>
+                </div>
+            </div>
+        </nav>
+
+
+    </div>
 </body>
 </html>
 
