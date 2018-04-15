@@ -135,7 +135,7 @@ io.on('connection', function(socket){
             gameLogic.updatePageToGame(socket1);
             gameLogic.updatePageToGame(socket2);
 
-            gameLogic.sendMessageMultiPlayer("This is you turn", socket1, gameObj);
+            gameLogic.sendMessageMultiPlayer("This is your turn", socket1, gameObj);
         }
 
         socket.on('multi-player-input', function(inputStr, user) {

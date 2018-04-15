@@ -36,12 +36,12 @@ function loadWaitForPlayersPage() {
     $('.multi-player').hide();
     $('.single-player').hide();
     $('.home').hide();
+    $('.lost-game').hide();
+    $('.won-game').hide();
 
     $('.default').show();
     $('.authorized').show();
     $('.wait-for-players').show();
-
-    console.log("hello");
 }
 
 function addMeToListOrGivePlayer(){

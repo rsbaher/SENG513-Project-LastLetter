@@ -59,6 +59,11 @@ $(function() {
     socket.on('single-player-update-current-letter', function (currentLetter) {
         document.getElementById("single-player-current-letter").innerHTML = "Current Letter :" + currentLetter;
     });
+
+    socket.on('redirect-to-lost-game', function(score){
+        console.log("received message about redirectjgkjgl");
+        loadLostGamePage(score);
+    });
 });
 
 //==============================================================================================================
@@ -70,6 +75,9 @@ function loadSinglePlayerPage() {
     $('.profile').hide();
     $('.home').hide();
     $('.multi-player').hide();
+    $('.lost-game').hide();
+    $('.won-game').hide();
+
     $('.default').show();
     $('.authorized').show();
     $('.single-player').show();

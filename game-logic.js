@@ -60,7 +60,7 @@ function isValid(gameObj, inputStr, socket, user){
     }
 
     if(repetitionsExist(gameObj, inputStr)) {
-        displayMessageHTML("This word have already been used", socket, gameObj.mode);
+        redirectToLostGame(gameObj);
         return false;
     }
 
@@ -72,7 +72,6 @@ function isValid(gameObj, inputStr, socket, user){
 }
 
 function rightTurn(gameObj, email) {
-    console.log(gameObj);
     return gameObj.listOfPlayers[gameObj.turn].email === email;
 }
 
@@ -139,12 +138,12 @@ function returnSocketOtherUser(gameObj){
 
 function performGeneralLogic(gameObj, inputStr, socket) {
     updateScore(gameObj);
-    changeTurn(gameObj);
+    changeTurn(gameObj, inputStr);
     updateCurrentLetter(gameObj, inputStr);
     updateCurrentLetterHTML(gameObj);
     updateGameAnswers(gameObj, inputStr);
-    displayMessageHTML("Last entry: " + inputStr + "\n" +
-        "Your letter is: " + gameObj.currentLetter, socket, gameObj.mode);
+    displayMessageHTML(inputStr + " was an accepted answer. <br> It is currently not your turn." +
+                        "Please wait for your opponent.", socket, gameObj.mode);
 }
 
 function updateScore(gameObj){
@@ -156,10 +155,10 @@ function updateScore(gameObj){
     }
 }
 
-function changeTurn(gameObj){
+function changeTurn(gameObj, inputStr){
     if (gameObj.mode === "multiPlayer"){
         displayMessageHTML("", returnSocketCurrentUser(gameObj),gameObj.mode);
-        displayMessageHTML("This is your turn", returnSocketOtherUser(gameObj),gameObj.mode);
+        displayMessageHTML("This is your turn <br> Last Entry: " + inputStr, returnSocketOtherUser(gameObj),gameObj.mode);
     }
     gameObj.turn = (gameObj.turn + 1)%gameObj.listOfPlayers.length;
 }
@@ -229,6 +228,18 @@ function updateCurrentLetterHTML(gameObj){
 
 function updatePageHTMLMultiPlayer(socket){
     socket.emit('update-page-to-multi-player-game');
+}
+
+
+
+function redirectToLostGame(gameObj,socket) {
+    if (gameObj.mode === "multiPlayer"){
+        returnSocketCurrentUser(gameObj).emit('redirect-to-lost-game', 0);
+        returnSocketOtherUser(gameObj).emit('redirect-to-won-game',gameObj.score);
+
+    }else{
+        returnSocketCurrentUser(gameObj).emit('redirect-to-lost-game', gameObj.score);
+    }
 }
 
 

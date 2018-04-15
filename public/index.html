@@ -35,6 +35,8 @@ DOCUMENT METADATA:                                                              
     <script src="pages/multi-player-page.js"></script>
     <script src="pages/profile-page.js"></script>
     <script src="pages/wait-for-players-page.js"></script>
+    <script src="pages/lost-game-page.js"></script>
+    <script src="pages/won-game-page.js"></script>
 </head>
 
 <!--====================================================================================================================
@@ -157,6 +159,20 @@ BODY-->
         <button id="back-to-home-button-wait-for-players">BACK TO HOME</button>
         <p> We are looking for other players, please wait</p>
         <p><img src="./pictures/spinner.gif" alt="Spinner" height="42" width="42"></p>
+    </div>
+
+
+    <div class ="lost-game">
+        <button id="back-to-home-lost-game">BACK TO HOME</button>
+        <p>You lost the game</p>
+        <p id = "lost-game-score">Score:</p>
+    </div>
+
+
+    <div class ="won-game">
+        <button id="back-to-home-won-game">BACK TO HOME</button>
+        <p>You won the game</p>
+        <p id = "won-game-score">Score:</p>
     </div>
 
 

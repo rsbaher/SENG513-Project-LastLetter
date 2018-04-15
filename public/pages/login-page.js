@@ -11,6 +11,8 @@ function loadLoginPage() {
     $('.multi-player').hide();
     $('.single-player').hide();
     $('.wait-for-players').hide();
+    $('.lost-game').hide();
+    $('.won-game').hide();
 
     $('#everything').show();
     $('.default').show();

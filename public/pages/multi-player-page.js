@@ -52,6 +52,11 @@ $(function() {
     socket.on('multi-player-update-current-letter', function (currentLetter) {
         document.getElementById("multi-player-current-letter").innerHTML = "Current Letter :" + currentLetter;
     });
+
+    socket.on('redirect-to-won-game', function (scoreInt) {
+       loadWonGamePage(scoreInt);
+    });
+
 });
 //======================================================================================================================
 // GET MESSAGES FROM THE SERVER
@@ -63,6 +68,8 @@ function startMultiPlayerGame() {
     $('.home').hide();
     $('.wait-for-players').hide();
     $('.single-player').hide();
+    $('.lost-game').hide();
+    $('.won-game').hide();
 
     $('.default').show();
     $('.authorized').show();
