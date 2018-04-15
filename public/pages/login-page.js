@@ -76,5 +76,5 @@ function signIn() {
 // Server sends user data
 socket.on('get user', function(obj) {
     dbUserObject = obj;
-    loadHomePage();
+   loadHomePage();
 });

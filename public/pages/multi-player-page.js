@@ -50,7 +50,7 @@ $(function() {
     });
 
     socket.on('multi-player-update-current-letter', function (currentLetter) {
-        document.getElementById("multi-player-current-letter").innerHTML = "Current Letter :" + currentLetter;
+        document.getElementById("multi-player-current-letter").innerHTML = "Current Letter: " + currentLetter;
     });
 
     socket.on('redirect-to-won-game', function (scoreInt) {
