@@ -87,8 +87,22 @@ io.on('connection', function(socket){
         gameLogic.doLogic(gameObj, inputStr, socket, user);
     });
 
-    socket.on('delete-single-player-game', function (user){
+    socket.on('delete-single-player-game', function (user, score) {
         gameFactory.gameObjects.delete(user);
+        dbAPI.updateSinglePlayerHighScore(admin, user, Number(score));
+    });
+
+    socket.on('save-single-player-game', function (user) {
+       const gameObj = gameFactory.returnGameObject(user);
+       dbAPI.updateSinglePlayerGame(admin, user, gameObj, socket);
+    });
+
+    socket.on('load-single-player-game', function (user) {
+        const gameObj = JSON.parse(user.savedGame);
+        gameFactory.gameObjects.set(user.email, gameObj);
+        gameLogic.updateCurrentLetter(gameObj.currentLetter, socket);
+        gameLogic.updateCurrentScore(gameObj.score, socket);
+        socket.emit('load-single-player-game', gameObj);
     });
 
     //==========================================================================================================

@@ -21,7 +21,6 @@ $(function() {
     $('#back-to-home-button-single').on('click', backButtonWasClicked);
     $('#save-game-button-single').on('click', saveGame);
 
-
     //==========================================================================================================
     // PRIVATE HTML HANDLERS:
 
@@ -33,16 +32,18 @@ $(function() {
     //==========================================================================================================
     // SEND MESSAGES TO A SERVER:
 
-    function deleteGame(){
-        socket.emit('delete-single-player-game', dbUserObject);
+    function deleteGame() {
+        let score = $("#single-player-score-text").text();
+        socket.emit('delete-single-player-game', dbUserObject, score);
     }
 
-    function acceptInput(input){
+    function acceptInput(input) {
         socket.emit('single-player-input', input, dbUserObject);
     }
 
-    function saveGame(){
+    function saveGame() {
         socket.emit('save-single-player-game', dbUserObject);
+        alert("Game Saved");
     }
 
     //===========================================================================================================
@@ -53,17 +54,23 @@ $(function() {
     });
 
     socket.on('single-player-update-score', function (score) {
-        document.getElementById("single-player-score").innerHTML = "Score: " + score;
+        document.getElementById("single-player-score-text").innerHTML = score;
     });
 
     socket.on('single-player-update-current-letter', function (currentLetter) {
         document.getElementById("single-player-current-letter").innerHTML = "Current Letter :" + currentLetter;
     });
 
+
     socket.on('redirect-to-lost-game', function(score){
         console.log("received message about redirectjgkjgl");
         loadLostGamePage(score);
-    });
+        });
+
+ //   socket.on('load-single-player-game', function () { loadSinglePlayerPage(); });
+
+  //  socket.on('save-single-player-game', function (gameObj) {
+    //    dbUserObject.savedGame = gameObj;
 });
 
 //==============================================================================================================

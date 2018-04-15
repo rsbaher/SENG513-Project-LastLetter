@@ -23,11 +23,9 @@ $(function() {
     };
     firebase.initializeApp(config);
 
-    // Load appropriate page depending on user auth status
-    if (firebase.auth().currentUser === null) { loadLoginPage(); }
-    else {
-        loadHomePage();
-    }
+
+    checkUserStatus();
+
 
     // Set user variable on login & logout
     firebase.auth().onAuthStateChanged(function(user) {
@@ -44,6 +42,14 @@ $(function() {
             dbUserObject = null;
         }
     });
+
+    /**
+     * Load appropriate page depending on user auth status
+     */
+    function checkUserStatus() {
+        if (firebase.auth().currentUser === null) { loadLoginPage(); }
+        else { loadHomePage(); }
+    }
 
 //=================================================================================================================
 // COOKIES
@@ -66,11 +72,8 @@ $(function() {
     });
 
 //======================================================================================================================
-// ON WINDOW CLOSE
+// ON WINDOW LOAD AND CLOSE
 
-    // TODO what if user opens window in two tabs???
-    // TODO authorized user is on home page, he opens another link in his browser,
-    // TODO then comes back, he sees a login page, but should see a page from which he left a game
-
+    window.onload = function() { checkUserStatus(); };
     window.onbeforeunload = function() { socket.emit('exit', dbUserObject); };
 });
