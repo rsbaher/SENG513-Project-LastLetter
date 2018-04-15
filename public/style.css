@@ -3,14 +3,14 @@
 
 /* Background  Colour Definitions */
 .blue {background-color: #00aedb; border-color: #008baf; color: #fff;}
-.blue-border {border-color: #00aedb;}
+.blue-border {border-color: #00aedb;  border-collapse: collapse;}
 .purple {background-color: #a200ff; border-color: #8100cc; color: #fff;}
-.purple-border {border-color: #a200ff;}
+.purple-border {border-color: #a200ff;  border-collapse: collapse;}
 .orange {background-color: #f47835; border-color: #c3602a; color: #fff;}
-.orange-border {border-color: #f47835;}
+.orange-border {border-color: #f47835;  border-collapse: collapse;}
 .red {background-color: #d41243; border-color: #a90e35; color: #fff;}
 .green {background-color: #8ec127; border-color: #719a1f; color: #fff;}
-.green-border {border-color: #8ec127;}
+.green-border {border-color: #8ec127;  border-collapse: collapse;}
 
 /*Custom Scroll Bar*/
 ::-webkit-scrollbar {
@@ -78,9 +78,13 @@ body {
     border-width: 4%;
     border-style: solid;
     border-collapse: collapse;
+    margin-left: 1%;
+    margin-right: 1%;
 }
 .border-body {
     border-width: 2%;
     border-style: solid;
     border-collapse: collapse;
+    margin-left: 1%;
+    margin-right: 1%;
 }
