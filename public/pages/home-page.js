@@ -26,9 +26,7 @@ function loadHomePage() {
     $('#multi-player-button').on('click', loadWaitForPlayersPage).prop('disabled', true);
 
     if (dbUserObject.savedGame === null) {
-        $('#load-single-player-game-button').on('click', loadGame).prop('disabled', true);
-    } else {
-        $('#load-single-player-game-button').on('click', loadGame);
+        $('#load-single-player-game-button').prop('disabled', true);
     }
 }
 
@@ -49,11 +47,8 @@ $(function() {
     $('#countries-button').on('click', setCategoryCountries);
     $('#single-player-button').on('click', startSinglePlayerGame).prop('disabled', true);
     $('#multi-player-button').on('click', startLookingForOtherPlayers).prop('disabled', true);
+    $('#load-single-player-game-button').on('click', loadGame);
 });
-
-
-
-    //$('#load-single-player-game-button').on('click', loadGame);
 
 
 /**
@@ -69,10 +64,7 @@ function setCategory(choice) {
     $('#multi-player-category').html(choice);
 }
 
-/**
- * Load a single player game
- */
-//function loadGame() { socket.emit('load-single-player-game', dbUserObject); }
+
 
 // Server is sending a leaderboard entry
 socket.on('get leaderboard', function (single, leaderboardEntry) {

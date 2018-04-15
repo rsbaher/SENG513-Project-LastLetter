@@ -100,8 +100,10 @@ io.on('connection', function(socket){
     socket.on('load-single-player-game', function (user) {
         const gameObj = JSON.parse(user.savedGame);
         gameFactory.gameObjects.set(user.email, gameObj);
-        gameLogic.updateCurrentLetter(gameObj.currentLetter, socket);
-        gameLogic.updateCurrentScore(gameObj.score, socket);
+
+        gameLogic.updateCurrentLetterSinglePlayer(gameObj);
+        gameLogic.updateCurrentScoreSinglePlayer(gameObj);
+
         socket.emit('load-single-player-game', gameObj);
     });
 

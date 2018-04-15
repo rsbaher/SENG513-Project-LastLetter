@@ -67,10 +67,13 @@ $(function() {
         loadLostGamePage(score);
         });
 
- //   socket.on('load-single-player-game', function () { loadSinglePlayerPage(); });
+    socket.on('load-single-player-game', function () {
+        loadSinglePlayerPage();
+    });
 
-  //  socket.on('save-single-player-game', function (gameObj) {
-    //    dbUserObject.savedGame = gameObj;
+    socket.on('save-single-player-game', function (gameObj) {
+        dbUserObject.savedGame = gameObj;
+    });
 });
 
 //==============================================================================================================
@@ -94,6 +97,13 @@ function loadSinglePlayerPage() {
 function startSinglePlayerGame() {
     loadSinglePlayerPage();
     socket.emit('single-player-start-game', category, dbUserObject);
+}
+
+/**
+ * Load a single player game
+ */
+function loadGame() {
+    socket.emit('load-single-player-game', dbUserObject);
 }
 
 
