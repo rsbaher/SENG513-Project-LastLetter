@@ -10,6 +10,8 @@ function loadHomePage() {
     $('.profile').hide();
     $('.multi-player').hide();
     $('.single-player').hide();
+    $('.wait-for-players').hide();
+
     $('.default').show();
     $('.authorized').show();
     $('.home').show();
@@ -19,7 +21,7 @@ function loadHomePage() {
 
     category = null;
     $('#single-player-button').on('click', startSinglePlayerGame).prop('disabled', true);
-    $('#multi-player-button').on('click', startMultiPlayerGame).prop('disabled', true);
+    $('#multi-player-button').on('click', loadWaitForPlayersPage).prop('disabled', true);
 
     if (dbUserObject.savedGame === null) {
         $('#load-single-player-game-button').on('click', loadGame).prop('disabled', true);
@@ -44,28 +46,9 @@ $(function() {
     $('#cities-button').on('click', setCategoryCities);
     $('#countries-button').on('click', setCategoryCountries);
     $('#single-player-button').on('click', startSinglePlayerGame).prop('disabled', true);
-    $('#multi-player-button').on('click', startMultiPlayerGame).prop('disabled', true);
-
+    $('#multi-player-button').on('click', loadWaitForPlayersPage).prop('disabled', true);
     $('#load-single-player-game-button').on('click', loadGame);
 });
-
-/**
- * User starts a multiplayer game with a chosen category
- * TODO
- */
-function startMultiPlayerGame() {
-    $('.unauthorized').hide();
-    $('.profile').hide();
-    $('.home').hide();
-    $('.single-player').hide();
-    $('.default').show();
-    $('.authorized').show();
-    $('.multi-player').show();
-
-    //TODO
-
-    console.log('Clicked Multiplayer Game button');
-}
 
 /**
  * Set category based on clicked button
