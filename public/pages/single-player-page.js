@@ -44,6 +44,7 @@ $(function() {
     function saveGame() {
         socket.emit('save-single-player-game', dbUserObject);
         alert("Game Saved");
+        $('#load-single-player-game-button').prop('disabled', false);
     }
 
     //===========================================================================================================
