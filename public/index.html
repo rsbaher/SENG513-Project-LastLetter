@@ -7,7 +7,7 @@ DOCUMENT METADATA:                                                              
 <head>
     <title>LAST LETTER</title>                                      <!-- Define the title in the browser -->
     <link rel="stylesheet" href="style.css">                        <!-- Link to an external style file -->
-    <meta name="viewport" content ="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!--Firebase-->
     <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
@@ -48,9 +48,6 @@ BODY-->
 <body>
 <div id="everything">
 
-
-
-
     <nav class="navbar navbar-inverse" id="header-container">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -89,31 +86,31 @@ BODY-->
         </p>
         <p>
             <button id="login-button-unauthorized-user-container" class="btn-lg center-block blue"><span
-                    class="glyphicon glyphicon-log-in"></span>  Login
+                    class="glyphicon glyphicon-log-in"></span> Start!
+
             </button>
         </p>
     </div>
 
     <hr class="home"/>
     <div id="select-category-and-mode-container" class="home center">
+
         <p class="btn-group center" id="cityButton">
             <button class="btn blue center" id="cities-button">CITIES</button>
-        </p>
-        <p class="btn-group center">
             <button class="btn purple center" id="countries-button">COUNTRIES</button>
         </p>
         <br>
-        <p class="btn-group center"id="singlePlayerButton">
+        <p class="center" id="singlePlayerButton">
             <button class="btn green center" id="single-player-button">SINGLE-PLAYER</button>
         </p>
-        <p class="btn-group center"id="multiPlayerButton">
+        <p class="center" id="multiPlayerButton">
             <button class="btn blue center" id="multi-player-button">MULTI-PLAYER</button>
         </p>
     </div>
 
     <div id="load-game-container" class="home">
         <p>
-            <button id="load-single-player-game-button">LOAD SINGLE PLAYER GAME</button>
+            <button class="btn blue center" id="load-single-player-game-button">LOAD SINGLE PLAYER GAME</button>
         </p>
     </div>
 
@@ -127,11 +124,11 @@ BODY-->
                     </ul>
                 </div>
                 <div id="messagesInputField" style="width: 95%;" class="center">
-                        <form id="chat-form" action="" >
-                            <input title="input" id="m" class="form-control pull-left" style="width: 77%;"
-                                   autocomplete="off"/>
-                            <button id="chat-button" class="btn blue pull-right" style="width: 20%;">Send</button>
-                        </form>
+                    <form id="chat-form" action="">
+                        <input title="input" id="m" class="form-control pull-left" style="width: 77%;"
+                               autocomplete="off"/>
+                        <button id="chat-button" class="btn blue pull-right" style="width: 20%;">Send</button>
+                    </form>
                 </div>
 
                 <br/>
@@ -142,7 +139,6 @@ BODY-->
                     </div>
                 </div>
             </div>
-
 
 
             <div class="col-sm-4" style="margin-bottom: 8%; padding-bottom: 2%;">
@@ -169,15 +165,15 @@ BODY-->
             </div>
         </div>
     </div>
-
-
     <div id="my-profile-container" class="profile">
         <div class="row">
             <div class="col-sm-6" style="margin-left: 1%;padding-right: 2%;">
                 <h1 class="page-header">My profile</h1>
                 <form class="form-horizontal" style="padding-left: 2%;padding-right: 1%;">
                     <div class="form-group">
-                        <label class="control-label col-sm-3" style="" for="email">Email:</label>
+
+                        <label class="control-label col-sm-3" style="">Email:</label>
+
                         <div class="col-sm-8">
                             <p class="form-control-static" style=""><span
                                     id="user-email-text"></span></p>
@@ -185,15 +181,18 @@ BODY-->
 
                         <label class="control-label col-sm-3" style="padding-top: 0;">Name:</label>
                         <div class="col-sm-8">
-                            <p class="form-control-static" style="padding-top: 0;"><span id="user-name-text"></span>
-                                <button class="btn blue btn-sm pull-right" id="edit-name-button">Edit Name</button>
+                            <p class="form-control-static" style="padding-top: 0;"><span
+                                    id="user-name-text"></span>
+                                <button class="btn blue btn-sm pull-right" id="edit-name-button">Edit Name
+                                </button>
                             </p>
 
                         </div>
-                        <br />
+                        <br/>
                         <label class="control-label col-sm-3" style="padding-top: 0;">Chat Colour:</label>
                         <div class="col-sm-8">
-                            <p class="form-control-static" style="padding-top: 0;"><span id="user-color-text"></span>
+                            <p class="form-control-static" style="padding-top: 0;"><span
+                                    id="user-color-text"></span>
                                 <button class="btn purple btn-sm pull-right" id="edit-color-button">Change Color
                                 </button>
                             </p>
@@ -202,48 +201,55 @@ BODY-->
 
                         <br/>
                         <button class="btn blue btn-sm" style="margin-top: 4%;" id="back-to-home-button-1">
-                            <span class="glyphicon glyphicon-chevron-left"></span>  BACK HOME</button>
+                            <span class="glyphicon glyphicon-chevron-left"></span> BACK HOME
+                        </button>
                     </div>
                 </form>
 
             </div>
-            <div class="col-sm-5" style="padding-bottom: 2%; margin-bottom: 8%; padding-left: 3%;padding-right: 2%;">
+            <div class="col-sm-5"
+                 style="padding-bottom: 2%; margin-bottom: 8%; padding-left: 3%;padding-right: 2%;">
                 <h2 class="page-header" style="padding-top: 2%; padding-left: 1%;">Stats</h2>
-                <div class="row"><label class="control-label col-sm-8" style="">Highest Single Player Score: </label>
+                <div class="row"><label class="control-label col-sm-8" style="">Highest Single Player
+                    Score: </label>
                     <div class="col-sm-3">
                         <p class="form-control-static" style=""><span
                                 id="">100 000</span></p>
-                    </div></div>
-                <div class="row"><label class="control-label col-sm-8" style="">Highest Multi-Player Score: </label>
+                    </div>
+                </div>
+                <div class="row"><label class="control-label col-sm-8" style="">Highest Multi-Player
+                    Score: </label>
                     <div class="col-sm-3">
                         <p class="form-control-static" style=""><span
                                 id="">100 000</span></p>
-                    </div></div>
+                    </div>
+                </div>
 
                 <div class="row"><label class="control-label col-sm-8" style="">No. Games Played: </label>
                     <div class="col-sm-3">
                         <p class="form-control-static" style=""><span
                                 id="">0</span></p>
-                    </div></div>
+                    </div>
+                </div>
                 <div class="row"><label class="control-label col-sm-8" style="">No. Games Won: </label>
                     <div class="col-sm-3">
                         <p class="form-control-static" style=""><span
                                 id="">0</span></p>
-                    </div></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-
-    <div id ="single-player-container" class="single-player">
+    <div id="single-player-container" class="single-player">
         <button id="back-to-home-button-single">BACK TO HOME</button>
         <div id="singlePlayerText">
             <p>Category: <span id="single-player-category"></span></p>
-            <p id ="single-player-score">Score: <span id="single-player-score-text">0</span></p>
-            <p id ="single-player-messages">Message:</p>
-            <p id = "single-player-current-letter">Current Letter</p>
+            <p id="single-player-score">Score: <span id="single-player-score-text">0</span></p>
+            <p id="single-player-messages">Message:</p>
+            <p id="single-player-current-letter">Current Letter</p>
             <form id="single-player-form" action="">
-                <input title='input' id='single-player-input' autocomplete="off" />
+                <input title='input' id='single-player-input' autocomplete="off"/>
                 <button id="single-player-input-button">
                     Send
                 </button>
@@ -253,17 +259,17 @@ BODY-->
     </div>
 
 
-    <div id ="multi-player-container" class="multi-player">
+    <div id="multi-player-container" class="multi-player">
         <button id="back-to-home-button-multiplayer">BACK TO HOME</button>
         <div id="multiPlayerText">
             <p>Category: <span id="multi-player-category"></span></p>
-            <p id ="multi-player-score">Score:</p>
+            <p id="multi-player-score">Score:</p>
             <p id="multi-player-messages">messages to multiplayer user</p>
-            <p id = "multi-player-current-letter">Current Letter</p>
+            <p id="multi-player-current-letter">Current Letter</p>
 
 
             <form action="" id="multi-player-form">
-                <input title="input" id="multi-player-input" autocomplete="off" />
+                <input title="input" id="multi-player-input" autocomplete="off"/>
                 <button id="multi-player-input-button">
                     Send
                 </button>
@@ -271,8 +277,9 @@ BODY-->
         </div>
     </div>
 
-    
+
     <div class="wait-for-players">
+
         <button id="back-to-home-button-wait-for-players">BACK TO HOME</button>
         <div id="waitForPlayersScreen">
             <p> We are looking for other players, please wait</p>
@@ -281,20 +288,20 @@ BODY-->
     </div>
 
 
-    <div class ="lost-game"id="lostScreen">
+    <div class="lost-game" id="lostScreen">
         <button id="back-to-home-lost-game">BACK TO HOME</button>
         <div id="lostScreenText">
             <p>You lost the game</p>
-            <p id = "lost-game-score">Score:</p>
+            <p id="lost-game-score">Score:</p>
         </div>
     </div>
 
 
-    <div class ="won-game"id="winScreen">
+    <div class="won-game" id="winScreen">
         <button id="back-to-home-won-game">BACK TO HOME</button>
         <div id="winScreenText">
             <p>You won the game</p>
-            <p id = "won-game-score">Score:</p>
+            <p id="won-game-score">Score:</p>
         </div>
     </div>
 
