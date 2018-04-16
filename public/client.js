@@ -23,9 +23,9 @@ $(function() {
     };
     firebase.initializeApp(config);
 
-    // Load appropriate page depending on user auth status
-    if (firebase.auth().currentUser === null) { loadLoginPage(); }
-    else { loadHomePage(); }
+
+    checkUserStatus();
+
 
     // Set user variable on login & logout
     firebase.auth().onAuthStateChanged(function(user) {
@@ -43,28 +43,37 @@ $(function() {
         }
     });
 
+    /**
+     * Load appropriate page depending on user auth status
+     */
+    function checkUserStatus() {
+        if (firebase.auth().currentUser === null) { loadLoginPage(); }
+        else { loadHomePage(); }
+    }
+
 //=================================================================================================================
 // COOKIES
 
-    /**
-     * Return available cookies
-     */
-    // function returnCookies() { console.log("TODO return cookies"); }
+    function returnCookiesEmail() {
+        console.log(Cookies.get());
+        socket.emit('receive-cookies-email', Cookies.get("email"));
+    }
 
-    /**
-     * Save a cookie
-     * @param name of cookie to save
-     */
-    //function setCookies(name) {
-    //  Cookies.set('cookieNickNameStr', name ,{ path: '' });
-    //}
+    socket.on('return-cookies-email', function () {
+        returnCookiesEmail();
+    });
+
+    function setCookiesEmail(value) {
+        Cookies.set("email", value ,{ path: '' });
+    }
+
+    socket.on('set-cookies-email', function (value) {
+        setCookiesEmail(value);
+    });
 
 //======================================================================================================================
-// ON WINDOW CLOSE
+// ON WINDOW LOAD AND CLOSE
 
-    // TODO what if user opens window in two tabs???
-    // TODO authorized user is on home page, he opens another link in his browser,
-    // TODO then comes back, he sees a login page, but should see a page from which he left a game
-
+    window.onload = function() { checkUserStatus(); };
     window.onbeforeunload = function() { socket.emit('exit', dbUserObject); };
 });

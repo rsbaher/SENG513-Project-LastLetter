@@ -2,8 +2,9 @@
 //======================================================================================================================
 // GLOBAL VARIABLES
 
-let onlineUsers = new Map();// active users (email -> User)
-
+let onlineUsers = new Map();    // active users (email -> User)
+let emailToGame = new Map();    // active games (email -> Game)
+let count = 0;
 //======================================================================================================================
 // DEPENDENCIES
 
@@ -19,6 +20,8 @@ const dbAPI = require('./dbAPI');
 const chatAPI = require('./chatAPI');
 const gameFactory = require('./game-factory.js');
 const gameLogic = require('./game-logic.js');
+const multiPlayerLogic = require('./multi-player-logic.js');
+const cookieManager = require('./cookie-manager.js');
 
 //======================================================================================================================
 // SERVER SETUP
@@ -35,8 +38,12 @@ admin.initializeApp({
     databaseURL: 'https://seng513-project-lastletter.firebaseio.com'
 });
 
+//====================================================================================================================
+// GET MESSAGES FROM A CLIENT:
 
 io.on('connection', function(socket){
+
+    cookieManager.requestCookies(socket, "email");
 
     //======================================================================================================================
     // DISCONNECT OR EXIT COMMUNICATION WITH A CLIENT:
@@ -61,22 +68,109 @@ io.on('connection', function(socket){
     //==========================================================================================================
     // SINGLE - PLAYER: LISTEN TO A CLIENT:
 
-    socket.on('single-player-start-game',function(category, user) {
-        let listOfPlayers = [ user ];
-        const gameObj = new gameFactory.GameObject(listOfPlayers, category);
+    socket.on('single-player-start-game',function(categoryStr, user) {
+        let listOfPlayers = [user];
+
+        let emailToSocket = new Map;
+        emailToSocket.set(user.email, socket);
+
+        let gameObj = new gameFactory.GameObject(listOfPlayers, categoryStr, emailToSocket);
+
         gameFactory.gameObjects.set(user.email, gameObj);
-        gameLogic.updateCurrentLetter(gameObj.currentLetter, socket);
-        gameLogic.updateCurrentScore(gameObj.score, socket);
+        gameLogic.updateCurrentLetterSinglePlayer(gameObj, socket);
+        gameLogic.updateCurrentScoreSinglePlayer(gameObj, socket);
     });
 
     socket.on('single-player-input', function(inputStr, user){
-        const gameObj = gameFactory.returnGameObject(user);
+        let gameObj = gameFactory.returnGameObject(user);
         gameLogic.doLogic(gameObj, inputStr, socket, user);
     });
 
-    socket.on('delete-single-player-game', function (user){
+    socket.on('delete-single-player-game', function (user, score) {
         gameFactory.gameObjects.delete(user);
+        dbAPI.updateSinglePlayerHighScore(admin, user, Number(score));
     });
+
+    socket.on('save-single-player-game', function (user) {
+       const gameObj = gameFactory.returnGameObject(user);
+       dbAPI.updateSinglePlayerGame(admin, user, gameObj, socket);
+    });
+
+    socket.on('load-single-player-game', function (user) {
+        const gameObj = JSON.parse(user.savedGame);
+
+        gameFactory.gameObjects.set(user.email, gameObj);
+
+        gameLogic.updateCurrentLetterSinglePlayer(gameObj, socket);
+        gameLogic.updateCurrentScoreSinglePlayer(gameObj, socket);
+
+        socket.emit('load-single-player-game', gameObj);
+    });
+
+    //==========================================================================================================
+    // MULTI=PLAYER:
+
+    socket.on('multiplayer-delete-me-from-wait-list', function(){
+        multiPlayerLogic.removeSocketFromWaitList(socket);
+    });
+
+    socket.on('add-me-to-wait-list-or-give-a-player', function(categoryStr, user){
+
+        let mapUserToSocket = multiPlayerLogic.addMeToTheListOrGiveAPlayer(socket, user, categoryStr);
+        let listOfKeys = mapUserToSocket.entries();
+        if (mapUserToSocket.size > 0){
+
+            let user1 = listOfKeys.next().value[0];
+            let user2 = listOfKeys.next().value[0];
+
+            let socket1 = mapUserToSocket.get(user1);
+            let socket2 = mapUserToSocket.get(user2);
+
+            let listOfPlayers = [user1, user2];
+
+            let emailToSocket = new Map;
+            emailToSocket.set(user1.email, socket1);
+            emailToSocket.set(user2.email, socket2);
+
+            let gameObj = new gameFactory.GameObject(listOfPlayers, categoryStr, emailToSocket);
+
+
+            emailToGame.set(user1.email, gameObj);
+            emailToGame.set(user2.email, gameObj);
+            console.log(listOfPlayers);
+
+            gameLogic.updateCurrentScoreMultiPlayer(gameObj );
+            gameLogic.updateCurrentLetterMultiPlayer(gameObj);
+
+            gameLogic.updatePageToGame(socket1);
+            gameLogic.updatePageToGame(socket2);
+
+            gameLogic.sendMessageMultiPlayer("This is your turn", socket1, gameObj);
+        }
+
+        socket.on('multi-player-input', function(inputStr, user) {
+
+            let gameObj = emailToGame.get(user.email);
+            gameLogic.doLogic(gameObj,inputStr,socket,user);
+        });
+
+        socket.on('delete-multi-player-game', function(user){
+            let gameObj = emailToGame.get(user.email);
+            console.log(gameObj);
+            count++;
+            console.log(count);
+            console.log(emailToGame.size);
+            if(emailToGame.size> 0){
+                gameLogic.tellOtherHeWon(user, gameObj);
+                emailToGame.delete(gameObj.listOfPlayers[0].email);
+                emailToGame.delete(gameObj.listOfPlayers[1].email);
+                //console.log(emailToGame);
+            }
+
+
+        });
+    });
+
 
     //==========================================================================================================
     // DATA BASE COMMUNICATION WITH THE CLIENT:
@@ -93,14 +187,26 @@ io.on('connection', function(socket){
     // Leaderboard data requested
     socket.on('get leaderboard', function() { dbAPI.getLeaderboard(admin, socket); });
 
-
-
     //==========================================================================================================
     // CHAT COMMUNICATION WITH A CLIENT:
 
     // User sends a message to the chat
-    socket.on('chat', function(user, message) { chatAPI.broadcastMessage(io, message, user.name, user.chatColor); });
+    socket.on('chat', function(user, message) {
+        chatAPI.broadcastMessage(io, message, user.name, user.chatColor);
+    });
 
     // User sends a message to another user during a game
-    socket.on('message', function(user, message) { chatAPI.sendMessage(socket, message, user.name, user.chatColor); });
+    socket.on('message', function(user, message) {
+        chatAPI.sendMessage(socket, message, user.name, user.chatColor);
+    });
+
+    //===============================================================================================================
+    // COOKIES:
+
+    socket.on ('receive-cookies-email', function(cookieValue){
+        if (cookieValue === ""){
+            // TODO finish that
+        }
+    });
 });
+

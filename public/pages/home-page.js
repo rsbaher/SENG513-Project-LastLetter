@@ -11,6 +11,8 @@ function loadHomePage() {
     $('.multi-player').hide();
     $('.single-player').hide();
     $('.wait-for-players').hide();
+    $('.lost-game').hide();
+    $('.won-game').hide();
 
     $('.default').show();
     $('.authorized').show();
@@ -18,6 +20,14 @@ function loadHomePage() {
 
     document.getElementById('login-button-header').disabled = true;
     document.getElementById('log-out-button-header').disabled = false;
+
+    category = null;
+    $('#single-player-button').on('click', startSinglePlayerGame).prop('disabled', true);
+    $('#multi-player-button').on('click', loadWaitForPlayersPage).prop('disabled', true);
+
+    if (dbUserObject.savedGame === null) {
+        $('#load-single-player-game-button').prop('disabled', true);
+    }
 }
 
 
@@ -36,36 +46,10 @@ $(function() {
     $('#cities-button').on('click', setCategoryCities);
     $('#countries-button').on('click', setCategoryCountries);
     $('#single-player-button').on('click', startSinglePlayerGame).prop('disabled', true);
-    $('#multi-player-button').on('click', loadWaitForPlayersPage).prop('disabled', true);
+    $('#multi-player-button').on('click', startLookingForOtherPlayers).prop('disabled', true);
+    $('#load-single-player-game-button').on('click', loadGame);
 });
 
-
-
-
-
-
-
-
-/**
- * User starts a multiplayer game with a chosen category
- * TODO
- */
-function startMultiPlayerGame() {
-
-    $('.unauthorized').hide();
-    $('.profile').hide();
-    $('.home').hide();
-    $('.wait-for-players').hide();
-    $('.single-player').hide();
-
-    $('.default').show();
-    $('.authorized').show();
-    $('.multi-player').show();
-
-    //TODO
-
-    console.log('Clicked Multiplayer Game button');
-}
 
 /**
  * Set category based on clicked button
@@ -76,7 +60,11 @@ function setCategory(choice) {
     category = choice;
     $('#single-player-button').prop('disabled', false);
     $('#multi-player-button').prop('disabled', false);
+    $('#single-player-category').html(choice);
+    $('#multi-player-category').html(choice);
 }
+
+
 
 // Server is sending a leaderboard entry
 socket.on('get leaderboard', function (single, leaderboardEntry) {

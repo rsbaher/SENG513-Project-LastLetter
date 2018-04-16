@@ -29,7 +29,9 @@ $(function() {
         }
 
         // Scroll to bottom of message container
+        var userListElement = document.getElementById("messages");
         let messageContainer = $('#message-container');
-        messageContainer.animate({scrollTop: messageContainer.prop('scrollHeight')}, 0);
+        userListElement.scrollTop = userListElement.scrollHeight;
+       // messageContainer.animate({scrollTop: messageContainer.prop('scrollHeight')}, 0);
     });
 });

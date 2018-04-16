@@ -1,14 +1,14 @@
 module.exports = {
 
-     GameObject: function(listOfPlayers, categoryStr) {
+     GameObject: function(listOfPlayers, categoryStr, emailToSocket) {
         this.listOfPlayers = listOfPlayers;
-        this.player1 = listOfPlayers[0];
+        this.player1 = this.listOfPlayers[0];
+        this.emailToSocket = emailToSocket;
 
-        if (listOfPlayers.length > 1){
-            this.player2 = listOfPlayers[1];
+        if (this.listOfPlayers.length > 1){
+            this.player2 = this.listOfPlayers[1];
             this.mode = "multiPlayer";
         } else{
-            this.player1 = listOfPlayers[0];
             this.mode = "singlePlayer";
         }
         this.turn = 0;
