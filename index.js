@@ -3,9 +3,9 @@
 // GLOBAL VARIABLES
 
 let onlineUsers = new Map();    // active users (email -> User)
-let emailToGame = new Map();    // active games (email -> Game)
-let multiGameSocket = new Map();// multiplayer game sockets (socketID -> socket)
-
+//let emailToGame = new Map();    // active games (email -> Game)
+let count = 0;
+let justRemoved = [];
 //======================================================================================================================
 // DEPENDENCIES
 
@@ -136,8 +136,9 @@ io.on('connection', function(socket){
             let gameObj = new gameFactory.GameObject(listOfPlayers, categoryStr, emailToSocket);
 
 
-            emailToGame.set(user1.email, gameObj);
-            emailToGame.set(user2.email, gameObj);
+            gameFactory.gameObjects.set(user1.email, gameObj);
+            gameFactory.gameObjects.set(user2.email, gameObj);
+            console.log(listOfPlayers);
 
             gameLogic.updateCurrentScoreMultiPlayer(gameObj );
             gameLogic.updateCurrentLetterMultiPlayer(gameObj);
@@ -150,8 +151,26 @@ io.on('connection', function(socket){
 
         socket.on('multi-player-input', function(inputStr, user) {
 
-            let gameObj = emailToGame.get(user.email);
+            let gameObj = gameFactory.returnGameObject(user);
             gameLogic.doLogic(gameObj,inputStr,socket,user);
+        });
+
+        socket.on('delete-multi-player-game', function(user){
+            let gameObj = gameFactory.returnGameObject(user);
+            console.log(gameObj);
+            count++;
+            console.log(count);
+            console.log( gameFactory.gameObjects.size);
+
+            gameLogic.tellOtherHeWon(user, gameObj);
+
+            gameFactory.returnGameObject(gameObj.listOfPlayers[0]);
+            gameFactory.returnGameObject(gameObj.listOfPlayers[1]);
+
+        });
+
+        socket.on('delete-my-game', function(user){
+            gameFactory.removeGameObject(user);
         });
     });
 

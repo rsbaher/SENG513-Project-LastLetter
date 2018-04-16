@@ -1,30 +1,217 @@
-body {
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+@import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
+/*#00aedb,#a200ff,#f47835,#d41243,#8ec127*/
+
+/* Background  Colour Definitions */
+.blue {background-color: #00aedb; border-color: #008baf; color: #fff;}
+.blue-border {border-color: #00aedb;  border-collapse: collapse;}
+.purple {background-color: #a200ff; border-color: #8100cc; color: #fff;}
+.purple-border {border-color: #a200ff;  border-collapse: collapse;}
+.orange {background-color: #f47835; border-color: #c3602a; color: #fff;}
+.orange-border {border-color: #f47835;  border-collapse: collapse;}
+.red {background-color: #d41243; border-color: #a90e35; color: #fff;}
+.green {background-color: #8ec127; border-color: #719a1f; color: #fff;}
+.green-border {border-color: #8ec127;  border-collapse: collapse;}
+
+/*Custom Scroll Bar*/
+::-webkit-scrollbar {
+    width: 10px;
 }
+::-webkit-scrollbar-track {
+    background: #ebebeb;
+}
+::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #888;
+}
+
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding-bottom: 10%;
+}
+
 .v-center {
     line-height: 100%;
     vertical-align: middle;
 }
+
 .center {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
 }
+
 .left {
-    margin-left: 1.5%;
+    position: relative;
+    left: 0;
 }
-.right-pad {
-    padding-right: 3%;
-    right: 2%;
+
+.right{
+    position: relative;
+    margin-left: 75%;
+    right: 0;
 }
 
 .footer {
     height: 6%;
     color: #dcdcdc;
-    position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
     text-align: center;
     padding: 1%;
+}
+
+.chat {
+    border-radius: 3%;
+    border-style: solid;
+    border-collapse: collapse;
+    border-width: 1%;
+    width: 25%;
+    text-align: center;
+}
+
+.border-head {
+    padding: 2%;
+    border-width: 4%;
+    border-style: solid;
+    border-collapse: collapse;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+.border-body {
+    border-width: 2%;
+    border-style: solid;
+    border-collapse: collapse;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+#lostScreen{
+    background-color: #D46A6A;
+    text-align: center;
+    border-radius: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+
+}
+
+#lostScreenText{
+    padding-top: 5%;
+    padding-bottom: 5%;
+    font-size: 25px;
+    color: white;
+}
+
+#winScreen{
+    background-color: #579532;
+    text-align: center;
+    border-radius: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+#single-player-container{
+    padding-bottom: 10%;
+}
+#singlePlayerText{
+    background-color: #3B64C3;
+    text-align: center;
+    border-radius: 5%;
+    margin-left: 20%;
+    margin-right: 20%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    font-size: 25px;
+    color: white;
+    font-weight: bold;
+}
+#single-player-input-button{
+    background-color: #E253A7;
+    margin-top: 10%;
+
+
+}
+#single-player-input{
+    color: black;
+    width: 50%;
+}
+#save-game-button-single{
+    background-color: #94E200;
+    margin-top: 10%;
+}
+
+#multi-player-container{
+    padding-bottom: 10%;
+}
+#multiPlayerText{
+    background-color: #3B64C3;
+    text-align: center;
+    border-radius: 5%;
+    margin-left: 20%;
+    margin-right: 20%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    font-size: 25px;
+    color: white;
+    font-weight: bold;
+}
+
+#multi-player-input-button{
+    background-color: #E253A7;
+    margin-top: 10%;
+}
+#multi-player-input{
+    color: black;
+    width: 50%;
+}
+
+#winScreenText{
+    padding-top: 5%;
+    padding-bottom: 5%;
+    font-size: 25px;
+    color: white;
+}
+#waitForPlayersScreen{
+    text-align:center;
+    border-radius: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+    font-size: 25px;
+}
+#cityButton{
+    margin-right: 5%;
+}
+#singlePlayerButton{
+margin-right: 25%;
+}
+#multiPlayerButton{
+
+}
+#message-container{
+    position: relative;
+    max-height: 200px;
+    min-height: 200px;
+    margin: 4px;
+    padding: 0;
+    border: 1px solid;
+    border-radius:7pt;
+
+}
+
+#messages{
+    text-align: left;
+    position: absolute;
+    max-height: 98%;
+    width: 98%;
+    overflow-y: auto;
+    bottom: 1%;
+    left: 1%;
+    margin:0;
+    padding:0;
+    list-style-type: none;
+}
+#messagesInputField{
+
 }

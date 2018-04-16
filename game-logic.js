@@ -34,6 +34,17 @@ module.exports = {
 
     updatePageToGame: function(socket){
         updatePageHTMLMultiPlayer(socket);
+    },
+
+    tellOtherHeWon: function(user, gameObj){
+        //console.log(gameObj);
+        console.log(user.email);
+        if(rightTurn(gameObj, user.email)){
+            returnSocketOtherUser(gameObj).emit('redirect-to-won-game',gameObj.score);
+        }
+        else{
+            returnSocketCurrentUser(gameObj).emit('redirect-to-won-game',gameObj.score);
+        }
     }
 };
 
@@ -141,8 +152,12 @@ function performGeneralLogic(gameObj, inputStr, socket) {
     updateCurrentLetter(gameObj, inputStr);
     updateCurrentLetterHTML(gameObj, socket);
     updateGameAnswers(gameObj, inputStr);
-    displayMessageHTML(inputStr + " was an accepted answer. <br> It is currently not your turn." +
-                        "Please wait for your opponent.", socket, gameObj.mode);
+    displayMessageHTML(inputStr + " was an accepted answer. <br>", socket, gameObj.mode);
+
+    if (gameObj.mode === "multiPlayer") {
+        displayMessageHTML(inputStr + " was an accepted answer. <br>"+"It is currently not your turn. Please wait for your opponent.",
+            socket, gameObj.mode);
+    }
 }
 
 function updateScore(gameObj, socket){
@@ -234,6 +249,10 @@ function redirectToLostGame(gameObj) {
     if (gameObj.mode === "multiPlayer"){
         returnSocketCurrentUser(gameObj).emit('redirect-to-lost-game', 0);
         returnSocketOtherUser(gameObj).emit('redirect-to-won-game',gameObj.score);
+
+        returnSocketCurrentUser(gameObj).emit('ask-server-to-delete-the-game');
+        returnSocketOtherUser(gameObj).emit('ask-server-to-delete-the-game');
+
 
     }else{
         returnSocketCurrentUser(gameObj).emit('redirect-to-lost-game', gameObj.score);

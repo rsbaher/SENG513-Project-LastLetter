@@ -38,6 +38,10 @@ $(function() {
         socket.emit('multi-player-input', input, dbUserObject);
     }
 
+    function askServerToDeleteTheGame(){
+        socket.emit('delete-my-game', dbUserObject);
+    }
+
     //===========================================================================================================
     // LISTEN TO A SERVER:
 
@@ -50,11 +54,15 @@ $(function() {
     });
 
     socket.on('multi-player-update-current-letter', function (currentLetter) {
-        document.getElementById("multi-player-current-letter").innerHTML = "Current Letter :" + currentLetter;
+        document.getElementById("multi-player-current-letter").innerHTML = "Current Letter: " + currentLetter;
     });
 
     socket.on('redirect-to-won-game', function (scoreInt) {
        loadWonGamePage(scoreInt);
+    });
+
+    socket.on('ask-server-to-delete-the-game', function(){
+        askServerToDeleteTheGame();
     });
 
 });
@@ -76,6 +84,7 @@ function startMultiPlayerGame() {
     $('.multi-player').show();
 
     console.log('Clicked Multiplayer Game button');
+    document.getElementById('multi-player-messages').innerHTML = "";
 }
 
 
