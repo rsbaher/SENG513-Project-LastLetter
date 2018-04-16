@@ -6,7 +6,6 @@
 
 
 // TODO better styling
-// TODO responsiveness
 
 // TODO make sure that one person has not been chosen by multiple players
 
