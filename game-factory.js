@@ -31,6 +31,10 @@ module.exports = {
     returnGameObject: function (user) {
          return this.gameObjects.get(user.email);
     },
+
+    removeGameObject: function (user){
+         this.gameObjects.delete(user.email);
+    },
 };
 
 function returnRandomLetter(){
