@@ -180,3 +180,38 @@ body {
     margin-right: 10%;
     font-size: 25px;
 }
+#cityButton{
+    margin-right: 5%;
+}
+#singlePlayerButton{
+margin-right: 25%;
+}
+#multiPlayerButton{
+
+}
+#message-container{
+    position: relative;
+    max-height: 200px;
+    min-height: 200px;
+    margin: 4px;
+    padding: 0;
+    border: 1px solid;
+    border-radius:7pt;
+
+}
+
+#messages{
+    text-align: left;
+    position: absolute;
+    max-height: 98%;
+    width: 98%;
+    overflow-y: auto;
+    bottom: 1%;
+    left: 1%;
+    margin:0;
+    padding:0;
+    list-style-type: none;
+}
+#messagesInputField{
+
+}

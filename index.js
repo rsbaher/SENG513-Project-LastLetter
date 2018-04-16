@@ -4,8 +4,7 @@
 
 let onlineUsers = new Map();    // active users (email -> User)
 let emailToGame = new Map();    // active games (email -> Game)
-let multiGameSocket = new Map();// multiplayer game sockets (socketID -> socket)
-
+let count = 0;
 //======================================================================================================================
 // DEPENDENCIES
 
@@ -138,6 +137,7 @@ io.on('connection', function(socket){
 
             emailToGame.set(user1.email, gameObj);
             emailToGame.set(user2.email, gameObj);
+            console.log(listOfPlayers);
 
             gameLogic.updateCurrentScoreMultiPlayer(gameObj );
             gameLogic.updateCurrentLetterMultiPlayer(gameObj);
@@ -152,6 +152,22 @@ io.on('connection', function(socket){
 
             let gameObj = emailToGame.get(user.email);
             gameLogic.doLogic(gameObj,inputStr,socket,user);
+        });
+
+        socket.on('delete-multi-player-game', function(user){
+            let gameObj = emailToGame.get(user.email);
+            console.log(gameObj);
+            count++;
+            console.log(count);
+            console.log(emailToGame.size);
+            if(emailToGame.size> 0){
+                gameLogic.tellOtherHeWon(user, gameObj);
+                emailToGame.delete(gameObj.listOfPlayers[0].email);
+                emailToGame.delete(gameObj.listOfPlayers[1].email);
+                //console.log(emailToGame);
+            }
+
+
         });
     });
 
