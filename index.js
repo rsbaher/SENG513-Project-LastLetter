@@ -54,7 +54,11 @@ io.on('connection', function(socket){
     // User logs out
     socket.on('logout', function(user) { chatAPI.removeUser(user, onlineUsers); });
     // User closes window
-    socket.on('exit', function(user) { chatAPI.removeUser(user, onlineUsers); });
+    socket.on('exit', function(user) {
+        gameFactory.removeGameObject(user);
+        chatAPI.removeUser(user, onlineUsers);
+
+    });
 
 
     //===========================================================================================================
