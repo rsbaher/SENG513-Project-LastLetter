@@ -90,7 +90,6 @@ body {
 }
 
 #lostScreen{
-    background-color: #D46A6A;
     text-align: center;
     border-radius: 5%;
     margin-left: 10%;
@@ -106,7 +105,6 @@ body {
 }
 
 #winScreen{
-    background-color: #579532;
     text-align: center;
     border-radius: 5%;
     margin-left: 10%;
@@ -115,9 +113,9 @@ body {
 
 #single-player-container{
     padding-bottom: 10%;
+    padding-left: 2%;
 }
 #singlePlayerText{
-    background-color: #3B64C3;
     text-align: center;
     border-radius: 5%;
     margin-left: 20%;
@@ -125,29 +123,25 @@ body {
     padding-top: 5%;
     padding-bottom: 5%;
     font-size: 25px;
-    color: white;
     font-weight: bold;
 }
 #single-player-input-button{
-    background-color: #E253A7;
-    margin-top: 10%;
-
 
 }
+
 #single-player-input{
     color: black;
     width: 50%;
 }
 #save-game-button-single{
-    background-color: #94E200;
     margin-top: 10%;
 }
 
 #multi-player-container{
     padding-bottom: 10%;
+    padding-left: 2%;
 }
 #multiPlayerText{
-    background-color: #3B64C3;
     text-align: center;
     border-radius: 5%;
     margin-left: 20%;
@@ -155,13 +149,11 @@ body {
     padding-top: 5%;
     padding-bottom: 5%;
     font-size: 25px;
-    color: white;
     font-weight: bold;
 }
 
 #multi-player-input-button{
-    background-color: #E253A7;
-    margin-top: 10%;
+  /*  margin-top: 10%;*/
 }
 #multi-player-input{
     color: black;
@@ -191,19 +183,12 @@ margin-right: 25%;
 
 }
 #message-container{
-    position: relative;
-    max-height: 200px;
-    min-height: 200px;
-    margin: 4px;
-    padding: 0;
-    border: 1px solid;
-    border-radius:7pt;
-
+margin-left: 1.5%;
 }
 
 #messages{
     text-align: left;
-    position: absolute;
+/*    position: absolute;*/
     max-height: 98%;
     width: 98%;
     overflow-y: auto;
@@ -212,9 +197,13 @@ margin-right: 25%;
     margin:0;
     padding:0;
     list-style-type: none;
+    max-height: 200px;
+    min-height: 200px;
 }
-#messagesInputField{}
-
+#messagesInputField{
+    width: 95%;
+    margin-top: 2%;
+}
 
 .left-pad {
     padding-left: 2%;

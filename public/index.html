@@ -95,22 +95,20 @@ BODY-->
     <hr class="home"/>
     <div id="select-category-and-mode-container" class="home center">
 
-        <p class="btn-group center" id="cityButton">
+        <p class="btn-group center" >
             <button class="btn blue center" id="cities-button">CITIES</button>
             <button class="btn purple center" id="countries-button">COUNTRIES</button>
         </p>
         <br>
-        <p class="center" id="singlePlayerButton">
+        <p class="btn-group center">
             <button class="btn green center" id="single-player-button">SINGLE-PLAYER</button>
-        </p>
-        <p class="center" id="multiPlayerButton">
             <button class="btn blue center" id="multi-player-button">MULTI-PLAYER</button>
         </p>
     </div>
 
-    <div id="load-game-container" class="home">
+    <div id="load-game-container" class="home center">
         <p>
-            <button class="btn blue center" id="load-single-player-game-button">LOAD SINGLE PLAYER GAME</button>
+            <button class="btn orange center" id="load-single-player-game-button">LOAD SINGLE PLAYER GAME</button>
         </p>
     </div>
 
@@ -118,12 +116,12 @@ BODY-->
     <div id="chat-container" class="home center">
         <div class="row">
             <div class="col-sm-8">
-                <div id="message-container" style="width: 75%;" class="center">
+                <div id="message-container" class="center">
                     <h2 id="username"></h2>
                     <ul id="messages" class="well list-unstyled">
                     </ul>
                 </div>
-                <div id="messagesInputField" style="width: 95%;" class="center">
+                <div id="messagesInputField" class="center">
                     <form id="chat-form" action="">
                         <input title="input" id="m" class="form-control pull-left" style="width: 77%;"
                                autocomplete="off"/>
@@ -242,26 +240,29 @@ BODY-->
     </div>
 
     <div id="single-player-container" class="single-player">
-        <button id="back-to-home-button-single">BACK TO HOME</button>
-        <div id="singlePlayerText">
+        <button class="btn blue" id="back-to-home-button-single">
+            <span class="glyphicon glyphicon-chevron-left"></span> BACK HOME</button>
+        <div id="singlePlayerText" class="blue">
             <p>Category: <span id="single-player-category"></span></p>
             <p id="single-player-score">Score: <span id="single-player-score-text">0</span></p>
             <p id="single-player-messages">Message:</p>
             <p id="single-player-current-letter">Current Letter</p>
             <form id="single-player-form" action="">
                 <input title='input' id='single-player-input' autocomplete="off"/>
-                <button id="single-player-input-button">
+                <button class="purple btn" id="single-player-input-button">
                     Send
                 </button>
             </form>
-            <button id="save-game-button-single">Save game</button>
+            <button class="green btn" id="save-game-button-single">
+                <span class="glyphicon glyphicon-floppy-disk"></span> Save Game</button>
         </div>
     </div>
 
 
     <div id="multi-player-container" class="multi-player">
-        <button id="back-to-home-button-multiplayer">BACK TO HOME</button>
-        <div id="multiPlayerText">
+        <button class="btn" id="back-to-home-button-multiplayer">
+            <span class="glyphicon glyphicon-chevron-left"></span> BACK HOME</button>
+        <div class="blue" id="multiPlayerText">
             <p>Category: <span id="multi-player-category"></span></p>
             <p id="multi-player-score">Score:</p>
             <p id="multi-player-messages">messages to multiplayer user</p>
@@ -270,7 +271,7 @@ BODY-->
 
             <form action="" id="multi-player-form">
                 <input title="input" id="multi-player-input" autocomplete="off"/>
-                <button id="multi-player-input-button">
+                <button class="purple btn" id="multi-player-input-button">
                     Send
                 </button>
             </form>
@@ -280,7 +281,8 @@ BODY-->
 
     <div class="wait-for-players">
 
-        <button id="back-to-home-button-wait-for-players">BACK TO HOME</button>
+        <button class="btn" id="back-to-home-button-wait-for-players">
+            <span class="glyphicon glyphicon-chevron-left"></span> BACK HOME</button>
         <div id="waitForPlayersScreen">
             <p> We are looking for other players, please wait</p>
             <p><img src="./pictures/spinner.gif" alt="Spinner" height="42%" width="42%"></p>
@@ -288,8 +290,9 @@ BODY-->
     </div>
 
 
-    <div class="lost-game" id="lostScreen">
-        <button id="back-to-home-lost-game">BACK TO HOME</button>
+    <div class="lost-game red" id="lostScreen">
+        <button class="btn" id="back-to-home-lost-game">
+            <span class="glyphicon glyphicon-chevron-left"></span> BACK HOME</button>
         <div id="lostScreenText">
             <p>You lost the game</p>
             <p id="lost-game-score">Score:</p>
@@ -297,8 +300,9 @@ BODY-->
     </div>
 
 
-    <div class="won-game" id="winScreen">
-        <button id="back-to-home-won-game">BACK TO HOME</button>
+    <div class="won-game green" id="winScreen">
+        <button class="btn" id="back-to-home-won-game">
+            <span class="glyphicon glyphicon-chevron-left"></span> BACK HOME</button>
         <div id="winScreenText">
             <p>You won the game</p>
             <p id="won-game-score">Score:</p>
