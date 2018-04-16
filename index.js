@@ -50,7 +50,9 @@ io.on('connection', function(socket){
     // DISCONNECT OR EXIT COMMUNICATION WITH A CLIENT:
 
     // User disconnected
-    socket.on('disconnect', function() { console.log('User disconnected'); });
+    socket.on('disconnect', function(user) {
+        gameFactory.removeGameObject(user);
+        console.log('User disconnected'); });
     // User logs out
     socket.on('logout', function(user) { chatAPI.removeUser(user, onlineUsers); });
     // User closes window
