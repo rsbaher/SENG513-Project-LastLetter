@@ -250,6 +250,10 @@ function redirectToLostGame(gameObj) {
         returnSocketCurrentUser(gameObj).emit('redirect-to-lost-game', 0);
         returnSocketOtherUser(gameObj).emit('redirect-to-won-game',gameObj.score);
 
+        returnSocketCurrentUser(gameObj).emit('ask-server-to-delete-the-game');
+        returnSocketOtherUser(gameObj).emit('ask-server-to-delete-the-game');
+
+
     }else{
         returnSocketCurrentUser(gameObj).emit('redirect-to-lost-game', gameObj.score);
     }
